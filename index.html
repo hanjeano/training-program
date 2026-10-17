@@ -90,6 +90,14 @@ button{font:inherit;color:inherit;cursor:pointer}
 .lapt td:last-child{text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums}
 .lapt tr.dl td{background:var(--deload-bg)}
 .lapt tr.ts td{background:var(--test-bg)}
+.chip.full{background:var(--main-bg);color:var(--main);border-color:transparent}
+.chip.fast{background:var(--power-bg);color:var(--power);border-color:transparent}
+.meals{list-style:none;margin:0;padding:0}
+.meals li{display:grid;grid-template-columns:84px 1fr;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:.95rem}
+.meals .m{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600;padding-top:3px}
+.next{margin-top:14px;padding:10px 12px;border-radius:8px;background:var(--bg);border:1px solid var(--line);font-size:.92rem}
+.next b{font-weight:600}
+.cell .f{position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:14px;height:3px;border-radius:2px;background:var(--power)}
 @media (prefers-reduced-motion:no-preference){.cell{transition:border-color .15s}}
 </style>
 </head>
@@ -118,6 +126,15 @@ button{font:inherit;color:inherit;cursor:pointer}
     <div id="day-body"></div>
   </section>
 
+  <section class="card" aria-live="polite">
+    <div class="eyebrow" id="eat-label">Fuel</div>
+    <h2 id="eat-title" style="margin-top:10px">Full day</h2>
+    <div class="chips" id="eat-chips"></div>
+    <ul class="meals" id="eat-meals"></ul>
+    <p class="note" id="eat-note"></p>
+    <div class="next" id="eat-next"></div>
+  </section>
+
   <section>
     <h2>Schedule</h2>
     <p class="note" style="margin-top:4px">Tap a day to open it. Numbers are workouts, L is the lap. Dashed days are off-day cardio.</p>
@@ -126,6 +143,7 @@ button{font:inherit;color:inherit;cursor:pointer}
       <span><span class="sw" style="background:var(--deload-bg)"></span>Lap 4 deload</span>
       <span><span class="sw" style="background:var(--test-bg)"></span>Lap 7 test</span>
       <span><span class="sw" style="background:var(--power);border-radius:50%"></span>Today</span>
+      <span><span class="sw" style="background:var(--power);height:4px;vertical-align:2px"></span>Optional fast</span>
     </div>
   </section>
 
@@ -185,6 +203,18 @@ button{font:inherit;color:inherit;cursor:pointer}
           <li>After 3: HIIT rotating N4x4, sprint intervals, Tabata.</li>
           <li>After 4: long run, 60 min or more.</li>
           <li>Missed a session? Do the next workout in order and let the calendar shift.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Fuel</h3>
+        <ul>
+          <li>Whole foods, mostly. No counting: Full and Light days take care of amounts.</li>
+          <li>A protein anchor in every meal.</li>
+          <li>Train fasted, first meal after. No training? Push the first meal later.</li>
+          <li>Three meals a day, two on Sundays. No snacking.</li>
+          <li>Fruit, yoghurt and the smoothie go with a meal, never on their own. After dinner counts as dinner.</li>
+          <li>Desk-focus mornings: eggs on their own, or eggs and avo, work as any first meal.</li>
+          <li>Optional fast up to 24 h on the Zone 2 day, or the sport day if Zone 2 lands on a Sunday. Skip it if you're hungry or run down. Eat enough to train well.</li>
         </ul>
       </div>
     </div>
@@ -266,6 +296,65 @@ button{font:inherit;color:inherit;cursor:pointer}
   function idxFor(d){var x=new Date(d.getFullYear(),d.getMonth(),d.getDate());return Math.round((x-START)/86400000);}
   function fmt(d){return DOW[(d.getDay()+6)%7]+" "+d.getDate()+" "+MON[d.getMonth()];}
 
+  // Fuel: Full on lift days and the long run, Light on sport/rest and HIIT,
+  // optional fast on the Zone 2 day (moves to the sport day if Zone 2 is a Sunday). Sundays are 2MAD.
+  var DINNER = "Lean meat or fish, rice, potato or sweet potato, and veggies.";
+  function isSun(i){return dateFor(i).getDay()===0;}
+  function eatType(i){
+    var it=info(i);
+    if(it.type==="session" || it.after===4) return "full";
+    if(it.after===2) return isSun(i) ? "light" : "fast";
+    if(it.after===1) return isSun(i+2) ? "fast" : "light";
+    return "light";
+  }
+  function eatWhy(i){
+    var it=info(i), t=eatType(i);
+    if(it.type==="session") return "Lifting day, so eat full. Train fasted, first meal after.";
+    if(it.after===4) return "Long run, so eat full. First meal after the run.";
+    if(it.after===3) return (it.lap===4?"Easy Zone 2":"HIIT is short")+", so a lighter day. First meal after training.";
+    if(it.after===2 && t==="light") return "Zone 2 lands on Sunday, so no fast this time. It moved to Friday's sport day.";
+    if(it.after===1 && t==="light") return "Sport or rest, so a lighter day. Push the first meal later.";
+    return "";
+  }
+  function packLine(i){
+    var t=eatType(i);
+    if(isSun(i)) return "Sunday, two meals"+(t==="full"?", both full.":", both light.");
+    if(t==="fast") return "Optional fast. Nothing to pack, just water and electrolytes.";
+    if(t==="full") return "Full day. Pack eggs, plus yoghurt and berries or the smoothie.";
+    return "Light day. Pack yoghurt and granola.";
+  }
+  function renderEat(){
+    var i=sel, t=eatType(i), it=info(i), sun=isSun(i), meals, title, note=eatWhy(i);
+    var rel = i===todayIdx ? " · Today" : (i===todayIdx+1 ? " · Tomorrow" : "");
+    document.getElementById("eat-label").textContent = "Fuel · "+fmt(dateFor(i))+rel;
+    if(t==="fast"){
+      title="Optional fast";
+      meals=[["Until dinner","Water, black coffee, electrolytes."+(it.after===2?" Zone 2 fasted is fine. Take water into the sauna.":"")],
+             ["Dinner","Break the fast with a full dinner. "+DINNER+" Yoghurt and berries after if you want."]];
+      note="Dinner yesterday to dinner today. Hungry or run down? Make it a Light day instead."+(it.after===1?" Tomorrow is deadlift day, so make dinner a big one. Playing tennis or golf? Eat two meals.":"");
+    } else if(sun){
+      title=(t==="full"?"Full":"Light")+" Sunday";
+      meals = t==="full"
+        ? [["Meal 1","Eggs with yoghurt, berries and honey, or the blueberry smoothie. Make it a big one."],["Dinner",DINNER]]
+        : [["Meal 1","Eggs with toast and avo, plus yoghurt and granola."],["Dinner",DINNER]];
+    } else if(t==="full"){
+      title="Full day";
+      meals=[["First meal","Eggs with yoghurt, berries and honey, or the blueberry smoothie with whey."],
+             ["Lunch","Meat lunch: chicken wrap, salad or the office plate."],["Dinner",DINNER]];
+    } else {
+      title="Light day";
+      meals=[["First meal","Yoghurt and granola, or yoghurt, berries and nuts."],
+             ["Lunch","Eggs with toast and avo."],["Dinner",DINNER]];
+    }
+    document.getElementById("eat-title").textContent=title;
+    var chips = '<span class="chip '+(t==="light"?"":t)+'">'+(t==="fast"?"Fast":t==="full"?"Full":"Light")+'</span>';
+    chips += '<span class="chip">'+(t==="fast"?"OMAD, optional":sun?"2 meals":"3 meals")+'</span>';
+    document.getElementById("eat-chips").innerHTML=chips;
+    document.getElementById("eat-meals").innerHTML=meals.map(function(m){return '<li><span class="m">'+esc(m[0])+'</span><span>'+esc(m[1])+'</span></li>';}).join("");
+    var n=document.getElementById("eat-note"); n.textContent=note; n.hidden=!note;
+    document.getElementById("eat-next").innerHTML='<b>Tomorrow:</b> '+esc(packLine(i+1));
+  }
+
   var maxes = {fs:"",dl:"",bp:"",ohp:""};
   try{var saved=JSON.parse(localStorage.getItem("tpp-maxes")||"{}");for(var key in maxes){if(saved[key])maxes[key]=saved[key];}}catch(e){}
   function weight(key,p){
@@ -313,6 +402,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     if(todayIdx<0) p.textContent = "Starts Mon 12 Oct · ends Sun 6 Dec";
     else if(todayIdx>=DAYS) p.textContent = "Cycle complete · plan week 9";
     else p.textContent = "Day "+(todayIdx+1)+" of 56 · Lap "+info(todayIdx).lap+" of 7";
+    renderEat();
     renderGrid();
   }
 
@@ -331,6 +421,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         var inner, label;
         if(it.type==="session"){inner='<span class="n">'+it.w+'</span><span class="l">L'+it.lap+'</span>';label="Workout "+it.w+", lap "+it.lap;}
         else{cls+=" off"; var c=cardio(it.after,it.lap); inner='<span class="c">'+c.s+'</span>'; label="Off day, "+c.t;}
+        if(eatType(i)==="fast"){inner+='<span class="f"></span>';label+=", optional fast";}
         h+='<button class="'+cls+'" data-i="'+i+'" aria-label="'+fmt(dateFor(i))+': '+label+'"'+(i===sel?' aria-current="date"':'')+'>'+inner+'</button>';
       }
     }
