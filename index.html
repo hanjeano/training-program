@@ -95,7 +95,6 @@ button{font:inherit;color:inherit;cursor:pointer}
 .fuel a,.head a{color:var(--muted);text-underline-offset:3px}
 .head-right{display:flex;flex-direction:column;align-items:flex-end;gap:4px}
 @media (max-width:560px){.head-right{align-items:flex-start;flex-direction:row;flex-wrap:wrap;column-gap:14px}}
-.cell .f{position:absolute;bottom:3px;left:50%;transform:translateX(-50%);width:14px;height:3px;border-radius:2px;background:var(--power)}
 @media (prefers-reduced-motion:no-preference){.cell{transition:border-color .15s}}
 </style>
 </head>
@@ -136,7 +135,6 @@ button{font:inherit;color:inherit;cursor:pointer}
       <span><span class="sw" style="background:var(--deload-bg)"></span>Lap 4 deload</span>
       <span><span class="sw" style="background:var(--test-bg)"></span>Lap 7 test</span>
       <span><span class="sw" style="background:var(--power);border-radius:50%"></span>Today</span>
-      <span><span class="sw" style="background:var(--power);height:4px;vertical-align:2px"></span>Optional fast</span>
     </div>
   </section>
 
@@ -277,19 +275,14 @@ button{font:inherit;color:inherit;cursor:pointer}
   function idxFor(d){var x=new Date(d.getFullYear(),d.getMonth(),d.getDate());return Math.round((x-START)/86400000);}
   function fmt(d){return DOW[(d.getDay()+6)%7]+" "+d.getDate()+" "+MON[d.getMonth()];}
 
-  // Food (a suggestion, not a rule): same go-to breakfast every day, two meals on Sundays,
-  // optional fast on the Zone 2 day (moves to the sport day if Zone 2 is a Sunday).
+  // Food (a suggestion, not a rule): same go-to breakfast every day, two meals on Sundays.
   function isSun(i){return dateFor(i).getDay()===0;}
   function eatType(i){
-    var it=info(i);
-    if(it.type==="off" && it.after===2 && !isSun(i)) return "fast";
-    if(it.type==="off" && it.after===1 && isSun(i+2)) return "fast";
     return isSun(i) ? "sun" : "day";
   }
   var EAT = {
     day:["Three meals","go-to breakfast of eggs, yoghurt and berries"],
-    sun:["Sunday, two meals","eggs, toast and avo, then dinner"],
-    fast:["Optional fast","until dinner, water and electrolytes"]
+    sun:["Sunday, two meals","eggs, toast and avo, then dinner"]
   };
   function renderEat(){
     var t=EAT[eatType(sel)], n=EAT[eatType(sel+1)];
@@ -364,7 +357,6 @@ button{font:inherit;color:inherit;cursor:pointer}
         var inner, label;
         if(it.type==="session"){inner='<span class="n">'+it.w+'</span><span class="l">L'+it.lap+'</span>';label="Workout "+it.w+", lap "+it.lap;}
         else{cls+=" off"; var c=cardio(it.after,it.lap); inner='<span class="c">'+c.s+'</span>'; label="Off day, "+c.t;}
-        if(eatType(i)==="fast"){inner+='<span class="f"></span>';label+=", optional fast";}
         h+='<button class="'+cls+'" data-i="'+i+'" aria-label="'+fmt(dateFor(i))+': '+label+'"'+(i===sel?' aria-current="date"':'')+'>'+inner+'</button>';
       }
     }
