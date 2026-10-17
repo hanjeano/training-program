@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Food · The Protocol</title>
+<meta name="description" content="Food principles for The Protocol: whole foods, a protein anchor in every meal, two to three full meals a day, no snacking.">
+<meta name="theme-color" content="#F3F5F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111513" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Same tokens as index.html. Food is guidance, so this page is plain text, no tracking. */
+:root{
+  --bg:#F3F5F2; --surface:#FFFFFF; --ink:#18211C; --muted:#5B6760; --line:#D7DED9;
+  --main:#2457C5; --main-bg:#E3EBFA; --power:#A9471A; --power-bg:#F8E6DA;
+  --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111513; --surface:#1A201D; --ink:#E5ECE8; --muted:#9AA8A0; --line:#2D3631;
+  --main:#86A6F2; --main-bg:#1E2944; --power:#F09A62; --power-bg:#3A2416; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111513; --surface:#1A201D; --ink:#E5ECE8; --muted:#9AA8A0; --line:#2D3631;
+  --main:#86A6F2; --main-bg:#1E2944; --power:#F09A62; --power-bg:#3A2416; color-scheme:dark}
+html{color-scheme:light}
+body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:24px 48px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:.01em;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:2.6rem}
+h2{font-size:1.6rem}
+h3{font-size:1.15rem}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.head a{font-family:var(--f-num);font-size:.85rem;color:var(--muted);text-underline-offset:3px}
+.lead{margin:0;font-size:1.05rem;max-width:60ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:16px}
+ol,ul{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+li::marker{color:var(--muted);font-family:var(--f-num);font-size:.85rem}
+.note{font-size:.88rem;color:var(--muted);margin:10px 0 0}
+.shape{border-top:1px solid var(--line);padding:10px 0 2px}
+.shape:first-of-type{border-top:0;padding-top:4px}
+.shape b{font-weight:600}
+.shape span{display:block;color:var(--muted);font-size:.92rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div>
+      <div class="eyebrow">The Protocol · guidance, not rules</div>
+      <h1>Food</h1>
+    </div>
+    <a href="./">← Training</a>
+  </header>
+
+  <p class="lead">Training comes first. Food is there to support it: simple, whole and unmeasured. No counting, no tracking.</p>
+
+  <section class="card">
+    <h2>Principles</h2>
+    <ol>
+      <li>Whole foods, mostly.</li>
+      <li>A protein anchor in every meal.</li>
+      <li>Two to three full meals a day. No snacking.</li>
+      <li>Fruit, yoghurt or a smoothie go with a meal, never on their own. After dinner counts as dinner.</li>
+      <li>Train fasted, first meal after. Not training? Push the first meal later.</li>
+      <li>An occasional longer fast is optional. Skip it if you're hungry or run down. Eat enough to train well.</li>
+    </ol>
+  </section>
+
+  <section class="grid">
+    <div class="card">
+      <h3>Shapes of a day</h3>
+      <div class="shape"><b>Full</b><span>Eggs-based first meal, meat or fish at lunch and dinner. Lift days and the long run.</span></div>
+      <div class="shape"><b>Light</b><span>Yoghurt-based first meal, eggs-based lunch, then dinner. Sport, rest and HIIT days.</span></div>
+      <div class="shape"><b>Sunday</b><span>Two meals, full or light depending on the day's training.</span></div>
+      <div class="shape"><b>Optional fast</b><span>Dinner to dinner on the Zone 2 day, or the sport day when Zone 2 lands on a Sunday. Water and electrolytes, especially around the sauna.</span></div>
+      <p class="note">The training page shows each day's shape, and tomorrow's so you know what to pack.</p>
+    </div>
+    <div class="card">
+      <h3>Ideas, not a menu</h3>
+      <ul>
+        <li><b>Eggs-based:</b> eggs and avo, eggs on toast, eggs with yoghurt and berries.</li>
+        <li><b>Yoghurt-based:</b> yoghurt and granola, yoghurt with berries and nuts, a blueberry smoothie with whey.</li>
+        <li><b>Lunch:</b> a wrap, a salad, or whatever's on the office plate.</li>
+        <li><b>Dinner:</b> lean meat or fish, rice or potato, and veggies.</li>
+        <li><b>With a meal:</b> fruit like kiwi, or yoghurt and berries after dinner.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+</body>
+</html>
