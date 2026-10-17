@@ -277,26 +277,25 @@ button{font:inherit;color:inherit;cursor:pointer}
   function idxFor(d){var x=new Date(d.getFullYear(),d.getMonth(),d.getDate());return Math.round((x-START)/86400000);}
   function fmt(d){return DOW[(d.getDay()+6)%7]+" "+d.getDate()+" "+MON[d.getMonth()];}
 
-  // Food (a suggestion, not a rule): Full on lift days and the long run, Light on sport/rest and HIIT,
-  // optional fast on the Zone 2 day (moves to the sport day if Zone 2 is a Sunday). Sundays are two meals.
+  // Food (a suggestion, not a rule): same go-to breakfast every day, two meals on Sundays,
+  // optional fast on the Zone 2 day (moves to the sport day if Zone 2 is a Sunday).
   function isSun(i){return dateFor(i).getDay()===0;}
   function eatType(i){
     var it=info(i);
-    if(it.type==="session" || it.after===4) return "full";
-    if(it.after===2) return isSun(i) ? "light" : "fast";
-    if(it.after===1) return isSun(i+2) ? "fast" : "light";
-    return "light";
+    if(it.type==="off" && it.after===2 && !isSun(i)) return "fast";
+    if(it.type==="off" && it.after===1 && isSun(i+2)) return "fast";
+    return isSun(i) ? "sun" : "day";
   }
-  function eatLine(i){
-    var t=eatType(i);
-    if(t==="fast") return "Optional fast until dinner";
-    if(isSun(i)) return t==="full" ? "Full Sunday, two meals: eggs-based first meal, then dinner" : "Light Sunday, two meals: yoghurt or eggs, then dinner";
-    return t==="full" ? "Full day: eggs-based first meal, meat or fish later" : "Light day: yoghurt-based first meal, eggs-based lunch";
-  }
+  var EAT = {
+    day:["Three meals","go-to breakfast of eggs, yoghurt and berries"],
+    sun:["Sunday, two meals","eggs, toast and avo, then dinner"],
+    fast:["Optional fast","until dinner, water and electrolytes"]
+  };
   function renderEat(){
+    var t=EAT[eatType(sel)], n=EAT[eatType(sel+1)];
     document.getElementById("fuel").innerHTML =
-      '<span><b>Food</b> · '+esc(eatLine(sel))+'.</span>'+
-      '<span>Tomorrow: '+esc(eatLine(sel+1).split(":")[0])+'. <a href="food.html">Principles</a></span>';
+      '<span><b>Food</b> · '+esc(t[0])+': '+esc(t[1])+'.</span>'+
+      '<span>Tomorrow: '+esc(n[0].toLowerCase().replace("sunday","Sunday"))+'. <a href="food.html">Principles</a></span>';
   }
 
   var maxes = {fs:"",dl:"",bp:"",ohp:""};
