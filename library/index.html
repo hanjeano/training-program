@@ -133,6 +133,7 @@ th{font-weight:600;color:var(--muted);font-size:.8rem;letter-spacing:.04em;text-
           <li>Every session: a lower movement, a push, a pull and an accessory.</li>
           <li>Alternate squat and hinge from one session to the next.</li>
           <li>If a workout misses a slot, your next session covers it.</li>
+          <li><b>Every Strength A</b> ends with the knee block, <b>every Strength B</b> with the hamstring block. Keep both short and stop before failure. No Nordics the day before sprints.</li>
         </ul>
         <div class="tbl"><table id="targets"></table></div>
       </div>
@@ -151,21 +152,20 @@ th{font-weight:600;color:var(--muted);font-size:.8rem;letter-spacing:.04em;text-
 
 <script>
 (function(){
-  var SLOTS=[["squat","Squat",2],["hinge","Hinge",2],["push","Push",2],["pull","Pull",2],["power","Explosive",2],["post","Hamstring / back",1],["core","Core",1],["carry","Carry",1]];
+  var SLOTS=[["squat","Squat",2],["hinge","Hinge",2],["push","Push",2],["pull","Pull",2],["power","Explosive",2],["post","Hamstring / back",1],["knee","Knee / single leg",1],["core","Core",1],["carry","Carry",1]];
   var TYPES={A:"Strength A",C:"Complex",B:"Strength B",E:"Engine",M:"Morning"};
   var TYPE_NOTE={A:"Squat + push focus",C:"Full-body KB complex",B:"Hinge + pull focus",E:"Conditioning",M:"Mobility flow, not logged as a main session"};
   var ORDER=["A","C","B","E"];
   /* id, type, name, format, moves[], acc[], slots[] */
   var W=[
-   ["a1","A","Muscle-Up and Rack Squat","Every 2 min × 10 (20 min)",["3–5 ring muscle-ups (or 5 pull-ups + 5 dips)","10 double KB rack squats"],["Nordic curls 3 × 4–6, slow lowering"],["squat","pull","push","post"]],
-   ["a2","A","Press, Cossack, Row","Every 2 min × 10",["5 double KB strict press","8 goblet Cossack squats (4/side)","8 feet-elevated ring rows"],["Hanging leg raises 3 × 10"],["squat","push","pull","core"]],
-   ["a3","A","Front Squat, Dip, Pull-Up","EMOM 21, three stations × 7 rounds",["Min 1: 8 double KB front squats","Min 2: 8–10 ring dips","Min 3: 6–8 strict pull-ups"],["Loaded hyperextensions 3 × 12"],["squat","push","pull","post"]],
-   ["a4","A","Thruster and Chin","Every 2 min × 10",["8 double KB thrusters","6 chin-ups"],["Light Jefferson curls 3 × 8","L-sit 3 × 20 s"],["squat","push","pull","power","post","core"]],
-   ["a5","A","Split Squat and Floor Press","4 rounds, 60 s rest",["8 KB Bulgarian split squats per leg","10 double KB floor press","10 ring rows"],["Nordic curls 3 × 5"],["squat","push","pull","post"]],
-   ["a6","A","Overhead Lunge and Ring Push-Up","Every 2 min × 10",["4 KB snatch-to-overhead reverse lunges per side","10 ring push-ups","5 strict pull-ups"],["Hanging leg raises 3 × 10"],["squat","power","push","pull","core"]],
-   ["a7","A","Clean and Jerk, Goblet, Row","EMOM 21, three stations × 7 rounds",["Min 1: 5 double KB clean and jerks","Min 2: 10 heels-elevated goblet squats","Min 3: 8 ring rows"],["Windmills 3 × 5/side","Side plank 3 × 30 s/side"],["squat","power","push","pull","core"]],
-   ["a8","A","Handstand and Pistol","Every 2 min × 10",["3–5 HSPU (or pike push-ups)","5 KB-counterweight pistols per leg (to a box if needed)","5 ring pull-ups"],["Nordic curls 3 × 5"],["squat","push","pull","post"]],
-
+   ["a1","A","Muscle-Up and Rack Squat","Every 2 min × 10 (20 min)", ["3–5 ring muscle-ups (or 5 pull-ups + 5 dips)","10 double KB rack squats"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)"],["squat","pull","push","knee"]],
+   ["a2","A","Press, Cossack, Row","Every 2 min × 10", ["5 double KB strict press","8 goblet Cossack squats (4/side)","8 feet-elevated ring rows"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)","Hanging leg raises 3 × 10"],["squat","push","pull","core","knee"]],
+   ["a3","A","Front Squat, Dip, Pull-Up","EMOM 21, three stations × 7 rounds", ["Min 1: 8 double KB front squats","Min 2: 8–10 ring dips","Min 3: 6–8 strict pull-ups"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)"],["squat","push","pull","knee"]],
+   ["a4","A","Thruster and Chin","Every 2 min × 10", ["8 double KB thrusters","6 chin-ups"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)","L-sit 3 × 20 s"],["squat","push","pull","power","core","knee"]],
+   ["a5","A","Split Squat and Floor Press","4 rounds, 60 s rest", ["8 KB Bulgarian split squats per leg","10 double KB floor press","10 ring rows"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)"],["squat","push","pull","knee"]],
+   ["a6","A","Overhead Lunge and Ring Push-Up","Every 2 min × 10", ["4 KB snatch-to-overhead reverse lunges per side","10 ring push-ups","5 strict pull-ups"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)","Hanging leg raises 3 × 10"],["squat","power","push","pull","core","knee"]],
+   ["a7","A","Clean and Jerk, Goblet, Row","EMOM 21, three stations × 7 rounds", ["Min 1: 5 double KB clean and jerks","Min 2: 10 heels-elevated goblet squats","Min 3: 8 ring rows"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)","Windmills 3 × 5/side","Side plank 3 × 30 s/side"],["squat","power","push","pull","core","knee"]],
+   ["a8","A","Handstand and Pistol","Every 2 min × 10", ["3–5 HSPU (or pike push-ups)","5 KB-counterweight pistols per leg (to a box if needed)","5 ring pull-ups"],["Knee block: reverse Nordics 2–3 × 6–8 (pistols already done above)"],["squat","push","pull","knee"]],
    ["c1","C","Snatch, Goblet, Clean and Press","Repeat for 20 min, 20 s rest after each block",["5 KB snatches per side","10 goblet squats","3 KB clean and press per side","8 ring rows (added so the circuit has a pull)"],["Optional: hollow hold 3 × 30 s"],["power","hinge","squat","push","pull","core"]],
    ["c2","C","Double KB Clean, Press, Squat","EMOM 20",["2 double KB cleans","2 double KB presses","3 double KB front squats"],["Pull-ups 3 × max − 2"],["power","push","squat","pull"]],
    ["c3","C","Single KB Flow","AMRAP 20, 60 s rest after both sides",["Each side: 5 swings, 3 cleans, 3 presses, 3 reverse lunges, 3 snatches"],["Ring rows 3 × 10"],["power","hinge","push","squat","pull"]],
@@ -175,15 +175,14 @@ th{font-weight:600;color:var(--muted);font-size:.8rem;letter-spacing:.04em;text-
    ["c7","C","Snatch and Overhead Lunge","6 rounds, 75 s rest",["Each side: 3 snatches, 3 overhead reverse lunges, 10 m overhead walk","6 ring dips","6 ring rows"],["Nordic curls 3 × 5"],["power","squat","carry","push","pull","post"]],
    ["c8","C","Floor and Bar","AMRAP 20",["8 double KB floor press","8 double KB gorilla rows","8 double KB front squats","10 KB glute bridges (bells on hips)","5 toes-to-rings"],["Farmers carry 3 × 40 m"],["push","pull","squat","post","core","carry"]],
 
-   ["b1","B","Clean and Weighted Pull-Up","Every 2 min × 10",["5 double KB cleans","5 weighted pull-ups (KB on foot)","8 push-ups"],["Loaded hyperextensions 3 × 10–12"],["power","hinge","pull","push","post"]],
-   ["b2","B","RDL and Muscle-Up","Every 2 min × 10",["8 double KB RDLs","3 ring muscle-ups (or 5 pull-ups + 5 dips)"],["Nordic curls 3 × 5"],["hinge","pull","push","post"]],
-   ["b3","B","Swing, Renegade, Dip","EMOM 21, three stations × 7 rounds",["Min 1: 15 heavy two-hand swings","Min 2: 10 renegade rows","Min 3: 10 ring dips"],["Hanging leg raises 3 × 10"],["power","hinge","pull","push","core"]],
-   ["b4","B","Single-Leg RDL and Chin","4 rounds, 60 s rest",["8 KB single-leg RDLs per leg","6–8 chin-ups","6 half-kneeling KB press per side"],["Light Jefferson curls 3 × 8"],["hinge","pull","push","post"]],
-   ["b5","B","High Pull and Dip","Every 2 min × 10",["6 KB high pulls per side","8 ring dips","10 KB hip thrusts"],["Nordic curls 3 × 5"],["power","hinge","pull","push","post"]],
-   ["b6","B","Snatch and Pull-Up","Every 2 min × 10",["5 KB snatches per side","5 strict pull-ups","8 push-ups"],["Loaded hyperextensions 3 × 12","Side plank 3 × 30 s/side"],["power","hinge","pull","push","post","core"]],
-   ["b7","B","Dead-Stop Swing and Ring Row","4 rounds, 60 s rest",["8 double KB dead-stop swings","12 feet-elevated ring rows","10 double KB floor press"],["Hanging leg raises 3 × 10"],["power","hinge","pull","push","core"]],
-   ["b8","B","Clean and Pull Ladder","Ladder 1-2-3-4-5 × 3, 2 min rest between ladders",["Double KB cleans","Strict pull-ups","Ring dips (same number each rung)"],["Nordic curls 3 × 5","Farmers carry 2 × 40 m"],["power","hinge","pull","push","post","carry"]],
-
+   ["b1","B","Clean and Weighted Pull-Up","Every 2 min × 10", ["5 double KB cleans","5 weighted pull-ups (KB on foot)","8 push-ups"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time"],["power","hinge","pull","push","post"]],
+   ["b2","B","RDL and Muscle-Up","Every 2 min × 10", ["8 double KB RDLs","3 ring muscle-ups (or 5 pull-ups + 5 dips)"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time"],["hinge","pull","push","post"]],
+   ["b3","B","Swing, Renegade, Dip","EMOM 21, three stations × 7 rounds", ["Min 1: 15 heavy two-hand swings","Min 2: 10 renegade rows","Min 3: 10 ring dips"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time","Hanging leg raises 3 × 10"],["power","hinge","pull","push","core","post"]],
+   ["b4","B","Single-Leg RDL and Chin","4 rounds, 60 s rest", ["8 KB single-leg RDLs per leg","6–8 chin-ups","6 half-kneeling KB press per side"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time"],["hinge","pull","push","post"]],
+   ["b5","B","High Pull and Dip","Every 2 min × 10", ["6 KB high pulls per side","8 ring dips","10 KB hip thrusts"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time"],["power","hinge","pull","push","post"]],
+   ["b6","B","Snatch and Pull-Up","Every 2 min × 10", ["5 KB snatches per side","5 strict pull-ups","8 push-ups"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time","Side plank 3 × 30 s/side"],["power","hinge","pull","push","post","core"]],
+   ["b7","B","Dead-Stop Swing and Ring Row","4 rounds, 60 s rest", ["8 double KB dead-stop swings","12 feet-elevated ring rows","10 double KB floor press"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time","Hanging leg raises 3 × 10"],["power","hinge","pull","push","core","post"]],
+   ["b8","B","Clean and Pull Ladder","Ladder 1-2-3-4-5 × 3, 2 min rest between ladders", ["Double KB cleans","Strict pull-ups","Ring dips (same number each rung)"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time","Farmers carry 2 × 40 m"],["power","hinge","pull","push","post","carry"]],
    ["e1","E","Swing Tens","EMOM 20",["Odd minutes: 15 two-hand swings","Even minutes: 10 burpees"],["Ring rows 3 × 12"],["power","hinge","pull"]],
    ["e2","E","Snatch Intervals","10 × 30 s on, 30 s off",["KB snatches, switch hands as needed, steady pace"],["Pull-ups 3 × max − 2","Hollow hold 3 × 30 s"],["power","hinge","pull","core"]],
    ["e3","E","Swim","20–30 min",["10 × 50 m hard, 30 s rest","Or 20–30 min steady, easy breathing"],["Dead hang 3 × 30 s"],["pull"]],
@@ -192,6 +191,8 @@ th{font-weight:600;color:var(--muted);font-size:.8rem;letter-spacing:.04em;text-
    ["e6","E","Jump, Dip, Swing","EMOM 16, four stations × 4 rounds",["Min 1: 10 jump squats","Min 2: 10 ring dips","Min 3: 15 swings","Min 4: 10 hanging knee raises"],[],["power","squat","push","hinge","core"]],
    ["e7","E","Zone 2","30 min easy run, swim or brisk walk",["Conversational pace the whole way"],[],[]],
    ["e8","E","Burpee Pull-Up Ladder","2-4-6-8-10-8-6-4-2, for time",["Burpee pull-ups","Double KB swings (same reps each rung)"],["Suitcase carry 2 × 30 m/side"],["power","hinge","pull","carry"]],
+
+   ["e9","E","Cindy","AMRAP 20",["5 pull-ups","10 push-ups","15 air squats"],["Ring version on strong days: 5 ring pull-ups, 10 ring push-ups"],["pull","push","squat"]],
 
    ["m1","M","Hips and Spine","10–12 min, 2 rounds",["60 s deep squat hold, shifting side to side","8 Cossack squats per side","8 cat-cows","10 slow Jefferson curls, bodyweight","60 s 90/90 hip switches"],[],[]],
    ["m2","M","Shoulders and Upper Back","10 min, 2 rounds",["30 s German hang on rings (or bar)","5 skin-the-cats","10 shoulder CARs per side","10 band pull-aparts","30 s bridge hold"],[],[]],
