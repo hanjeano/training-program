@@ -19,7 +19,7 @@
 /* Layout: a short index — header, then one row per program, food last. */
 :root{
   --bg:#F3F5F2; --surface:#FFFFFF; --ink:#18211C; --muted:#5B6760; --line:#D7DED9;
-  --a2p:#2457C5; --a2p-bg:#E3EBFA; --fbc:#C2410C; --fbc-bg:#FBE8DD; --food:#3F6B2F; --food-bg:#E5F0DD;
+  --a2p:#2457C5; --a2p-bg:#E3EBFA; --fbc:#C2410C; --fbc-bg:#FBE8DD; --food:#3F6B2F; --food-bg:#E5F0DD; --lib:#0F766E; --lib-bg:#DCF0EC;
   --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
@@ -27,10 +27,10 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#111513; --surface:#1A201D; --ink:#E5ECE8; --muted:#9AA8A0; --line:#2D3631;
-  --a2p:#86A6F2; --a2p-bg:#1E2944; --fbc:#F28A55; --fbc-bg:#3A2316; --food:#9BCB84; --food-bg:#1F2E1A; color-scheme:dark}}
+  --a2p:#86A6F2; --a2p-bg:#1E2944; --fbc:#F28A55; --fbc-bg:#3A2316; --food:#9BCB84; --food-bg:#1F2E1A; --lib:#5EC8BA; --lib-bg:#12332F; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#111513; --surface:#1A201D; --ink:#E5ECE8; --muted:#9AA8A0; --line:#2D3631;
-  --a2p:#86A6F2; --a2p-bg:#1E2944; --fbc:#F28A55; --fbc-bg:#3A2316; --food:#9BCB84; --food-bg:#1F2E1A; color-scheme:dark}
+  --a2p:#86A6F2; --a2p-bg:#1E2944; --fbc:#F28A55; --fbc-bg:#3A2316; --food:#9BCB84; --food-bg:#1F2E1A; --lib:#5EC8BA; --lib-bg:#12332F; color-scheme:dark}
 body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
 .wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:32px 56px;display:flex;flex-direction:column;gap:20px}
 h1,h2{font-family:var(--f-display);font-weight:700;letter-spacing:.01em;margin:0;line-height:1.02;text-wrap:balance}
@@ -53,6 +53,7 @@ h2{font-size:1.7rem}
 .p2{--c:var(--a2p);--cbg:var(--a2p-bg)}
 .pf{--c:var(--fbc);--cbg:var(--fbc-bg)}
 .pd{--c:var(--food);--cbg:var(--food-bg)}
+.pl{--c:var(--lib);--cbg:var(--lib-bg)}
 </style>
 </head>
 <body>
@@ -77,6 +78,15 @@ h2{font-size:1.7rem}
       <p class="desc">Functional Body Composition, rebuilt around kettlebells, rings and one-station supersets. Tempo work with shrinking rest, KB finishers and a skill primer each day.</p>
       <div class="facts"><span class="fact">8 weeks</span><span class="fact">Mon · Tue · Thu · Fri · Sat</span><span class="fact">5 days</span></div>
       <span class="go">Browse the 40 sessions →</span>
+    </div>
+  </a>
+
+  <a class="prog pl" href="library/">
+    <div class="body">
+      <div class="top"><h2>Workout Library</h2><span class="status">Pick and go</span></div>
+      <p class="desc">Thirty-minute KB, ring and bodyweight workouts in four session types, plus morning mobility flows. A weekly tracker shows which movements you still need.</p>
+      <div class="facts"><span class="fact">32 workouts</span><span class="fact">4 session types</span><span class="fact">30 min</span></div>
+      <span class="go">Find today's workout →</span>
     </div>
   </a>
 
