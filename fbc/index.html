@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FBC · The Protocol</title>
+<meta name="description" content="Functional Body Composition adapted for kettlebells, rings and one-station supersets: 8 weeks, 5 days a week.">
+<meta name="theme-color" content="#F4F3F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141311" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Protocol">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon.svg">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: one column session sheet — week picker, day tabs, one session card; changes tagged for review. */
+:root{
+  --bg:#F4F3F0; --surface:#FFFFFF; --ink:#1E1C19; --muted:#605B53; --line:#DCD8D1;
+  --accent:#C2410C; --accent-bg:#FBE8DD; --main:#2457C5; --main-bg:#E3EBFA;
+  --chg:#7A5A00; --chg-bg:#FBF0CC; --skill:#1F6F5C; --skill-bg:#DDF1EA;
+  --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141311; --surface:#1D1B18; --ink:#ECE8E1; --muted:#A39D93; --line:#34302A;
+  --accent:#F28A55; --accent-bg:#3A2316; --main:#86A6F2; --main-bg:#1E2944;
+  --chg:#F0CF6A; --chg-bg:#3A3015; --skill:#6FD3B5; --skill-bg:#16352C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141311; --surface:#1D1B18; --ink:#ECE8E1; --muted:#A39D93; --line:#34302A;
+  --accent:#F28A55; --accent-bg:#3A2316; --main:#86A6F2; --main-bg:#1E2944;
+  --chg:#F0CF6A; --chg-bg:#3A3015; --skill:#6FD3B5; --skill-bg:#16352C; color-scheme:dark}
+html{color-scheme:light}
+body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:24px 48px;display:flex;flex-direction:column;gap:22px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:.01em;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:2.5rem} h2{font-size:1.55rem} h3{font-size:1.1rem;letter-spacing:.04em;text-transform:uppercase}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.head{border-bottom:2px solid var(--ink);padding-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.eyebrow a,.lede a{color:inherit;text-underline-offset:3px}
+.lede{margin:0;color:var(--muted);max-width:65ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.picker{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:6px}
+button{font:inherit;color:inherit;cursor:pointer}
+.pill{border:1px solid var(--line);background:var(--surface);border-radius:8px;min-height:40px;padding:0 12px;font-weight:600}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 2px}
+.chip{font-size:.78rem;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);font-variant-numeric:tabular-nums}
+.chip.blk{background:var(--accent-bg);color:var(--accent);border-color:transparent}
+section.part{display:flex;flex-direction:column;gap:8px;padding-top:14px;margin-top:14px;border-top:1px solid var(--line)}
+section.part:first-of-type{border-top:0;margin-top:6px;padding-top:0}
+ul.plain{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+ul.plain li{font-size:.95rem}
+.ex{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:4px 10px;align-items:baseline;padding:7px 0;border-top:1px solid var(--line)}
+.ex:first-child{border-top:0}
+.code{font-family:var(--f-num);font-size:.8rem;color:var(--main);font-weight:500}
+.nm{font-weight:600}
+.rx{font-family:var(--f-num);font-size:.78rem;color:var(--muted);white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}
+.was{grid-column:2 / -1;font-size:.82rem;color:var(--muted)}
+.tag{display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:2px;background:var(--chg-bg);color:var(--chg)}
+.tag.sk{background:var(--skill-bg);color:var(--skill)}
+.station{font-size:.8rem;color:var(--muted);font-style:italic}
+.fin{font-size:.95rem}
+.fin p{margin:0 0 4px}
+.note{font-size:.88rem;color:var(--muted);margin:0}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px}
+.rules ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:.95rem}
+table.prog{width:100%;border-collapse:collapse;margin-top:8px;font-size:.9rem}
+table.prog td{padding:6px 0;border-top:1px solid var(--line)}
+table.prog td:last-child{text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="head">
+    <div class="eyebrow"><a href="../">The Protocol</a> · Functional Body Composition · 8 weeks · 5 days a week</div>
+    <h1>FBC</h1>
+    <p class="lede">The original 8 weeks with barbell floor pulls removed, every superset kept at one station, finishers rebuilt around kettlebells or rings, and a short skill primer added. <span class="tag">changed</span> marks anything that differs from the original. <a href="../food.html">Food principles →</a></p>
+  </header>
+
+  <section class="card picker" aria-label="Choose a session">
+    <div class="eyebrow">Week</div>
+    <div class="row" id="weeks"></div>
+    <div class="eyebrow" style="margin-top:4px">Day</div>
+    <div class="row" id="days"></div>
+  </section>
+
+  <article class="card" id="session" aria-live="polite"></article>
+
+  <section>
+    <h2>How it runs</h2>
+    <div class="rules" style="margin-top:12px">
+      <div class="card">
+        <h3>Structure</h3>
+        <ul>
+          <li>Training on Mon, Tue, Thu, Fri and Sat. Wednesday and Sunday are off, and tennis and golf go wherever they fit.</li>
+          <li>Block A supersets in weeks 1, 3, 5 and 7. Block B in weeks 2, 4, 6 and 8. Within a block the supersets never change.</li>
+          <li>Each session: warm-up, 5-min skill primer, A and B supersets, finisher.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Progression</h3>
+        <table class="prog">
+          <tr><td>Weeks 1–2</td><td>3 sets · 75 s rest</td></tr>
+          <tr><td>Weeks 3–4</td><td>3 sets · 60 s rest</td></tr>
+          <tr><td>Weeks 5–6</td><td>4 sets · 60 s rest</td></tr>
+          <tr><td>Weeks 7–8</td><td>4 sets · 45 s rest</td></tr>
+        </table>
+        <p class="note" style="margin-top:8px">Hold the same loads as the rest gets shorter. Tempos are 4 digits: lowering, bottom pause, lifting, top pause. X means explosive.</p>
+      </div>
+      <div class="card">
+        <h3>Station rule</h3>
+        <ul>
+          <li>Barbell, rings and fixed equipment (bench, GHD) decide where a superset happens.</li>
+          <li>Dumbbells and kettlebells are portable, so they pair with anything.</li>
+          <li>Finishers use one implement plus bodyweight. No rower or bike.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Loading</h3>
+        <ul>
+          <li>Weeks 1–2: find the weight that lets you hit the top of the rep range at the tempo. Note it.</li>
+          <li>Last 1–2 sets should burn. If you could do many more, go heavier next time.</li>
+          <li>Don't add extra training on top. Sport counts as your conditioning.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var SR = {1:[3,75],2:[3,75],3:[3,60],4:[3,60],5:[4,60],6:[4,60],7:[4,45],8:[4,45]};
+  var DAYS = [
+    {d:"Mon",n:1,title:"Squat + Upper Pull"},
+    {d:"Tue",n:2,title:"Hinge + Vertical Push"},
+    {d:"Thu",n:3,title:"Horizontal Push + Pull"},
+    {d:"Fri",n:4,title:"Hinge + Squat"},
+    {d:"Sat",n:5,title:"Shoulders + Arms"}
+  ];
+  var SKILL = {
+    1:"Muscle-up practice: 5 × 1–3 strict or kipping muscle-ups, or false-grip pulls and transitions if you're building towards them.",
+    2:"Handstand: 5 min of wall or freestanding holds, then 3 × 3–5 HSPU at your current step (pike, feet-elevated pike, wall negatives).",
+    3:"Muscle-up practice: 5 × 1–3 on the rings, or ring transitions from a low setting.",
+    4:"Handstand: 5 min of freestanding attempts, kick-ups and wall holds.",
+    5:"Handstand: 5 min of holds, then 3 × 3–5 HSPU at your current step."
+  };
+  /* strength templates: [code, name, tempo, reps, changed?, was] */
+  var T = {
+    "1A":{st:"A at the rack · B at the rack with a DB brought over",
+      A:[["A1","Back Rack Split Squat (rear foot on 4–6\" plates)","2110","8–10/leg"],["A2","Pronated Strict Pull-Up (rack bar)","2011","8–10"]],
+      B:[["B1","Cyclist Front Squat","31X0","8–10"],["B2","Chainsaw Row (DB, brace on rack or knee)","20X2","8–10/arm"]]},
+    "1B":{st:"One pair of KBs and your rings in one spot",
+      A:[["A1","Dual KB Front Rack Drop Lunge","30X0","16–20 alt",1,"Front Rack Drop Lunge"],["A2","Supinated Strict Ring Pull-Up","2011","8–10",1,"Supinated Strict Pull-Up (bar)"]],
+      B:[["B1","Dual KB Rack Squat","2111","8–10"],["B2","Dual KB Bent-Over Row","30X1","8–12",1,"Incline Bench DB Prone Row"]]},
+    "2A":{st:"GHD with a KB beside it",
+      A:[["A1","Loaded Hyperextension","3131","8–10",1,"Segmented Clean Deadlift 6–8"],["A2","Half-Kneeling Single-Arm KB Press (switch knee halfway)","20X2","8–10/arm",1,"Half-Kneeling Barbell Press"]],
+      B:[["B1","Deficit KB Single-Leg RDL (stand on a plate)","3010","8–10/leg",1,"Deficit Landmine Single-Leg RDL"],["B2","Single-Arm KB Push Press","30X1","8–10/arm",1,"Single-Arm DB Push Press"]],
+      note:"Push press: explode up, lower to the shoulder over 3 s."},
+    "2B":{st:"A at the barbell · B at a bench with DBs",
+      A:[["A1","Segmented Barbell RDL, 3 pauses (straps)","3131","6–8",1,"Segmented Snatch-Grip Deadlift"],["A2","Barbell Z Press","3021","8–10"]],
+      B:[["B1","Split-Stance DB RDL","3110","6–8/leg"],["B2","Seated Alternating DB Arnold Press","2111","8–10/arm"]]},
+    "3A":{st:"A at a bench station · B on the rings",
+      A:[["A1","Wide-Grip Bench Press","31X0","10–12"],["A2","Pendlay Row","30X1","10–12"]],
+      B:[["B1","Ring Dips","2020","10–12",1,"Strict Bar Dips"],["B2","Ring Row","30X0","12–14",1,"Body Row (bar)"]]},
+    "3B":{st:"A at an incline bench with DBs · B on the rings",
+      A:[["A1","Incline Neutral-Grip DB Press","31X0","10–12",1,"Incline Close-Grip Barbell Bench"],["A2","Single-Arm DB Tripod Row","20X2","8–10/arm"]],
+      B:[["B1","Ring Push-Up (turn rings out when easy)","31X0","10–12",1,"Single-Arm DB Bench Press"],["B2","Lean-Away Strict Ring Pull-Up","40X0","8–10"]]},
+    "4A":{st:"A at the barbell with a KB pair · B at a bench with a KB",
+      A:[["A1","Snatch-Grip RDL","3110","8–10"],["A2","Suitcase KB Long-Step Walking Lunge","30X0","14–16 steps"]],
+      B:[["B1","Barbell Hip Thrust","20X2","8–10"],["B2","Goblet 1¼ Squat","2111","8–10"]],
+      note:"1¼ squat: 2 s down, 1 s pause, rise a quarter, back down, drive up, 1 s pause at top."},
+    "4B":{st:"Nordic anchor and GHD, KB beside you",
+      A:[["A1","Nordic Curl (band-assist to hit range)","50X1","4–6",1,"Frog Stance Deadlift 10–12"],["A2","KB Rack Deficit Split Squat","2110","8–10/leg"]],
+      B:[["B1","GHD Hip Extension","3021","8–10"],["B2","Goblet Cossack Squat","30X0","16–20 alt"]]},
+    "5A":{st:"DBs, a bench and parallettes or the floor",
+      A:[["A1","Tall-Kneeling Filly Press","2111","8–10/arm"],["A2","Close-Grip Parallette Triceps Push-Up","3011","8–10"],["A3","Incline Bench DB Biceps Curl","40X1","8–10"]],B:[]},
+    "5B":{st:"DBs and your rings",
+      A:[["A1","Farmers Press","20X1","8–10/arm"],["A2","Ring Triceps Extension","2020","10–12",1,"Decline Narrow-Grip Bench Press"],["A3","Alternating DB Curl","30X1","8–10/arm"]],B:[]}
+  };
+  /* per-week warm-up and finisher: wu = [lines], wuChg = bool, fin = {h,lines,was} */
+  var S = {
+   "1-1":{wu:["3 sets: 12 bent-over band pull-aparts (1 s pause wide)","10 drop lunge to knee lift/leg","30 s quadruped shoulder taps"],
+     fin:{h:"3 × 5-min AMRAP 2-4-6-8… (rest 2 min between)",lines:["Renegade rows (KB pair) · 5 KB swings between rounds","Strict knees-to-elbows on the rack bar · 5 burpees between rounds","Alternating KB thrusters · 10 jump lunges between rounds"],was:"Renegade rows + row cals · K2E + bike cals · DB thrusters + double unders"}},
+   "1-2":{wu:["3 sets: 5 DB deadlifts, 5 DB hang power cleans, 5 DB strict press","10 yoga push-ups","50 jump-rope singles or 20 jumping jacks"],wuChg:1,
+     fin:{h:"85% effort",lines:["27-21-15 KB swings","21-15-9 strict HSPU (scale to pike)","Rest 3 min","21-15-9 alternating KB snatches","27-21-15 sit-ups"],was:"Row cals / strict HSPU · bike cals / GHD sit-ups"}},
+   "1-3":{wu:["3 sets: single-arm bottoms-up KB carry 10 m/arm","10 scapular push-ups","30 s passive ring hang","15 band pull-aparts"],
+     fin:{h:"15 min, steady",lines:["20 s L-sit on rings","15 m quadruped crawl forward, 15 m back","10 dual KB clean and push press","5 strict chest-to-ring pull-ups"],was:"Same, with chest-to-bar pull-ups",same:1}},
+   "1-4":{wu:["3 sets: 15 banded hip thrusts + 20 s hold at top","8–10 KB-loaded Jefferson curls, light","30 s high-knee jump rope or high knees"],
+     fin:{h:"Every 5 min × 4, same pace each set",lines:["45 s double-KB farmers carry, heavy","15 KB swings","12 lying leg raises, 3 s lowering","9 tuck jumps"],was:"Farmers carry · bike cals · toes-to-bar · box jump step-downs"}},
+   "1-5":{wu:["3 sets: 8 yoga push-ups","8 prone snow angels, 8 scapular pull-ups","8 side plank rotations/side, slow"],
+     intv:{h:"3 sets, walk 2–3 min between",lines:["10 toes-to-rings","20 sit-ups","30 KB swings at 90% effort"],was:"Kipping toes-to-bar · sit-ups · bike 750 m"},
+     fin:{h:"3 sets, rest as needed",lines:["20 banded triceps pushdowns","20 banded curls","20 ring face pulls"],was:"Banded face pulls"}},
+
+   "2-1":{wu:["10 m skater band walk","10 banded goblet squats","10 scapular pull-ups"],
+     fin:{h:"2 × 7-min AMRAP (rest 3 min)",lines:["AMRAP 1: 5 KB front-rack lunges/leg · 7 tuck jumps · 9 ring rows","AMRAP 2: 5 burpees · 7 toes-to-rings · 9 air squats"],was:"Lunges · box jump step-downs · ring rows | burpees · toes-to-rings · air squats"}},
+   "2-2":{wu:["3 sets: 5 DB RDL (3030)","5 single-arm Cuban press/arm, slow","5 burpee high jumps","5 fast KB swings"],wuChg:1,
+     fin:{h:"3 × 5-min AMRAP 1-2-3-4… (rest 2 min between)",lines:["DB bench press · 5 KB swings between sets","Wall walks · 5 burpees between sets","Strict hanging knee or toes raises · 5 KB swings between sets"],was:"DB bench + row cals · wall walks + double unders · toes-to-bar + bike cals"}},
+   "2-3":{wu:["3 sets: 5 single-arm Turkish sit-ups R, 1 get-up R, 15 m single-arm KB overhead carry R","Repeat left","3–5 strict pull-ups"],
+     fin:{h:"4 rounds",lines:["20 elbow-to-tall-plank","30 s KB farmers walk","10 alternating KB gorilla rows","10 hand-release push-ups"],was:"Same",same:1}},
+   "2-4":{wu:["3 sets: 20 frog pumps + 20 s squeeze on the last rep","8–10 goblet curtsy step-downs/leg"],
+     fin:{h:"Every 10 min × 2, same pace",lines:["50 KB swings","40 air squats","20 alternating KB snatches","10 burpee broad jumps"],was:"Double unders · bike 500 m · air squats · DB snatches · burpee box jump-overs"}},
+   "2-5":{wu:["3 sets: tall plank band lateral walk 6 m/side","10/arm single-arm DB trap-3 raise, light","10 scapular ring rows, 1 s pause"],
+     intv:{h:"3 sets, walk 2–3 min between",lines:["10 renegade rows","20 KB swings at 90% effort"],was:"Renegade rows · row 300 m"},
+     fin:{h:"3 sets, rest as needed",lines:["10–12 DB upright rows (2121)","10–12 ring body saws (3010)","10–12 lying DB triceps extensions (30X1)"],was:"Same",same:1}},
+
+   "3-1":{wu:["12 standing band pull-aparts, 1 s pause","10 Russian step-ups/leg","30 s tall plank shoulder taps"],
+     fin:{h:"3 × 5-min AMRAP 2-4-6-8… (rest 2 min between)",lines:["Alternating KB gorilla rows · 5 KB swings between","Strict knees-to-elbows on the rack bar · 5 burpees between","Dual KB hang squat cleans · 5 jump lunges/leg between"],was:"Gorilla rows + bike · toes-to-rings + burpees · KB squat cleans + row"}},
+   "3-2":{wu:["3 sets: 7 KB deadlifts, 7 KB hang cleans, 7 KB strict press","10 push-ups","20 jumping jacks"],wuChg:1,
+     fin:{h:"85% effort",lines:["15-21-27 KB swings","27-21-15 hand-release push-ups (or dips if a station is next to you)","Rest 3 min","21-15-9 alternating KB snatches","40-30-20 sit-ups"],was:"Bike cals / bar dips · row cals / sit-ups"}},
+   "3-3":{wu:["3 sets: dual bottoms-up KB rack carry 20 m","10 scapular push-ups on elbows","30 s active ring hang","12 ring face pulls"],
+     fin:{h:"15 min, steady",lines:["30 s bent hollow hold","3 wall walks","6 strict ring pull-ups","9 ring push-ups","30 s dual KB rack carry"],was:"Same, with bar pull-ups",same:1}},
+   "3-4":{wu:["3 sets: 20 bodyweight hip thrusts + 10 s single-leg hold/leg","10 GHD back extensions","30 s hollow hold"],
+     fin:{h:"Every 5 min × 4, same pace",lines:["30 s side plank","12 KB swings","8 KB snatches/arm","6 burpee broad jumps","30 s side plank, other side"],was:"Side plank · row cals · KB swings · burpee box jumps"}},
+   "3-5":{wu:["3 sets: 12 yoga push-ups","12 scapular ring rows","8–10 DB side plank rotations/side, slow"],
+     intv:{h:"3 sets, walk 2–3 min between",lines:["15 KB swings at 85%","12–15 toes-to-rings, unbroken","15–18 tuck-ups","20 KB swings at 95%"],was:"Row 200 m · toes-to-rings · tuck-ups · row 200 m"},
+     fin:{h:"3 sets, rest as needed",lines:["20 banded push-ups","10 DB preacher curls/arm","20 banded upright rows"],was:"Same",same:1}},
+
+   "4-1":{wu:["3 sets: 10 m monster band walk forward and back","12 banded goblet squats","12 supine band lat pullovers"],
+     fin:{h:"2 × 7-min AMRAP (rest 3 min)",lines:["AMRAP 1: 10 KB swings · 10 KB front-rack walking lunges · 5 renegade rows","AMRAP 2: 4 burpee ring pull-ups · 8 KB goblet thrusters · 12 sit-ups"],was:"Double unders · lunges · renegade rows | burpee pull-ups · wall balls · sit-ups"}},
+   "4-2":{wu:["3 sets: 5 split-stance DB RDL","10 dual DB bent-over row to external rotation","5 broad jumps","5 fast KB swings"],wuChg:1,
+     fin:{h:"3 × 5-min AMRAP 1-2-3-4… (rest 2 min between)",lines:["Single-arm incline DB bench R, then L · 1 Turkish get-up/arm between sets","Dips (dip station or bench dips) · 5 KB swings between sets","L-sit lift-overs · 5 burpees between sets"],was:"DB bench + get-ups · weighted bar dips + row cals · L-sit lift-overs + bike cals"}},
+   "4-3":{wu:["3 sets: 5 bottoms-up single-arm KB press R, 20 m bottoms-up KB overhead carry R","Repeat left","8 single-arm ring rows/arm"],
+     fin:{h:"5 rounds",lines:["20 s single-arm plank R, 20 s L","12 ring rows","12 diamond push-ups"],was:"Same, with bar body rows",same:1}},
+   "4-4":{wu:["3 sets: 10 single-leg glute bridges + 15 s hold/leg","8 bodyweight drop lunge to knee lift/side"],
+     fin:{h:"Every 10 min × 2, same pace",lines:["12 KB swings","12 double-KB front squats","10 KB snatches/arm","12 double-KB front squats","12 KB swings"],was:"Row 250 m · DB front squats · devil's press · DB front squats · row 250 m"}},
+   "4-5":{wu:["3 sets: 20 alternating tall plank shoulder taps","12 bent-over reverse DB flys, light","30 s ring row hold"],
+     intv:{h:"3 sets at tough effort, walk 2–3 min between",lines:["15 KB swings","10 alternating KB gorilla rows","10 dual KB sumo deadlifts","15 KB swings"],was:"Bike cals · gorilla rows · sumo deadlifts · bike cals"},
+     fin:{h:"3 sets, rest as needed",lines:["10/arm single-arm DB upright row (2010)","10–12 banded reverse crunches (30X0)","10/arm single-arm DB triceps kickback (20X0)"],was:"Same",same:1}},
+
+   "5-1":{wu:["3 sets: 8 half-kneeling band pull-aparts/knee","12 lateral box step-overs","30 s quadruped shoulder taps"],
+     fin:{h:"3 sets, walk 2 min after each",lines:["3-min AMRAP: start with 20 KB swings","Then, in the time left: 2 alternating KB gorilla rows, 2 dual KB hang squat cleans, 2 alternating KB thrusters"],was:"20 row cals, then the same KB triplet"}},
+   "5-2":{wu:["3 sets: 7 DB deadlifts, 7 DB hang power cleans, 7 DB push press","100 m acceleration run (no full sprint)"],
+     fin:{h:"For time at 85% effort",lines:["10-9-8…1 strict hanging knee or toes raises · 5 KB swings between sets","Rest 2 min","10-9-8…1 tuck-ups · 10 jump lunges between sets"],was:"Toes-to-rings + 100 m row · tuck-ups + 100 m run"}},
+   "5-3":{wu:["Mixed KB rack and overhead carry 20 m/arm","10 scapular push-ups on rings","15 s single-arm passive ring hang/arm","10 ring face pulls"],
+     fin:{h:"10 min continuous",lines:["20 m single-arm farmers walk R, heavy","5 strict ring pull-ups","20 m single-arm farmers walk L","5 strict ring dips","10 tuck-ups in ring support"],was:"Same, on a bar and dip station",same:1}},
+   "5-4":{wu:["3 sets: 10 single-leg BW hip thrusts + 10 s hold/leg","15 s single-leg Sorenson hold/leg","15 s star plank/side"],
+     fin:{h:"EMOM × 12 min",lines:["1st: 15 Russian KB swings","2nd: 5 KB snatches/arm","3rd: 30 s KB Russian twist"],was:"KB swings · DB burpee box step-ups · med-ball Russian twist"}},
+   "5-5":{wu:["3 sets: 20 down-dog shoulder taps","12 archer ring row switch holds, 2 s/arm","10 side plank Powell raises/arm, slow"],
+     intv:{h:"3 sets, walk 2–3 min between",lines:["10 KB swings","10 V-ups","10 KB swings","10 sit-ups","10 KB swings"],was:"Row 125 m · GHD sit-ups · row · sit-ups · row"},
+     fin:{h:"3 sets, rest as needed",lines:["15 single-arm banded triceps pushdowns/arm · rest 30 s","15 DB lateral raises + 15 DB front raises · rest 30 s","10 DB Zottman curls"],was:"Same",same:1}},
+
+   "6-1":{wu:["3 sets: 20 lateral banded walk-overs","12 alternating goblet curtsy squats (20X0)","8 plank DB rows/arm"],
+     fin:{h:"10 sets (rest 30 s after sets 2, 4, 6 and 8)",lines:["2 burpee ring pull-ups","4 air squats","6 jump lunges","10 KB swings"],was:"Double unders instead of KB swings"}},
+   "6-2":{wu:["3 sets: 10 steps death march","8 dual DB push press (20X0)","6 tall box jumps","5 fast KB swings"],wuChg:1,
+     fin:{h:"Three pieces, 2 min rest between",lines:["3-min AMRAP, high effort: 12 KB swings + 10 close-grip bench press","Not for time: 20 alternating Turkish get-ups, quality first","3-min AMRAP, high effort: 8 alternating KB snatches + 10 hanging knee or toes raises"],was:"Row cals + close-grip bench · get-ups · bike cals + toes-to-rings"}},
+   "6-3":{wu:["5 bottoms-up single-arm KB press R, 20 m bottoms-up overhead carry R","Repeat left","8 single-arm ring rows/arm"],
+     fin:{h:"4 sets, rest as needed",lines:["20 s adduction-bias side plank R, then L","8 archer ring rows/side","8 roll-out push-ups/side"],was:"Same",same:1}},
+   "6-4":{wu:["3 sets: 12 alternating hamstring curls on sliders (2 legs up, 1 leg down)","10 plate-loaded lateral box step-downs/leg"],
+     fin:{h:"Every 2 min × 6 sets (aim to finish each in 60–75 s)",lines:["Odd sets: 12 KB swings + 6 KB snatches/arm","Even sets: 12 double-KB thrusters + 10 tuck jumps"],was:"Row cals + devil's press · DB thrusters + box jump step-downs"}},
+   "6-5":{wu:["3 sets: 20 alternating quadruped limb lifts","12 prone Y raises on a bench","30 s banded plank"],
+     intv:{h:"3 sets at tough effort, walk 2–3 min between",lines:["10 KB swings","7 renegade rows","10 KB swings","7 single-arm KB clean and jerk R, 7 L","10 KB swings"],was:"Bike cals between the renegade rows and DB clean and jerks"},
+     fin:{h:"3 sets, rest as needed",lines:["4–6 dead hang to inverted on rings (3 s hold, 3 s lower)","8–10 ring biceps curls (3030)","8–10 parallette triceps push-ups (3030)"],was:"Same",same:1}},
+
+   "7-1":{wu:["3 sets: 12 tall-kneeling band pull-aparts","6 lateral box step-downs/leg, 3 s lowering","30 s reverse quadruped crawl"],
+     fin:{h:"3 sets, walk 2 min after each",lines:["3-min AMRAP: start with 20 KB swings","Then, in the time left: 2 KB split cleans R, 2 single-arm rack lunges R, 2 single-arm thrusters R, then the same on the left"],was:"20 bike cals, then the same KB complex"}},
+   "7-2":{wu:["3 sets: 5 single-arm suitcase KB deadlifts R, 5 KB cleans R, 5 KB push press R, 20 m overhead carry R","Repeat left"],
+     fin:{h:"For time at 85% effort",lines:["4-6-8-10-12-14-16 L-sit lift-overs · 10 KB swings between sets","Rest 2 min","2-4-6-8-10-12-14 hanging toes-to-bar · 5 burpees between sets"],was:"L-sit lift-overs + double unders · toes-to-rings + bike cals"}},
+   "7-3":{wu:["3 sets: 30 s dual bottoms-up KB rack carry","8 single-arm scap push-ups/arm","10 s single-arm weighted hang/arm","12 dual KB shrugs, 1 s pause"],
+     fin:{h:"12 min continuous",lines:["6 dual KB cleans","20 m dual KB rack carry","6 alternating single-arm-bias ring pull-ups","6 dual KB push press","20 m dual KB rack carry","6 strict ring dips"],was:"Same, with bar pull-ups",same:1}},
+   "7-4":{wu:["3 sets: 20 banded hip thrusts with single-leg lowering (31X0)","30 s good-morning hold","15 s KB star plank/side"],
+     fin:{h:"EMOM × 12 min",lines:["1st: 12 dual Russian KB swings","2nd: 8–10 alternating KB rack reverse lunges (step-up if a box is nearby)","3rd: 20–30 s dual KB hollow flutter kicks"],was:"Same",same:1}},
+   "7-5":{wu:["3 sets: 12 side plank rotations/side","12 bent-over alternating DB rows, 1 s hold","12 pike handstand shoulder taps, slow"],
+     intv:{h:"3 sets, walk 2–3 min between",lines:["15 KB swings","10 hanging toes-to-bar","12 KB swings","10 toes-to-rings","9 KB swings"],was:"Row cals between toes-to-bar and toes-to-rings"},
+     fin:{h:"3 sets, rest as needed",lines:["15 parallette triceps push-ups · rest 30 s","10 DB lateral raises + 20 m DB iron cross walk + 10 lateral raises · rest 30 s","15 DB hammer curls (20X0)"],was:"Same",same:1}},
+
+   "8-1":{wu:["3 sets: 30 s wall sit with band abductions","6 KB rack curtsy step-downs/side","10 alternating KB gorilla rows (10X2)"],
+     fin:{h:"EMOM × 12 min (rest 30 s after sets 2, 4, 6 and 8)",lines:["2 burpee broad jumps","4 ring pull-ups","6 jump squats","10 KB swings"],was:"Burpee box jumps · pull-ups · jump squats · 100 m run"}},
+   "8-2":{wu:["3 sets: 10 alternating DB single-leg RDL","6 cross-body DB muscle snatches/arm","4 kneeling jumps","5 fast KB swings"],wuChg:1,
+     fin:{h:"Three pieces, 2 min rest between",lines:["3-min AMRAP, high effort: 10 KB swings + 5 DB bench press","Not for time: 15 wall walks, quality first","3-min AMRAP, high effort: 8 alternating KB snatches + 5 strict toes-to-bar"],was:"Bike cals + DB bench · wall walks · row cals + toes-to-rings"}},
+   "8-3":{wu:["3 sets: 5 bottoms-up KB press, 20 s bottoms-up rack hold, 5 more presses","20 s ring row hold (feet elevated for more challenge)"],
+     fin:{h:"3–4 sets, rest as needed",lines:["20 s KB adduction-bias side plank R","8 parallette plank DB rows R, 8 archer ring push-ups R","Repeat left, finish with the L side plank"],was:"Same",same:1}},
+   "8-4":{wu:["3 sets: 30 s banded glute bridge march","30 s banded psoas march","15 s Cossack squat bottom hold/side"],
+     fin:{h:"Every 2 min × 6 sets (aim to finish each in 60–75 s)",lines:["Odd sets: 12 KB swings + 6 burpee broad jumps","Even sets: double-KB complex of 4 deadlifts + 4 cleans + 4 thrusters, then 10 tuck jumps"],was:"Bike cals + DB burpee box step-overs · DB complex + double unders"}},
+   "8-5":{wu:["3 sets: 30 s quadruped planche lean","12 prone Y raises on the floor"],
+     intv:{h:"3 sets at tough effort, walk 2–3 min between",lines:["15 KB swings","8 DB burpees","12 KB swings","8 burpees","9 KB swings"],was:"Bike cals between the burpees"},
+     fin:{h:"3 sets, rest as needed",lines:["8 elevator supine toes-to-bar","8 elevator DB curls","8 elevator dips (bar or rings)"],was:"Same",same:1}}
+  };
+
+  var week = 1, day = 1;
+  try{var s=JSON.parse(localStorage.getItem("fbc-sel")||"{}"); if(s.w>=1&&s.w<=8) week=s.w; if(s.d>=1&&s.d<=5) day=s.d;}catch(e){}
+  function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
+  function save(){try{localStorage.setItem("fbc-sel",JSON.stringify({w:week,d:day}));}catch(e){}}
+
+  function renderPickers(){
+    var w="",d="";
+    for(var i=1;i<=8;i++) w+='<button class="pill" aria-pressed="'+(i===week)+'" data-w="'+i+'">W'+i+'</button>';
+    DAYS.forEach(function(x){ d+='<button class="pill" aria-pressed="'+(x.n===day)+'" data-d="'+x.n+'">'+x.d+' · '+x.n+'</button>'; });
+    document.getElementById("weeks").innerHTML=w;
+    document.getElementById("days").innerHTML=d;
+  }
+  function exRows(list, sets, rest){
+    return list.map(function(e){
+      var h='<div class="ex"><span class="code">'+e[0]+'</span><span class="nm">'+esc(e[1])+(e[4]?'<span class="tag">changed</span>':'')+'</span><span class="rx">'+e[2]+' · '+e[3]+' · '+sets+'×</span>';
+      if(e[4]) h+='<span class="was">Was: '+esc(e[5])+'</span>';
+      return h+'</div>';
+    }).join("");
+  }
+  function block(obj){
+    var h='<p class="fin" style="margin:0 0 2px"><strong>'+esc(obj.h)+'</strong>'+(obj.same?'':'<span class="tag">changed</span>')+'</p><ul class="plain">';
+    obj.lines.forEach(function(l){h+='<li>'+esc(l)+'</li>';});
+    h+='</ul>';
+    if(!obj.same) h+='<p class="note" style="margin-top:4px">Was: '+esc(obj.was)+'</p>';
+    return h;
+  }
+  function renderSession(){
+    var blk = week%2 ? "A" : "B";
+    var t = T[day+blk], s = S[week+"-"+day], sr = SR[week], D = DAYS[day-1];
+    var h = '<div class="eyebrow">Week '+week+' · '+D.d+'</div><h2>Day '+day+' · '+D.title+'</h2>';
+    h += '<div class="meta"><span class="chip blk">Block '+blk+'</span><span class="chip">'+sr[0]+' sets</span><span class="chip">'+sr[1]+' s rest</span></div>';
+    h += '<section class="part"><h3>Warm-up'+(s.wuChg?'<span class="tag">changed</span>':'')+'</h3><ul class="plain">'+s.wu.map(function(l){return '<li>'+esc(l)+'</li>';}).join("")+'</ul>'+(s.wuChg?'<p class="note">Machine sprint or barbell complex swapped for a KB or DB version.</p>':'')+'</section>';
+    h += '<section class="part"><h3>Skill primer<span class="tag sk">added</span></h3><p class="fin" style="margin:0">'+esc(SKILL[day])+'</p></section>';
+    h += '<section class="part"><h3>Strength'+(day===5?' tri-set':' supersets')+'</h3><p class="station">'+esc(t.st)+'</p>';
+    h += '<div>'+exRows(t.A,sr[0],sr[1])+'</div>';
+    if(t.B.length) h += '<div style="margin-top:6px">'+exRows(t.B,sr[0],sr[1])+'</div>';
+    h += '<p class="note">Finish all sets of the A pair before moving to B. '+sr[1]+' s rest after each exercise.'+(t.note?' '+esc(t.note):'')+'</p></section>';
+    if(s.intv) h += '<section class="part"><h3>Intervals</h3>'+block(s.intv)+'</section>';
+    h += '<section class="part"><h3>Finisher</h3>'+block(s.fin)+'</section>';
+    document.getElementById("session").innerHTML = h;
+  }
+  function render(){renderPickers();renderSession();save();}
+  document.getElementById("weeks").addEventListener("click",function(e){var b=e.target.closest("[data-w]");if(!b)return;week=+b.getAttribute("data-w");render();});
+  document.getElementById("days").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;day=+b.getAttribute("data-d");render();});
+  render();
+})();
+</script>
+
+</body>
+</html>
