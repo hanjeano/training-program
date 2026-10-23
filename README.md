@@ -9,7 +9,7 @@ Training programs and simple food guidance.
 | Home | `/` | Links to each program and the food page, with today's 2 Pattern session |
 | 2 Pattern Protocol | `/2pp/` | 8 weeks, four workouts rotating every other day, % main lifts and off-day cardio |
 | FBC | `/fbc/` | Functional Body Composition adapted for kettlebells, rings and one-station supersets. 8 weeks, 5 days a week |
-| Workout Library | `/library/` | 33 thirty-minute KB, ring and bodyweight workouts in four session types, morning flows, weekly balance tracker |
+| Workout Library | `/library/` | 45 thirty-minute KB, ring and bodyweight workouts in four session types, morning flows, weekly balance tracker |
 | Food | `/food.html` | Guidance, not rules |
 
 ## 2 Pattern Protocol
