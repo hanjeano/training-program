@@ -1,4 +1,4 @@
-# The Protocol
+# My Training Program
 
 Training programs and simple food guidance.
 
@@ -7,7 +7,7 @@ Training programs and simple food guidance.
 | Page | Path | What it is |
 |------|------|------------|
 | Home | `/` | Links to each program and the food page, current program first |
-| The Algorithm | `/algorithm/` | Current program: legs, push, pull, HIIT + handstands, KB + rings from the library, weekend running and sport. 8 weeks, 60-minute sessions |
+| The Protocol | `/protocol/` | Current program: legs, push, pull, HIIT + handstands, KB + rings from the library, weekend running and sport. 8 weeks, 60-minute sessions |
 | 2 Pattern Protocol | `/2pp/` | 8 weeks, four workouts rotating every other day, % main lifts and off-day cardio |
 | FBC | `/fbc/` | Functional Body Composition adapted for kettlebells, rings and one-station supersets. 8 weeks, 5 days a week |
 | FB3 | `/fb3/` | FB3-R3: three full-body strength days alternating with three run and mobility days, 8 or 12 weeks in 4-week blocks |
