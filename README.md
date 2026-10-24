@@ -2,7 +2,7 @@
 
 Training programs and simple food guidance.
 
-**Live site:** https://hanjeano.github.io/two-pattern-protocol/
+**Live site:** https://hanjeano.github.io/training-program/
 
 | Page | Path | What it is |
 |------|------|------------|
