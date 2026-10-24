@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FB3 · The Protocol</title>
+<meta name="description" content="FB3-R3: three full-body strength days alternating with three run and mobility days, 8 or 12 weeks.">
+<meta name="theme-color" content="#F3F3F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#121216" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Protocol">
+<link rel="icon" href="../icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../icon.svg">
+<link rel="manifest" href="../manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: length toggle + week/day pickers, one session card, maxes, then the plan and principles. */
+:root{
+  --bg:#F3F3F6; --surface:#FFFFFF; --ink:#1A1A22; --muted:#5C5C6B; --line:#DADAE2;
+  --acc:#5B3CC4; --acc-bg:#ECE7FB; --main:#2457C5; --main-bg:#E3EBFA; --pow:#A9471A; --pow-bg:#F8E6DA;
+  --dl-bg:#E4E9EE; --test:#B3261E; --test-bg:#F7E1DF; --run:#1F6F5C; --run-bg:#DDF1EA;
+  --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121216; --surface:#1B1B21; --ink:#E7E7EE; --muted:#A0A0AE; --line:#2E2E38;
+  --acc:#B4A3F2; --acc-bg:#2A2342; --main:#86A6F2; --main-bg:#1E2944; --pow:#F09A62; --pow-bg:#3A2416;
+  --dl-bg:#24303A; --test:#F2918A; --test-bg:#3D1F1D; --run:#6FD3B5; --run-bg:#16352C; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121216; --surface:#1B1B21; --ink:#E7E7EE; --muted:#A0A0AE; --line:#2E2E38;
+  --acc:#B4A3F2; --acc-bg:#2A2342; --main:#86A6F2; --main-bg:#1E2944; --pow:#F09A62; --pow-bg:#3A2416;
+  --dl-bg:#24303A; --test:#F2918A; --test-bg:#3D1F1D; --run:#6FD3B5; --run-bg:#16352C; color-scheme:dark}
+body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:24px 56px;display:flex;flex-direction:column;gap:22px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:.01em;margin:0;line-height:1.05;text-wrap:balance}
+h1{font-size:2.6rem} h2{font-size:1.55rem} h3{font-size:1.1rem;letter-spacing:.04em;text-transform:uppercase}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.eyebrow a,.lede a{color:inherit;text-underline-offset:3px}
+.head{border-bottom:2px solid var(--ink);padding-bottom:14px;display:flex;flex-direction:column;gap:6px}
+.lede{margin:0;color:var(--muted);max-width:65ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.picker{display:flex;flex-direction:column;gap:10px}
+.row{display:flex;flex-wrap:wrap;gap:6px}
+button{font:inherit;color:inherit;cursor:pointer}
+.pill{border:1px solid var(--line);background:var(--surface);border-radius:8px;min-height:40px;padding:0 11px;font-weight:600}
+.pill[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.pill.wdl{background:var(--dl-bg)} .pill.wts{background:var(--test-bg);color:var(--test)}
+.pill.wdl[aria-pressed="true"],.pill.wts[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.pill:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
+.chip{font-size:.78rem;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
+.chip.acc{background:var(--acc-bg);color:var(--acc);border-color:transparent}
+.chip.dl{background:var(--dl-bg);color:var(--ink);border-color:transparent}
+.chip.ts{background:var(--test-bg);color:var(--test);border-color:transparent}
+.chip.run{background:var(--run-bg);color:var(--run);border-color:transparent}
+section.part{display:flex;flex-direction:column;gap:4px;padding-top:12px;margin-top:12px;border-top:1px solid var(--line)}
+.ex{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;align-items:baseline;padding:6px 0}
+.nm{font-weight:600}
+.rx{font-family:var(--f-num);font-size:.8rem;color:var(--muted);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.kg{grid-column:1 / -1;font-family:var(--f-num);font-size:.78rem;color:var(--main)}
+.sub{grid-column:1 / -1;font-size:.85rem;color:var(--muted)}
+.tag{display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-right:6px;vertical-align:2px}
+.t-main{background:var(--main-bg);color:var(--main)} .t-pow{background:var(--pow-bg);color:var(--pow)} .t-acc{background:var(--bg);color:var(--muted)}
+ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.note{font-size:.88rem;color:var(--muted);margin:0}
+.maxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:12px}
+.maxes label{display:flex;flex-direction:column;gap:4px;font-size:.85rem;font-weight:600}
+.maxes input{font-family:var(--f-num);font-size:1rem;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;box-sizing:border-box}
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:14px}
+.rules ul{margin:8px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:5px;font-size:.95rem}
+.tbl{overflow-x:auto;margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{padding:6px 8px 6px 0;border-top:1px solid var(--line);text-align:left;vertical-align:top;white-space:nowrap}
+th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);border-top:0}
+td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div class="eyebrow"><a href="../">The Protocol</a> · FB3-R3 · 3 full-body days + 3 run days</div>
+    <h1>FB3</h1>
+    <p class="lede">Three full-body strength sessions alternating with three handstand, mobility and run days. Run it for 8 or 12 weeks in 4-week blocks. <a href="../food.html">Food principles →</a></p>
+  </header>
+
+  <section class="card picker" aria-label="Choose a session">
+    <div class="eyebrow">Length</div>
+    <div class="row" id="len"></div>
+    <div class="eyebrow" style="margin-top:4px">Week</div>
+    <div class="row" id="weeks"></div>
+    <div class="eyebrow" style="margin-top:4px">Day</div>
+    <div class="row" id="days"></div>
+  </section>
+
+  <article class="card" id="session" aria-live="polite"></article>
+
+  <section class="card">
+    <h2>Your maxes</h2>
+    <p class="note">Enter a current 1RM in kg to see working weights, rounded to 2.5 kg. Saved in this browser only. At the start of each new block, add 5 kg to squat and deadlift and 2.5 kg to the rest if you hit every rep in the last block.</p>
+    <div class="maxes">
+      <label for="mx-sq">Back squat<input id="mx-sq" inputmode="decimal" placeholder="e.g. 120"></label>
+      <label for="mx-dl">Deadlift<input id="mx-dl" inputmode="decimal" placeholder="e.g. 160"></label>
+      <label for="mx-ohp">OHP<input id="mx-ohp" inputmode="decimal" placeholder="e.g. 60"></label>
+      <label for="mx-bp">Bench press<input id="mx-bp" inputmode="decimal" placeholder="e.g. 100"></label>
+      <label for="mx-row">Barbell row<input id="mx-row" inputmode="decimal" placeholder="e.g. 100"></label>
+    </div>
+  </section>
+
+  <section>
+    <h2>The plan</h2>
+    <div class="rules" style="margin-top:12px">
+      <div class="card">
+        <h3>Week</h3>
+        <div class="tbl"><table>
+          <tr><th>Day</th><th>Session</th></tr>
+          <tr><td>Mon</td><td>FB1 · Squat, dips, chin-ups</td></tr>
+          <tr><td>Tue</td><td>R1 · HM21 + 30 min Zone 2</td></tr>
+          <tr><td>Wed</td><td>FB2 · Deadlift, OHP, row</td></tr>
+          <tr><td>Thu</td><td>R2 · HM21 + HIIT</td></tr>
+          <tr><td>Fri</td><td>FB3 · BSS, bench, weighted pull-up</td></tr>
+          <tr><td>Sat</td><td>R3 · HM21 + long run</td></tr>
+          <tr><td>Sun</td><td>Rest</td></tr>
+        </table></div>
+        <p class="note" style="margin-top:8px">Shift the whole week if sport gets in the way. Keep the order FB1 → R1 → FB2 → R2 → FB3 → R3.</p>
+      </div>
+      <div class="card">
+        <h3>Blocks</h3>
+        <div class="tbl"><table id="blocks"></table></div>
+        <p class="note" style="margin-top:8px">8 weeks: weeks 1–3 and 5–7 build, week 4 deloads, week 8 tests. 12 weeks: weeks 4 and 8 deload, week 12 tests.</p>
+      </div>
+      <div class="card">
+        <h3>Main lifts</h3>
+        <div class="tbl"><table>
+          <tr><th>Lift</th><th>Scheme</th></tr>
+          <tr><td>Back squat</td><td>3 × 5 + 2 × 8 @ 65%</td></tr>
+          <tr><td>Deadlift</td><td>RDL 3 × 8–10, standard 3 × 3 in week 3</td></tr>
+          <tr><td>OHP</td><td>4 × 5–6 + 1 × 10 @ 65%</td></tr>
+          <tr><td>Bench</td><td>4 × 5 + 1 × 8–10 @ 67%</td></tr>
+          <tr><td>Row</td><td>4 × 6–8</td></tr>
+          <tr><td>Weighted pull-up</td><td>2 × 4–6 + 1 × AMRAP BW</td></tr>
+          <tr><td>Dips</td><td>4 × 5–6 @ RPE 8 + AMRAP</td></tr>
+          <tr><td>BSS</td><td>3 × 8–10/leg @ RPE 8</td></tr>
+          <tr><td>Chin-ups</td><td>3 × 10–15 BW</td></tr>
+        </table></div>
+      </div>
+      <div class="card">
+        <h3>Principles</h3>
+        <ul>
+          <li>Plyos first, fresh: 3 × 3–5, stop when speed drops.</li>
+          <li>Pair push and pull as a superset to save time.</li>
+          <li>Accessories: 2–3 sets, 1–2 reps short of failure.</li>
+          <li>Row after deadlifts: chest-supported or seal row, or cap Pendlay rows at RPE 8.</li>
+          <li>HM7 before every strength day: 7 min of handstands and mobility. HM21 on run days: the long version.</li>
+          <li>No HIIT the day after a deadlift-heavy week 3 session if your back is tired. Swap R2 to Zone 2.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var DAYS=[["Mon","FB1"],["Tue","R1"],["Wed","FB2"],["Thu","R2"],["Fri","FB3"],["Sat","R3"],["Sun","REST"]];
+  var LIFTS={sq:"mx-sq",dl:"mx-dl",ohp:"mx-ohp",bp:"mx-bp",row:"mx-row"};
+  var len=12, week=1, day=0;
+  var maxes={sq:"",dl:"",ohp:"",bp:"",row:""};
+  try{var st=JSON.parse(localStorage.getItem("fb3")||"{}"); if(st.len===8||st.len===12) len=st.len; if(st.week) week=st.week; if(st.day>=0&&st.day<7) day=st.day; if(st.maxes) for(var k in maxes) if(st.maxes[k]) maxes[k]=st.maxes[k];}catch(e){}
+  if(week>len) week=len;
+  function save(){try{localStorage.setItem("fb3",JSON.stringify({len:len,week:week,day:day,maxes:maxes}));}catch(e){}}
+  function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+  function kind(w){ if(w===len) return "test"; if(w%4===0) return "deload"; return "build"; }
+  function pos(w){ return ((w-1)%4)+1; }
+  function block(w){ return Math.floor((w-1)/4)+1; }
+  function kg(key,p){ var m=parseFloat(String(maxes[key]).replace(",",".")); if(!(m>0)) return ""; return (Math.round(m*p/100/2.5)*2.5).toFixed(1).replace(/\.0$/,"")+" kg"; }
+  var PCT={sq:[80,81.25,82.5],ohp:[75,77.5,80],bp:[78,80,82],row:[70,72.5,75],wpu:[80,82.5,85]};
+
+  /* exercise: [tag, name, scheme, kgKey, pct, sub] */
+  function mainLift(key,name,build){
+    var k=kind(week), p=pos(week);
+    if(k==="deload") return ["main",name,"2 × 5 @ 70%",key,70,"Deload: smooth reps, no backoff or AMRAP set."];
+    if(k==="test") return ["main",name,"Work up, 1 × AMRAP @ 85%",key,85,"Use the reps to set your next 1RM."];
+    return build(p);
+  }
+  function session(id){
+    var k=kind(week), p=pos(week), out={warm:"Jump rope 3 min + HM7 (handstands and mobility)",groups:[]};
+    var acc = k==="deload" ? "2 sets" : "2–3 sets";
+    if(id==="FB1"){
+      out.title="FB1 · Squat, Dips, Chin-Ups";
+      out.groups=[
+        ["Plyo",[["pow","Depth drops or pistols","3 × 3–5"]]],
+        ["Legs",[mainLift("sq","Back squat",function(p){return ["main","Back squat","3 × 5 @ "+PCT.sq[p-1]+"%","sq",PCT.sq[p-1],"Then 2 × 8 @ 65% or pistols 2 × 5/leg"];})]],
+        ["Push + pull superset",[
+          ["main","Weighted or ring dips", k==="deload"?"2 × 5, easy":(k==="test"?"Bodyweight AMRAP":"4 × 5–6 @ RPE 8 + 1 × AMRAP")],
+          ["main","Chin-ups", k==="deload"?"2 × 8":(k==="test"?"Bodyweight AMRAP":"3 × 10–15")]]],
+        ["Accessories",[["acc","Nordic curls",acc+" × 4–6"],["acc","Muscle-ups",acc+" × 3–5"],["acc","Leg raises + seated calf raises",acc+" × 10–15"]]]
+      ];
+    } else if(id==="FB2"){
+      out.title="FB2 · Deadlift, OHP, Row";
+      var dl;
+      if(k==="deload") dl=["main","Romanian deadlift","2 × 8, light","",0,"Deload."];
+      else if(k==="test") dl=["main","Deadlift","Work up, 1 × AMRAP @ 85%","dl",85,"Use the reps to set your next 1RM."];
+      else if(p===3) dl=["main","Deadlift (standard)","3 × 3 @ 85%","dl",85,"Week 3 of the block: heavy pulls."];
+      else dl=["main","Romanian deadlift","3 × 8–10 @ RPE 7–8","",0,"Standard deadlifts come in week 3."];
+      out.groups=[
+        ["Plyo",[["pow","Jump lunges or KB swings","3 × 3–5 / 3 × 10"]]],
+        ["Legs",[dl]],
+        ["Push + pull superset",[
+          mainLift("ohp","Overhead press",function(p){return ["main","Overhead press","4 × 5–6 @ "+PCT.ohp[p-1]+"%","ohp",PCT.ohp[p-1],"Then 1 × 10 @ 65%"];}),
+          k==="test"?["main","Row (chest-supported or seal)","3 × 8 @ 70%","row",70,"No test, keep it smooth."]:mainLift("row","Row (chest-supported or seal)",function(p){return ["main","Row (chest-supported or seal)","4 × 6–8 @ "+PCT.row[p-1]+"%","row",PCT.row[p-1],"Or a Pendlay row capped at RPE 8."];})]],
+        ["Accessories",[["acc","Reverse Nordics or sissy squats",acc+" × 6–10"],["acc","Rear delts + triceps",acc+" × 12–15 / 10–12"],["acc","Crunches + standing calf raises",acc+" × 15"]]]
+      ];
+    } else if(id==="FB3"){
+      out.title="FB3 · BSS, Bench, Weighted Pull-Up";
+      out.groups=[
+        ["Plyo",[["pow","Box jumps or Cossack squats","3 × 3–5 / 3 × 5/side"]]],
+        ["Legs",[["main","Bulgarian split squat", k==="deload"?"2 × 8/leg, easy":"3 × 8–10/leg @ RPE 8"]]],
+        ["Push + pull superset",[
+          mainLift("bp","Bench press",function(p){return ["main","Bench press","4 × 5 @ "+PCT.bp[p-1]+"%","bp",PCT.bp[p-1],"Then 1 × 8–10 @ 67%"];}),
+          k==="deload"?["main","Weighted pull-up","2 × 5, light"]:(k==="test"?["main","Pull-up","Bodyweight AMRAP"]:["main","Weighted pull-up","2 × 4–6 @ "+PCT.wpu[p-1]+"% (bodyweight + load)","",0,"Then 1 × AMRAP bodyweight"])]],
+        ["Accessories",[["acc","Hyperextensions",acc+" × 10–15"],["acc","Side delts + biceps",acc+" × 12–15 / 10–12"],["acc","Obliques + calf raises",acc+" × 10/side / 12–15"]]]
+      ];
+    } else if(id==="R1"){ out.run=["R1 · Easy day","HM21: 21 min of handstands and mobility","30 min easy Zone 2 swim or jog, conversational pace"]; }
+    else if(id==="R2"){
+      var h=["Sprints: 8 × 20 s hard, full recovery","Norwegian 4×4: 4 × 4 min at 85–95% max HR, 3 min easy","Tabata or KB intervals: 4 × 4 min blocks"][(week-1)%3];
+      out.run=["R2 · HIIT", "HM21: 21 min of handstands and mobility", k==="deload"?"Deload: 30 min easy Zone 2 instead of HIIT":h];
+    }
+    else if(id==="R3"){ out.run=["R3 · Long run","HM21: 21 min of handstands and mobility", k==="deload"?"Deload: 45 min easy":"60–90 min long run, Zone 2"]; }
+    else { out.run=["Rest","Full rest, or a walk","Optional: 10 min of easy mobility"]; }
+    return out;
+  }
+  function exRow(e){
+    var h='<div class="ex"><span class="nm"><span class="tag t-'+e[0]+'">'+(e[0]==="pow"?"power":e[0])+'</span>'+esc(e[1])+'</span><span class="rx">'+esc(e[2])+'</span>';
+    if(e[3]&&e[4]){var w=kg(e[3],e[4]); if(w) h+='<span class="kg">'+w+'</span>';}
+    if(e[5]) h+='<span class="sub">'+esc(e[5])+'</span>';
+    return h+'</div>';
+  }
+  function renderPickers(){
+    document.getElementById("len").innerHTML=[8,12].map(function(n){return '<button class="pill" aria-pressed="'+(n===len)+'" data-len="'+n+'">'+n+' weeks</button>';}).join("");
+    var w=""; for(var i=1;i<=len;i++){var k=kind(i); w+='<button class="pill'+(k==="deload"?" wdl":k==="test"?" wts":"")+'" aria-pressed="'+(i===week)+'" data-w="'+i+'">W'+i+'</button>';}
+    document.getElementById("weeks").innerHTML=w;
+    document.getElementById("days").innerHTML=DAYS.map(function(d,i){return '<button class="pill" aria-pressed="'+(i===day)+'" data-d="'+i+'">'+d[0]+' · '+(d[1]==="REST"?"Rest":d[1])+'</button>';}).join("");
+  }
+  function renderSession(){
+    var d=DAYS[day], s=session(d[1]), k=kind(week);
+    var chips='<span class="chip acc">Block '+block(week)+' · week '+pos(week)+'</span>';
+    if(k==="deload") chips+='<span class="chip dl">Deload week</span>';
+    if(k==="test") chips+='<span class="chip ts">Test week</span>';
+    var h='<div class="eyebrow">Week '+week+' of '+len+' · '+d[0]+'</div>';
+    if(s.run){
+      h+='<h2>'+esc(s.run[0])+'</h2><div class="meta">'+chips+'<span class="chip run">Run and mobility day</span></div>';
+      h+='<ul class="plain" style="margin-top:6px"><li>'+esc(s.run[1])+'</li><li>'+esc(s.run[2])+'</li></ul>';
+    } else {
+      h+='<h2>'+esc(s.title)+'</h2><div class="meta">'+chips+'</div>';
+      h+='<section class="part"><h3>Warm-up</h3><p class="note" style="color:var(--ink)">'+esc(s.warm)+'</p></section>';
+      s.groups.forEach(function(g){ h+='<section class="part"><h3>'+esc(g[0])+'</h3>'+g[1].map(exRow).join("")+'</section>'; });
+    }
+    document.getElementById("session").innerHTML=h;
+  }
+  function renderBlocks(){
+    var rows='<tr><th>Week in block</th><th>Squat</th><th>OHP</th><th>Bench</th><th>Row</th><th>W. pull-up</th></tr>';
+    for(var p=1;p<=3;p++) rows+='<tr><td>Week '+p+'</td><td class="num">'+PCT.sq[p-1]+'%</td><td class="num">'+PCT.ohp[p-1]+'%</td><td class="num">'+PCT.bp[p-1]+'%</td><td class="num">'+PCT.row[p-1]+'%</td><td class="num">'+PCT.wpu[p-1]+'%</td></tr>';
+    rows+='<tr><td>Week 4 · deload</td><td class="num" colspan="5">2 × 5 @ 70%, accessories 2 sets</td></tr>';
+    rows+='<tr><td>Final week · test</td><td class="num" colspan="5">1 × AMRAP @ 85% on squat, deadlift, OHP, bench</td></tr>';
+    document.getElementById("blocks").innerHTML=rows;
+  }
+  function render(){renderPickers();renderSession();save();}
+  document.getElementById("len").addEventListener("click",function(e){var b=e.target.closest("[data-len]");if(!b)return;len=+b.getAttribute("data-len");if(week>len)week=len;render();});
+  document.getElementById("weeks").addEventListener("click",function(e){var b=e.target.closest("[data-w]");if(!b)return;week=+b.getAttribute("data-w");render();});
+  document.getElementById("days").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;day=+b.getAttribute("data-d");render();});
+  Object.keys(LIFTS).forEach(function(k){var el=document.getElementById(LIFTS[k]); el.value=maxes[k]; el.addEventListener("input",function(){maxes[k]=el.value.trim();renderSession();save();});});
+  renderBlocks(); render();
+})();
+</script>
+</body>
+</html>
