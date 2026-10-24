@@ -50,7 +50,6 @@ button{font:inherit;color:inherit;cursor:pointer}
 .pill[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
 .pill.wdl{background:var(--dl-bg)} .pill.wtop{background:var(--top-bg);color:var(--top)}
 .pill.wdl[aria-pressed="true"],.pill.wtop[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
-.pill.today{box-shadow:inset 0 -3px 0 var(--acc)}
 .pill:focus-visible,a:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 .meta{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px}
 .chip{font-size:.78rem;font-weight:600;padding:3px 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted)}
@@ -81,9 +80,9 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
 <body>
 <div class="wrap">
   <header class="head">
-    <div class="eyebrow"><a href="../">My Training Program</a> · 8 weeks · 5 days + weekend</div>
+    <div class="eyebrow"><a href="../">My Training Program</a> · 8 weeks · 7-day cycle</div>
     <h1>The Protocol</h1>
-    <p class="lede">Legs, push and pull on their own days, an engine day with handstands, and a KB and rings day from the Workout Library. Weekends are for running and sport. Sessions take about 60 minutes. <a href="../food.html">Food principles →</a></p>
+    <p class="lede">Legs, push and pull on their own days, an engine day with handstands, and a KB and rings day from the Workout Library. Days 6 and 7 are for running and sport. Sessions take about 60 minutes. <a href="../food.html">Food principles →</a></p>
   </header>
 
   <section class="card picker" aria-label="Choose a session">
@@ -102,15 +101,15 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
         <h3>Week</h3>
         <div class="tbl"><table>
           <tr><th>Day</th><th>Session</th></tr>
-          <tr><td>Mon</td><td>Legs · front squat</td></tr>
-          <tr><td>Tue</td><td>Push · bench, OHP, weighted dips</td></tr>
-          <tr><td>Wed</td><td>Pull · weighted pull-ups, rows</td></tr>
-          <tr><td>Thu</td><td>HIIT + handstands, or a library Engine workout</td></tr>
-          <tr><td>Fri</td><td>KB + rings · a library Functional workout</td></tr>
-          <tr><td>Sat</td><td>Run or sport, optional library Engine workout</td></tr>
-          <tr><td>Sun</td><td>Sport or easy</td></tr>
+          <tr><td>Day 1</td><td>Legs · front squat</td></tr>
+          <tr><td>Day 2</td><td>Push · bench, OHP, weighted dips</td></tr>
+          <tr><td>Day 3</td><td>Pull · weighted pull-ups, rows</td></tr>
+          <tr><td>Day 4</td><td>HIIT + handstands, or a library Engine workout</td></tr>
+          <tr><td>Day 5</td><td>KB + rings · a library Functional workout</td></tr>
+          <tr><td>Day 6</td><td>Run or sport, optional library Engine workout</td></tr>
+          <tr><td>Day 7</td><td>Sport or easy</td></tr>
         </table></div>
-        <p class="note" style="margin-top:8px">Put anything hard on Saturday and keep Sunday easy, because legs come first on Monday. <b>Every day:</b> some mobility and handstand work.</p>
+        <p class="note" style="margin-top:8px">Run the days in order, starting Day 1 on whatever day suits you. Put anything hard on Day 6 and keep Day 7 easy, because legs come first on Day 1. <b>Every day:</b> some mobility and handstand work.</p>
       </div>
       <div class="card">
         <h3>Progression</h3>
@@ -121,8 +120,8 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
         <h3>Principles</h3>
         <ul>
           <li><b>Session shape:</b> 8 min warm-up, skill or power block, main lift(s), secondary, two accessory supersets.</li>
-          <li><b>Push day:</b> bench first, then OHP, then weighted dips. Handstand holds only on push day; HSPU work lives on Thursday.</li>
-          <li><b>Knees and hamstrings:</b> Nordics every Monday, plus reverse Nordics or sissy squats.</li>
+          <li><b>Push day:</b> bench first, then OHP, then weighted dips. Handstand holds only on push day; HSPU work lives on Day 4.</li>
+          <li><b>Knees and hamstrings:</b> Nordics on Day 1 every week, plus reverse Nordics or sissy squats.</li>
           <li><b>Daily:</b> some mobility and handstand work, outside the main sessions.</li>
           <li><b>Rotation for sport:</b> med-ball rotational throws and anti-rotation work every push day.</li>
           <li><b>Hinge:</b> RDL in A weeks or hyperextensions in B weeks, never both.</li>
@@ -134,12 +133,12 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
 </div>
 <script>
 (function(){
-  var WEEKS=8, DOW=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+  var WEEKS=8, DOW=["1","2","3","4","5","6","7"];
   var EFFORT={1:"Build · stop 3 reps short of failure",2:"Build · stop 2 reps short",3:"Build · stop 1 rep short",4:"Deload · half the sets, same weights, easy. HIIT becomes an easy swim.",5:"Build · stop 3 reps short",6:"Build · stop 2 reps short",7:"Build · stop 1 rep short",8:"Top sets · work up to a hard set of 5 on front squat, bench, OHP and pull-ups"};
   var HIIT={1:"Norwegian 4×4: 4 × 4 min at 85–95% max HR, 3 min easy (run or assault bike)",5:"Norwegian 4×4: 4 × 4 min at 85–95% max HR, 3 min easy (run or assault bike)",2:"Tabata: 4 blocks of 20 s on / 10 s off × 8 (bike or KB)",6:"Tabata: 4 blocks of 20 s on / 10 s off × 8 (bike or KB)",3:"Sprints: 8 × 20–30 s hard, full recovery",7:"Sprints: 8 × 20–30 s hard, full recovery",4:"Deload: 20–30 min easy swim",8:"Swim intervals: 10 × 50 m hard, 30 s rest"};
   // rows: [tag, A-week name, B-week name (null = same), sets × reps, note]
   var D={
-    Mon:{t:"Legs",rows:[
+    "1":{t:"Legs",rows:[
       ["acc","Warm-up: bike or jump rope, leg swings, deep squat",null,"8 min"],
       ["pow","Box jumps","Lateral bounds","3 × 3–5"],
       ["main","Front squat",null,"4 × 6–8"],
@@ -147,7 +146,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
       ["main","RDL","Loaded hyperextension","3 × 8–10"],
       ["acc","Nordic curls + Copenhagen plank",null,"3 × 3–6 + 20–30 s"],
       ["acc","Reverse Nordics + calf raises","Sissy squats + calf raises","3 × 6–10 + 12–15"]]},
-    Tue:{t:"Push",rows:[
+    "2":{t:"Push",rows:[
       ["acc","Warm-up: band pull-aparts, scap push-ups, light presses",null,"6 min"],
       ["skill","Handstand holds (no HSPU today)",null,"5 min"],
       ["main","Bench press",null,"4 × 6–8"],
@@ -155,37 +154,37 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
       ["main","Weighted dips",null,"3 × 6–10"],
       ["acc","Side delt raises + triceps",null,"3 × 12–15 + 10–12"],
       ["acc","Med-ball rotational throws + Pallof press or woodchops",null,"3 × 5/side + 10/side"]]},
-    Wed:{t:"Pull",rows:[
+    "3":{t:"Pull",rows:[
       ["acc","Warm-up: hangs, scap pull-ups, band rows",null,"6 min"],
       ["skill","Muscle-up practice",null,"6–8 min"],
       ["main","Weighted pull-ups","Weighted chin-ups","4 × 5–8"],
       ["main","Chest-supported row","Barbell or ring row","3 × 8–10"],
       ["acc","Rear delts + biceps",null,"3 × 12–15 + 10–12"],
       ["acc","Hanging leg raises + farmers or suitcase carry",null,"3 × 10–15 + 30–40 m"]]},
-    Thu:{t:"HIIT + Handstands",fn:function(w){return [
+    "4":{t:"HIIT + Handstands",fn:function(w){return [
       ["skill","Handstands: kick-ups, freestanding attempts, tuck holds, HSPU progression",null,"15 min"],
       ["run",HIIT[w],null,"20 min","Or swap for any library Engine workout."]]}},
-    Fri:{t:"KB + Rings",text:function(w){return w===4
+    "5":{t:"KB + Rings",text:function(w){return w===4
       ? "<p>Deload week: pick a lighter <a href=\"../library/\">Functional</a> workout, with lighter bells and fewer rounds.</p>"
-      : "<p>Pick any <a href=\"../library/\">Workout Library</a> Functional workout.</p><ul class=\"plain\"><li>Lean towards ones with hinge and power: swings, cleans, snatches.</li><li>Big match or round on Saturday? Pick a lighter one.</li></ul>";}},
-    Sat:{t:"Run or sport",text:function(){return "<p>Run or play. If you want more, add one library <a href=\"../library/\">Engine</a> workout today rather than Sunday.</p>";}},
-    Sun:{t:"Sport or easy",text:function(){return "<p>Sport, a walk or some mobility. Keep it easy: legs come first tomorrow.</p>";}}
+      : "<p>Pick any <a href=\"../library/\">Workout Library</a> Functional workout.</p><ul class=\"plain\"><li>Lean towards ones with hinge and power: swings, cleans, snatches.</li><li>Big match or round on Day 6? Pick a lighter one.</li></ul>";}},
+    "6":{t:"Run or sport",text:function(){return "<p>Run or play. If you want more, add one library <a href=\"../library/\">Engine</a> workout today rather than on Day 7.</p>";}},
+    "7":{t:"Sport or easy",text:function(){return "<p>Sport, a walk or some mobility. Keep it easy: legs come first on Day 1.</p>";}}
   };
   function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
   function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
   var wk=parseInt(store("alg-week"),10); if(!(wk>=1&&wk<=WEEKS)) wk=1;
-  var todayDow=DOW[(new Date().getDay()+6)%7], day=todayDow;
+  var day=store("alg-day"); if(DOW.indexOf(day)<0) day="1";
 
   function kind(w){return w===4?"dl":w===8?"top":"";}
   function renderPickers(){
     var h="";for(var w=1;w<=WEEKS;w++){var k=kind(w);h+='<button class="pill'+(k==="dl"?" wdl":k==="top"?" wtop":"")+'" data-w="'+w+'" aria-pressed="'+(w===wk)+'">W'+w+'</button>';}
     document.getElementById("weeks").innerHTML=h;
-    h="";DOW.forEach(function(d){h+='<button class="pill'+(d===todayDow?" today":"")+'" data-d="'+d+'" aria-pressed="'+(d===day)+'"'+(d===todayDow?' title="Today"':'')+'>'+d+'</button>';});
+    h="";DOW.forEach(function(d){h+='<button class="pill" data-d="'+d+'" aria-pressed="'+(d===day)+'">Day '+d+'</button>';});
     document.getElementById("days").innerHTML=h;
   }
   function renderSession(){
     var s=D[day], ab=wk%2?"A":"B", k=kind(wk);
-    var h='<div class="eyebrow">Week '+wk+' · '+day+(day===todayDow?' · Today':'')+'</div><h2>'+esc(s.t)+'</h2><div class="meta">';
+    var h='<div class="eyebrow">Week '+wk+' · Day '+day+'</div><h2>'+esc(s.t)+'</h2><div class="meta">';
     h+='<span class="chip acc">'+ab+' week</span>';
     if(k==="dl")h+='<span class="chip dl">Deload</span>'; if(k==="top")h+='<span class="chip top">Top sets</span>';
     h+='</div>';
@@ -207,7 +206,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
     document.getElementById("prog").innerHTML=h;
   }
   document.getElementById("weeks").addEventListener("click",function(e){var b=e.target.closest("[data-w]");if(!b)return;wk=+b.dataset.w;store("alg-week",String(wk));renderPickers();renderSession();});
-  document.getElementById("days").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;day=b.dataset.d;renderPickers();renderSession();});
+  document.getElementById("days").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;day=b.dataset.d;store("alg-day",day);renderPickers();renderSession();});
   renderPickers();renderSession();renderProg();
 })();
 </script>
