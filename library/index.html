@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Workout Library · The Protocol</title>
-<meta name="description" content="Thirty-minute kettlebell, ring and bodyweight workouts sorted into four session types, with a weekly balance tracker.">
+<meta name="description" content="Functional KB, ring and bodyweight workouts for Fridays, and Engine workouts for conditioning days.">
 <meta name="theme-color" content="#F2F4F3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101413" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,11 +16,11 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
-/* Layout: tracker card (this week + next session) on top, type filter, then the workout cards; rules at the bottom. */
+/* Layout: type filter, then the workout cards; how to use them at the bottom. */
 :root{
   --bg:#F2F4F3; --surface:#FFFFFF; --ink:#16201D; --muted:#56635E; --line:#D5DDD9;
   --teal:#0F766E; --teal-bg:#DCF0EC;
-  --tA:#2457C5; --tA-bg:#E3EBFA; --tB:#7A3E9D; --tB-bg:#F0E5F7; --tC:#B45309; --tC-bg:#FBEBD8; --tE:#B42318; --tE-bg:#FBE4E1; --tM:#3F6B2F; --tM-bg:#E5F0DD;
+  --tF:#0F766E; --tF-bg:#DCF0EC; --tA:#2457C5; --tA-bg:#E3EBFA; --tB:#7A3E9D; --tB-bg:#F0E5F7; --tC:#B45309; --tC-bg:#FBEBD8; --tE:#B42318; --tE-bg:#FBE4E1; --tM:#3F6B2F; --tM-bg:#E5F0DD;
   --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
@@ -29,11 +29,11 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#101413; --surface:#19201E; --ink:#E4ECE9; --muted:#97A6A0; --line:#2B3532;
   --teal:#5EC8BA; --teal-bg:#12332F;
-  --tA:#86A6F2; --tA-bg:#1E2944; --tB:#C9A1E6; --tB-bg:#2E2140; --tC:#F2B36A; --tC-bg:#3A2A14; --tE:#F2918A; --tE-bg:#3D1F1D; --tM:#9BCB84; --tM-bg:#1F2E1A; color-scheme:dark}}
+  --tF:#5EC8BA; --tF-bg:#12332F; --tA:#86A6F2; --tA-bg:#1E2944; --tB:#C9A1E6; --tB-bg:#2E2140; --tC:#F2B36A; --tC-bg:#3A2A14; --tE:#F2918A; --tE-bg:#3D1F1D; --tM:#9BCB84; --tM-bg:#1F2E1A; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#101413; --surface:#19201E; --ink:#E4ECE9; --muted:#97A6A0; --line:#2B3532;
   --teal:#5EC8BA; --teal-bg:#12332F;
-  --tA:#86A6F2; --tA-bg:#1E2944; --tB:#C9A1E6; --tB-bg:#2E2140; --tC:#F2B36A; --tC-bg:#3A2A14; --tE:#F2918A; --tE-bg:#3D1F1D; --tM:#9BCB84; --tM-bg:#1F2E1A; color-scheme:dark}
+  --tF:#5EC8BA; --tF-bg:#12332F; --tA:#86A6F2; --tA-bg:#1E2944; --tB:#C9A1E6; --tB-bg:#2E2140; --tC:#F2B36A; --tC-bg:#3A2A14; --tE:#F2918A; --tE-bg:#3D1F1D; --tM:#9BCB84; --tM-bg:#1F2E1A; color-scheme:dark}
 body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
 .wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:24px 56px;display:flex;flex-direction:column;gap:22px}
 h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:.01em;margin:0;line-height:1.05;text-wrap:balance}
@@ -64,7 +64,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .w.hl{outline:2px solid var(--teal);outline-offset:2px}
 .w-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
 .type{font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:5px;white-space:nowrap}
-.t-A{background:var(--tA-bg);color:var(--tA)} .t-B{background:var(--tB-bg);color:var(--tB)} .t-C{background:var(--tC-bg);color:var(--tC)} .t-E{background:var(--tE-bg);color:var(--tE)} .t-M{background:var(--tM-bg);color:var(--tM)}
+.t-F{background:var(--tF-bg);color:var(--tF)} .t-A{background:var(--tA-bg);color:var(--tA)} .t-B{background:var(--tB-bg);color:var(--tB)} .t-C{background:var(--tC-bg);color:var(--tC)} .t-E{background:var(--tE-bg);color:var(--tE)} .t-M{background:var(--tM-bg);color:var(--tM)}
 .fmt{font-family:var(--f-num);font-size:.82rem;color:var(--muted);margin:6px 0 8px}
 .mv{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:3px}
 .mv li{padding-left:14px;position:relative}
@@ -86,22 +86,10 @@ th{font-weight:600;color:var(--muted);font-size:.8rem;letter-spacing:.04em;text-
 <body>
 <div class="wrap">
   <header class="head">
-    <div class="eyebrow"><a href="../">The Protocol</a> · KB, rings and bodyweight · 30 minutes</div>
+    <div class="eyebrow"><a href="../">The Protocol</a> · KB, rings and bodyweight</div>
     <h1>Workout Library</h1>
-    <p class="lede">Pick the next session type, choose any workout in it, log your result. The tracker shows which movement slots this week still needs.</p>
+    <p class="lede">Functional workouts for Friday on <a href="../algorithm/" style="color:inherit;text-underline-offset:3px">The Algorithm</a>, and Engine workouts for Thursday or the weekend. Log a result and it shows on the card next time.</p>
   </header>
-
-  <section class="card" aria-labelledby="wk">
-    <div class="track-top"><h2 id="wk">This week</h2><span class="note" id="wk-range"></span></div>
-    <div class="cov" id="cov"></div>
-    <div class="next">
-      <span class="note">Next session</span>
-      <b id="next-type">Strength A</b>
-      <button class="btn primary" id="next-go">Suggest a workout</button>
-      <span class="note" id="next-why"></span>
-    </div>
-    <p class="note" style="margin-top:10px">Your log is saved in this browser only, so log from the same phone each time. <button class="btn" id="undo" style="min-height:32px;margin-left:6px">Undo last log</button></p>
-  </section>
 
   <section aria-label="Workouts">
     <div class="filters" id="filters"></div>
@@ -109,41 +97,29 @@ th{font-weight:600;color:var(--muted);font-size:.8rem;letter-spacing:.04em;text-
   </section>
 
   <section>
-    <h2>How it works</h2>
+    <h2>How to use it</h2>
     <div class="rules" style="margin-top:12px">
       <div class="card">
-        <h3>Daily rhythm</h3>
+        <h3>Functional · Fridays</h3>
         <ul>
-          <li><b>Morning:</b> a mobility, yoga or qigong flow, plus a walk or easy run.</li>
-          <li><b>Main session (30 min):</b> 5 min warm-up and skill, 20 min main block, 5 min accessory.</li>
-          <li><b>Optional evening:</b> swim or Zone 2 on days without a main session.</li>
+          <li>Full-body KB, ring and bodyweight work: muscle-ups, squats, presses, cleans, swings and snatches.</li>
+          <li>Lean towards workouts with a hinge and power tag. The rest of the week is lightest on those.</li>
+          <li>Before a big match or round on Saturday, pick a lighter one.</li>
+          <li>Deload week: lighter bells and fewer rounds.</li>
         </ul>
       </div>
       <div class="card">
-        <h3>Rotation</h3>
+        <h3>Engine · Thursday or weekend</h3>
         <ul>
-          <li>Strength A → Complex → Strength B → Engine, then repeat.</li>
-          <li>Rotate session types, not weekdays. Miss a day and you pick up where you left off.</li>
-          <li>Aim for 4 main sessions a week. Three still works.</li>
+          <li>Swap one in for Thursday's HIIT, or add one on Saturday.</li>
+          <li>Keep Sunday easy. Legs come first on Monday.</li>
         </ul>
-      </div>
-      <div class="card">
-        <h3>Balance rule</h3>
-        <ul>
-          <li>Every session: a lower movement, a push, a pull and an accessory.</li>
-          <li>Alternate squat and hinge from one session to the next.</li>
-          <li>If a workout misses a slot, your next session covers it.</li>
-          <li><b>Every Strength A</b> ends with the knee block, <b>every Strength B</b> with the hamstring block. Keep both short and stop before failure. No Nordics the day before sprints.</li>
-        </ul>
-        <div class="tbl"><table id="targets"></table></div>
       </div>
       <div class="card">
         <h3>Progression</h3>
         <ul>
-          <li>Repeat favourites every 2–3 weeks and log rounds or reps.</li>
+          <li>Repeat favourites every 2–3 weeks and log rounds, reps or the bell you used.</li>
           <li>Beat a result twice, then go up a bell.</li>
-          <li>4-week waves: weeks 1–3 push, week 4 lighter bells and fewer rounds.</li>
-          <li><b>Strong:</b> heavier bells, full rests. <b>Lean:</b> lighter bells, keep moving, add steps and Zone 2.</li>
         </ul>
       </div>
     </div>
@@ -152,169 +128,100 @@ th{font-weight:600;color:var(--muted);font-size:.8rem;letter-spacing:.04em;text-
 
 <script>
 (function(){
-  var SLOTS=[["squat","Squat",2],["hinge","Hinge",2],["push","Push",2],["pull","Pull",2],["power","Explosive",2],["post","Hamstring / back",1],["knee","Knee / single leg",1],["core","Core",1],["carry","Carry",1]];
-  var TYPES={A:"Strength A",C:"Complex",B:"Strength B",E:"Engine",M:"Morning"};
-  var TYPE_NOTE={A:"Squat + push focus",C:"Full-body KB complex",B:"Hinge + pull focus",E:"Conditioning",M:"Mobility flow, not logged as a main session"};
-  var ORDER=["A","C","B","E"];
-  /* id, type, name, format, moves[], acc[], slots[] */
+  var TYPES={F:"Functional",E:"Engine"};
+  var LABEL={squat:"Squat",hinge:"Hinge",push:"Push",pull:"Pull",power:"Power",post:"Hamstrings",knee:"Single leg",core:"Core",carry:"Carry"};
+  /* id, type, name, format, moves[], acc[], tags[] */
   var W=[
-   ["a1","A","Muscle-Up and Rack Squat","Every 2 min × 10 (20 min)", ["3–5 ring muscle-ups (or 5 pull-ups + 5 dips)","10 double KB rack squats"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)"],["squat","pull","push","knee"]],
-   ["a2","A","Press, Cossack, Row","Every 2 min × 10", ["5 double KB strict press","8 goblet Cossack squats (4/side)","8 feet-elevated ring rows"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)","Hanging leg raises 3 × 10"],["squat","push","pull","core","knee"]],
-   ["a3","A","Front Squat, Dip, Pull-Up","EMOM 21, three stations × 7 rounds", ["Min 1: 8 double KB front squats","Min 2: 8–10 ring dips","Min 3: 6–8 strict pull-ups"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)"],["squat","push","pull","knee"]],
-   ["a4","A","Thruster and Chin","Every 2 min × 10", ["8 double KB thrusters","6 chin-ups"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)","L-sit 3 × 20 s"],["squat","push","pull","power","core","knee"]],
-   ["a5","A","Split Squat and Floor Press","4 rounds, 60 s rest", ["8 KB Bulgarian split squats per leg","10 double KB floor press","10 ring rows"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)"],["squat","push","pull","knee"]],
-   ["a6","A","Overhead Lunge and Ring Push-Up","Every 2 min × 10", ["4 KB snatch-to-overhead reverse lunges per side","10 ring push-ups","5 strict pull-ups"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)","Hanging leg raises 3 × 10"],["squat","power","push","pull","core","knee"]],
-   ["a7","A","Clean and Jerk, Goblet, Row","EMOM 21, three stations × 7 rounds", ["Min 1: 5 double KB clean and jerks","Min 2: 10 heels-elevated goblet squats","Min 3: 8 ring rows"],["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)","Windmills 3 × 5/side","Side plank 3 × 30 s/side"],["squat","power","push","pull","core","knee"]],
-   ["a8","A","Handstand and Pistol","Every 2 min × 10", ["3–5 HSPU (or pike push-ups)","5 KB-counterweight pistols per leg (to a box if needed)","5 ring pull-ups"],["Knee block: reverse Nordics 2–3 × 6–8 (pistols already done above)"],["squat","push","pull","knee"]],
-   ["a9", "A", "10-Min Legs and Rings", "EMOM 10, then EMOM 10 · from your Conditioning page", ["Min 1–10: KB clean → front squat → reverse lunge, 5–10 reps on one side, switch sides each minute", "Min 11–20: alternate 8 ring dips / 10 ring rows"], ["Knee block: pistols or Cossack squats 2–3 × 5/side + reverse Nordics 2–3 × 6–8 (partial range to start)"], ["squat", "power", "push", "pull", "knee"]],
-   ["c1","C","Snatch, Goblet, Clean and Press","Repeat for 20 min, 20 s rest after each block",["5 KB snatches per side","10 goblet squats","3 KB clean and press per side","8 ring rows (added so the circuit has a pull)"],["Optional: hollow hold 3 × 30 s"],["power","hinge","squat","push","pull","core"]],
-   ["c2","C","Double KB Clean, Press, Squat","EMOM 20",["2 double KB cleans","2 double KB presses","3 double KB front squats"],["Pull-ups 3 × max − 2"],["power","push","squat","pull"]],
-   ["c3","C","Single KB Flow","AMRAP 20, 60 s rest after both sides",["Each side: 5 swings, 3 cleans, 3 presses, 3 reverse lunges, 3 snatches"],["Ring rows 3 × 10"],["power","hinge","push","squat","pull"]],
-   ["c4","C","Hinge Complex","5 rounds, 90 s rest",["6 double KB RDLs","6 double KB bent-over rows","6 double KB hang cleans","6 double KB front squats","6 double KB push press"],["Toes-to-rings 3 × 8"],["hinge","pull","power","squat","push","core"]],
-   ["c5","C","Clean, Thruster, Lunge","EMOM 20, alternate sides each minute",["2 KB cleans","2 KB thrusters","2 KB rack reverse lunges","+ 5 ring rows"],["Suitcase carry 3 × 30 m/side"],["power","squat","push","pull","carry"]],
-   ["c6","C","Get-Up Complex","20 min steady, quality first",["1 Turkish get-up per side","5 windmills per side","10 two-hand swings","5 strict pull-ups"],["Deep squat hold 2 min"],["core","power","hinge","pull","push"]],
-   ["c7","C","Snatch and Overhead Lunge","6 rounds, 75 s rest",["Each side: 3 snatches, 3 overhead reverse lunges, 10 m overhead walk","6 ring dips","6 ring rows"],["Nordic curls 3 × 5"],["power","squat","carry","push","pull","post"]],
-   ["c8","C","Floor and Bar","AMRAP 20",["8 double KB floor press","8 double KB gorilla rows","8 double KB front squats","10 KB glute bridges (bells on hips)","5 toes-to-rings"],["Farmers carry 3 × 40 m"],["push","pull","squat","post","core","carry"]],
-   ["c9", "C", "Susan", "20 min, four-minute cycle · from your Conditioning page", ["Min 1: 5 KB swings each arm", "Min 2: 5 press-to-windmills, right", "Min 3: 5 KB swings each arm", "Min 4: 5 press-to-windmills, left"], ["Goblet squats 3 × 10", "Ring rows 3 × 10 (adds squat and pull)"], ["power", "hinge", "push", "core", "squat", "pull"]],
-   ["c10", "C", "Billy Boy", "AMRAP 20, aim for 4–5 rounds (original: 10 rounds in 45 min) · from your Conditioning page", ["10 KB reverse lunges each side", "10 KB snatch-to-windmills each side", "10 KB thrusters each side"], ["Ring rows 3 × 10 (adds the pull)"], ["squat", "power", "hinge", "push", "core", "pull"]],
-   ["c11", "C", "Fiorentina", "10 rounds, cap at 25 min · from your Conditioning page", ["Double KB, 5 reps each: high pull → clean → squat → thruster", "50 push-ups after every 2 rounds (split as needed)"], ["Ring rows 3 × 10"], ["pull", "power", "squat", "push"]],
-   ["c12", "C", "Devil's Tricycle", "6 rounds, 1 min rest · from your Conditioning page", ["Heavy single KB:", "6 swings", "6 deadlift high pulls", "3 offset squat cleans per side"], ["Ring dips 3 × 8 (adds the push)"], ["power", "hinge", "pull", "squat", "push"]],
-   ["c13", "C", "Zeus", "7 sets, 2 min rest · from your Conditioning page", ["Per side: 6 single-arm KB rows, 5 dead cleans, 4 squats"], ["Push-ups or ring dips 3 × 10 (adds the push)"], ["pull", "power", "squat", "push"]],
-   ["c14", "C", "Joe Rogan", "Warm-up, then 3 sets of each · from your Conditioning page", ["Warm-up 5 sets: 20 bodyweight squats + 20 push-ups", "10 single-arm KB swings per arm", "10 single-arm KB clean and press per arm", "10 windmills per arm", "10 renegade rows per arm"], [], ["squat", "push", "power", "hinge", "core", "pull"]],
-
-   ["b1","B","Clean and Weighted Pull-Up","Every 2 min × 10", ["5 double KB cleans","5 weighted pull-ups (KB on foot)","8 push-ups"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time"],["power","hinge","pull","push","post"]],
-   ["b2","B","RDL and Muscle-Up","Every 2 min × 10", ["8 double KB RDLs","3 ring muscle-ups (or 5 pull-ups + 5 dips)"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time"],["hinge","pull","push","post"]],
-   ["b3","B","Swing, Renegade, Dip","EMOM 21, three stations × 7 rounds", ["Min 1: 15 heavy two-hand swings","Min 2: 10 renegade rows","Min 3: 10 ring dips"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time","Hanging leg raises 3 × 10"],["power","hinge","pull","push","core","post"]],
-   ["b4","B","Single-Leg RDL and Chin","4 rounds, 60 s rest", ["8 KB single-leg RDLs per leg","6–8 chin-ups","6 half-kneeling KB press per side"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time"],["hinge","pull","push","post"]],
-   ["b5","B","High Pull and Dip","Every 2 min × 10", ["6 KB high pulls per side","8 ring dips","10 KB hip thrusts"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time"],["power","hinge","pull","push","post"]],
-   ["b6","B","Snatch and Pull-Up","Every 2 min × 10", ["5 KB snatches per side","5 strict pull-ups","8 push-ups"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time","Side plank 3 × 30 s/side"],["power","hinge","pull","push","post","core"]],
-   ["b7","B","Dead-Stop Swing and Ring Row","4 rounds, 60 s rest", ["8 double KB dead-stop swings","12 feet-elevated ring rows","10 double KB floor press"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time","Hanging leg raises 3 × 10"],["power","hinge","pull","push","core","post"]],
-   ["b8","B","Clean and Pull Ladder","Ladder 1-2-3-4-5 × 3, 2 min rest between ladders", ["Double KB cleans","Strict pull-ups","Ring dips (same number each rung)"],["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time","Farmers carry 2 × 40 m"],["power","hinge","pull","push","post","carry"]],
-   ["b9", "B", "Thomas", "For time, rest 3 min between halves · from your Conditioning page", ["10-9-8…1: double KB deadlifts + toes-to-rings", "1-2-3…10: ring rows + cyclist goblet squats"], ["Hamstring block: Nordic curls 2–3 × 3–6 + loaded hyperextensions 2 × 10–12 if time", "Ring dips 3 × 8 (adds the push)"], ["hinge", "core", "pull", "squat", "post", "push"]],
-   ["e1","E","Swing Tens","EMOM 20",["Odd minutes: 15 two-hand swings","Even minutes: 10 burpees"],["Ring rows 3 × 12"],["power","hinge","pull"]],
-   ["e2","E","Snatch Intervals","10 × 30 s on, 30 s off",["KB snatches, switch hands as needed, steady pace"],["Pull-ups 3 × max − 2","Hollow hold 3 × 30 s"],["power","hinge","pull","core"]],
-   ["e3","E","Swim","20–30 min",["10 × 50 m hard, 30 s rest","Or 20–30 min steady, easy breathing"],["Dead hang 3 × 30 s"],["pull"]],
-   ["e4","E","Sprint and Swing","8 rounds",["100 m run, hard","15 KB swings","Walk back to rest"],["Farmers carry 3 × 40 m"],["power","hinge","carry"]],
-   ["e5","E","KB Tabata","4 × Tabata (20 s on, 10 s off × 8), 1 min between",["Swings","Thrusters","Ring rows","Burpees"],[],["power","hinge","squat","push","pull"]],
-   ["e6","E","Jump, Dip, Swing","EMOM 16, four stations × 4 rounds",["Min 1: 10 jump squats","Min 2: 10 ring dips","Min 3: 15 swings","Min 4: 10 hanging knee raises"],[],["power","squat","push","hinge","core"]],
-   ["e7","E","Zone 2","30 min easy run, swim or brisk walk",["Conversational pace the whole way"],[],[]],
-   ["e8","E","Burpee Pull-Up Ladder","2-4-6-8-10-8-6-4-2, for time",["Burpee pull-ups","Double KB swings (same reps each rung)"],["Suitcase carry 2 × 30 m/side"],["power","hinge","pull","carry"]],
-
-   ["e9","E","Cindy","AMRAP 20",["5 pull-ups","10 push-ups","15 air squats"],["Ring version on strong days: 5 ring pull-ups, 10 ring push-ups"],["pull","push","squat"]],
+   ["a1", "F", "Muscle-Up and Rack Squat", "Every 2 min × 10 (20 min)", ["3–5 ring muscle-ups (or 5 pull-ups + 5 dips)", "10 double KB rack squats"], [], ["squat", "pull", "push"]],
+   ["a2", "F", "Press, Cossack, Row", "Every 2 min × 10", ["5 double KB strict press", "8 goblet Cossack squats (4/side)", "8 feet-elevated ring rows"], ["Hanging leg raises 3 × 10"], ["squat", "push", "pull", "core"]],
+   ["a3", "F", "Front Squat, Dip, Pull-Up", "EMOM 21, three stations × 7 rounds", ["Min 1: 8 double KB front squats", "Min 2: 8–10 ring dips", "Min 3: 6–8 strict pull-ups"], [], ["squat", "push", "pull"]],
+   ["a4", "F", "Thruster and Chin", "Every 2 min × 10", ["8 double KB thrusters", "6 chin-ups"], ["L-sit 3 × 20 s"], ["squat", "push", "pull", "power", "core"]],
+   ["a5", "F", "Split Squat and Floor Press", "4 rounds, 60 s rest", ["8 KB Bulgarian split squats per leg", "10 double KB floor press", "10 ring rows"], [], ["squat", "push", "pull", "knee"]],
+   ["a6", "F", "Overhead Lunge and Ring Push-Up", "Every 2 min × 10", ["4 KB snatch-to-overhead reverse lunges per side", "10 ring push-ups", "5 strict pull-ups"], ["Hanging leg raises 3 × 10"], ["squat", "power", "push", "pull", "core"]],
+   ["a7", "F", "Clean and Jerk, Goblet, Row", "EMOM 21, three stations × 7 rounds", ["Min 1: 5 double KB clean and jerks", "Min 2: 10 heels-elevated goblet squats", "Min 3: 8 ring rows"], ["Windmills 3 × 5/side", "Side plank 3 × 30 s/side"], ["squat", "power", "push", "pull", "core"]],
+   ["a8", "F", "Handstand and Pistol", "Every 2 min × 10", ["3–5 HSPU (or pike push-ups)", "5 KB-counterweight pistols per leg (to a box if needed)", "5 ring pull-ups"], [], ["squat", "push", "pull", "knee"]],
+   ["a9", "F", "10-Min Legs and Rings", "EMOM 10, then EMOM 10 · from your Conditioning page", ["Min 1–10: KB clean → front squat → reverse lunge, 5–10 reps on one side, switch sides each minute", "Min 11–20: alternate 8 ring dips / 10 ring rows"], [], ["squat", "power", "push", "pull"]],
+   ["c1", "F", "Snatch, Goblet, Clean and Press", "Repeat for 20 min, 20 s rest after each block", ["5 KB snatches per side", "10 goblet squats", "3 KB clean and press per side", "8 ring rows (added so the circuit has a pull)"], ["Optional: hollow hold 3 × 30 s"], ["power", "hinge", "squat", "push", "pull", "core"]],
+   ["c2", "F", "Double KB Clean, Press, Squat", "EMOM 20", ["2 double KB cleans", "2 double KB presses", "3 double KB front squats"], ["Pull-ups 3 × max − 2"], ["power", "push", "squat", "pull"]],
+   ["c3", "F", "Single KB Flow", "AMRAP 20, 60 s rest after both sides", ["Each side: 5 swings, 3 cleans, 3 presses, 3 reverse lunges, 3 snatches"], ["Ring rows 3 × 10"], ["power", "hinge", "push", "squat", "pull"]],
+   ["c4", "F", "Hinge Complex", "5 rounds, 90 s rest", ["6 double KB RDLs", "6 double KB bent-over rows", "6 double KB hang cleans", "6 double KB front squats", "6 double KB push press"], ["Toes-to-rings 3 × 8"], ["hinge", "pull", "power", "squat", "push", "core"]],
+   ["c5", "F", "Clean, Thruster, Lunge", "EMOM 20, alternate sides each minute", ["2 KB cleans", "2 KB thrusters", "2 KB rack reverse lunges", "+ 5 ring rows"], ["Suitcase carry 3 × 30 m/side"], ["power", "squat", "push", "pull", "carry"]],
+   ["c6", "F", "Get-Up Complex", "20 min steady, quality first", ["1 Turkish get-up per side", "5 windmills per side", "10 two-hand swings", "5 strict pull-ups"], ["Deep squat hold 2 min"], ["core", "power", "hinge", "pull", "push"]],
+   ["c7", "F", "Snatch and Overhead Lunge", "6 rounds, 75 s rest", ["Each side: 3 snatches, 3 overhead reverse lunges, 10 m overhead walk", "6 ring dips", "6 ring rows"], ["Nordic curls 3 × 5"], ["power", "squat", "carry", "push", "pull", "post"]],
+   ["c8", "F", "Floor and Bar", "AMRAP 20", ["8 double KB floor press", "8 double KB gorilla rows", "8 double KB front squats", "10 KB glute bridges (bells on hips)", "5 toes-to-rings"], ["Farmers carry 3 × 40 m"], ["push", "pull", "squat", "post", "core", "carry"]],
+   ["c9", "F", "Susan", "20 min, four-minute cycle · from your Conditioning page", ["Min 1: 5 KB swings each arm", "Min 2: 5 press-to-windmills, right", "Min 3: 5 KB swings each arm", "Min 4: 5 press-to-windmills, left"], ["Goblet squats 3 × 10", "Ring rows 3 × 10 (adds squat and pull)"], ["power", "hinge", "push", "core", "squat", "pull"]],
+   ["c10", "F", "Billy Boy", "AMRAP 20, aim for 4–5 rounds (original: 10 rounds in 45 min) · from your Conditioning page", ["10 KB reverse lunges each side", "10 KB snatch-to-windmills each side", "10 KB thrusters each side"], ["Ring rows 3 × 10 (adds the pull)"], ["squat", "power", "hinge", "push", "core", "pull"]],
+   ["c11", "F", "Fiorentina", "10 rounds, cap at 25 min · from your Conditioning page", ["Double KB, 5 reps each: high pull → clean → squat → thruster", "50 push-ups after every 2 rounds (split as needed)"], ["Ring rows 3 × 10"], ["pull", "power", "squat", "push"]],
+   ["c12", "F", "Devil's Tricycle", "6 rounds, 1 min rest · from your Conditioning page", ["Heavy single KB:", "6 swings", "6 deadlift high pulls", "3 offset squat cleans per side"], ["Ring dips 3 × 8 (adds the push)"], ["power", "hinge", "pull", "squat", "push"]],
+   ["c13", "F", "Zeus", "7 sets, 2 min rest · from your Conditioning page", ["Per side: 6 single-arm KB rows, 5 dead cleans, 4 squats"], ["Push-ups or ring dips 3 × 10 (adds the push)"], ["pull", "power", "squat", "push"]],
+   ["c14", "F", "Joe Rogan", "Warm-up, then 3 sets of each · from your Conditioning page", ["Warm-up 5 sets: 20 bodyweight squats + 20 push-ups", "10 single-arm KB swings per arm", "10 single-arm KB clean and press per arm", "10 windmills per arm", "10 renegade rows per arm"], [], ["squat", "push", "power", "hinge", "core", "pull"]],
+   ["b1", "F", "Clean and Weighted Pull-Up", "Every 2 min × 10", ["5 double KB cleans", "5 weighted pull-ups (KB on foot)", "8 push-ups"], [], ["power", "hinge", "pull", "push"]],
+   ["b2", "F", "RDL and Muscle-Up", "Every 2 min × 10", ["8 double KB RDLs", "3 ring muscle-ups (or 5 pull-ups + 5 dips)"], [], ["hinge", "pull", "push"]],
+   ["b3", "F", "Swing, Renegade, Dip", "EMOM 21, three stations × 7 rounds", ["Min 1: 15 heavy two-hand swings", "Min 2: 10 renegade rows", "Min 3: 10 ring dips"], ["Hanging leg raises 3 × 10"], ["power", "hinge", "pull", "push", "core"]],
+   ["b4", "F", "Single-Leg RDL and Chin", "4 rounds, 60 s rest", ["8 KB single-leg RDLs per leg", "6–8 chin-ups", "6 half-kneeling KB press per side"], [], ["hinge", "pull", "push", "post"]],
+   ["b5", "F", "High Pull and Dip", "Every 2 min × 10", ["6 KB high pulls per side", "8 ring dips", "10 KB hip thrusts"], [], ["power", "hinge", "pull", "push", "post"]],
+   ["b6", "F", "Snatch and Pull-Up", "Every 2 min × 10", ["5 KB snatches per side", "5 strict pull-ups", "8 push-ups"], ["Side plank 3 × 30 s/side"], ["power", "hinge", "pull", "push", "core"]],
+   ["b7", "F", "Dead-Stop Swing and Ring Row", "4 rounds, 60 s rest", ["8 double KB dead-stop swings", "12 feet-elevated ring rows", "10 double KB floor press"], ["Hanging leg raises 3 × 10"], ["power", "hinge", "pull", "push", "core"]],
+   ["b8", "F", "Clean and Pull Ladder", "Ladder 1-2-3-4-5 × 3, 2 min rest between ladders", ["Double KB cleans", "Strict pull-ups", "Ring dips (same number each rung)"], ["Farmers carry 2 × 40 m"], ["power", "hinge", "pull", "push", "carry"]],
+   ["b9", "F", "Thomas", "For time, rest 3 min between halves · from your Conditioning page", ["10-9-8…1: double KB deadlifts + toes-to-rings", "1-2-3…10: ring rows + cyclist goblet squats"], ["Ring dips 3 × 8 (adds the push)"], ["hinge", "core", "pull", "squat", "push"]],
+   ["e1", "E", "Swing Tens", "EMOM 20", ["Odd minutes: 15 two-hand swings", "Even minutes: 10 burpees"], ["Ring rows 3 × 12"], ["power", "hinge", "pull"]],
+   ["e2", "E", "Snatch Intervals", "10 × 30 s on, 30 s off", ["KB snatches, switch hands as needed, steady pace"], ["Pull-ups 3 × max − 2", "Hollow hold 3 × 30 s"], ["power", "hinge", "pull", "core"]],
+   ["e3", "E", "Swim", "20–30 min", ["10 × 50 m hard, 30 s rest", "Or 20–30 min steady, easy breathing"], ["Dead hang 3 × 30 s"], ["pull"]],
+   ["e4", "E", "Sprint and Swing", "8 rounds", ["100 m run, hard", "15 KB swings", "Walk back to rest"], ["Farmers carry 3 × 40 m"], ["power", "hinge", "carry"]],
+   ["e5", "E", "KB Tabata", "4 × Tabata (20 s on, 10 s off × 8), 1 min between", ["Swings", "Thrusters", "Ring rows", "Burpees"], [], ["power", "hinge", "squat", "push", "pull"]],
+   ["e6", "E", "Jump, Dip, Swing", "EMOM 16, four stations × 4 rounds", ["Min 1: 10 jump squats", "Min 2: 10 ring dips", "Min 3: 15 swings", "Min 4: 10 hanging knee raises"], [], ["power", "squat", "push", "hinge", "core"]],
+   ["e7", "E", "Zone 2", "30 min easy run, swim or brisk walk", ["Conversational pace the whole way"], [], []],
+   ["e8", "E", "Burpee Pull-Up Ladder", "2-4-6-8-10-8-6-4-2, for time", ["Burpee pull-ups", "Double KB swings (same reps each rung)"], ["Suitcase carry 2 × 30 m/side"], ["power", "hinge", "pull", "carry"]],
+   ["e9", "E", "Cindy", "AMRAP 20", ["5 pull-ups", "10 push-ups", "15 air squats"], ["Ring version on strong days: 5 ring pull-ups, 10 ring push-ups"], ["pull", "push", "squat"]],
    ["e10", "E", "Treadmill Sprints", "35 min · from your Conditioning page", ["5 min warm-up jog", "5 cycles: 30 s sprint · 90 s walk · 60 s fast run · 2 min walk", "5 min cool-down walk"], [], ["power"]],
    ["e11", "E", "Push, Pull, Carry", "2 × AMRAP 10, 2 min rest · from your Conditioning page", ["AMRAP 10: 5 single-arm KB floor press per side, 5 double KB cleans, 20 m KB front-rack carry, 2 wall walks", "AMRAP 10: 10 ring rows, 10 single-arm KB push press R, 10 double KB gorilla rows, 10 single-arm KB push press L"], [], ["push", "power", "hinge", "carry", "core", "pull"]],
    ["e12", "E", "Cyril", "For quality, 4 sets: 12-10-8 · 10-8-6 · 8-6-4 · 6-4-2 · from your Conditioning page", ["Strict toes-to-rings", "Renegade rows", "Wall walks"], ["Lighter day option"], ["core", "pull", "push"]],
-   ["e13", "E", "Rack Grinder", "15 min continuous, steady · from your Conditioning page", ["30 s double KB rack wall sit", "30 s double KB rack carry", "3 wall walks", "6 strict toes-to-bar", "9 ring push-ups"], [], ["squat", "carry", "push", "core"]],
-
-   ["m1", "M", "Hips Open", "12–15 min, hold each 60–90 s per side, breathe slowly", ["Deep squat hold, shifting side to side", "Couch stretch (knee against the wall, squeeze the glute)", "Low lunge to half split, rocking between them", "Pigeon pose", "Frog stretch, rocking back and forth", "90/90 hip switches × 10, then hold each side"], [], []],
-   ["m2", "M", "Pancake and Hamstrings", "12–15 min", ["Seated forward fold, 60 s", "Half split, 60 s per side", "Pancake (wide straddle fold): 3 × 30 s, actively pull yourself down with your hip flexors", "Straddle side reaches × 5 per side", "Elevated pike fold, 60 s", "Light Jefferson curls × 8, slow"], [], []],
-   ["m3", "M", "Sun Salutations", "10–15 min, flow with the breath", ["5 rounds of Sun Salutation A: reach up, fold, half lift, plank, chaturanga, up dog, down dog", "3 rounds of Sun Salutation B: add chair pose and warrior I each side", "Down dog pedalling the heels, 60 s", "Up dog to down dog × 10, slow"], [], []],
-   ["m4", "M", "Spine and Twists", "10–12 min", ["Cat-cow × 10", "Thread the needle × 5 per side, hold the last", "Open books × 8 per side", "Seated spinal twist, 45 s per side", "Bridge, 3 × 20 s (work towards a wheel)", "Supine twist, 60 s per side", "Child's pose with side reach, 30 s per side"], [], []],
-   ["m7", "M", "Handstand Practice", "15 min, quality only", ["Wrist prep: circles, palm and finger lifts, 2 min", "Down dog to plank shoulder shifts × 10", "Wall chest-to-wall hold, 3 × 30 s", "Kick-ups to freestanding, 10 attempts", "Tuck or straddle holds against the wall, 3 × 20 s", "Wall shoulder taps × 10", "Finish with a forearm or wrist stretch"], [], []],
-   ["m8", "M", "Qigong: Eight Brocades", "12–15 min, slow, 6–8 breaths per movement", ["Two hands hold up the heavens", "Drawing the bow to shoot the hawk (each side)", "Separating heaven and earth", "Wise owl gazes backwards", "Sway the head and shake the tail", "Two hands touch the feet", "Clench the fists with angry eyes", "Bounce on the toes", "Finish with 2 min standing still, breathing low into the belly"], [], []],
-   ["m9", "M", "Morning Yoga 15", "15 min, full body", ["3 Sun Salutation A", "Low lunge with side bend, 45 s per side", "Lizard pose, 45 s per side", "Down dog to pigeon, 60 s per side", "Seated twist, 30 s per side", "Bridge 3 × 20 s", "Legs up the wall or savasana, 2 min"], [], []],
-   ["m5", "M", "Cassandrah", "15-min EMOM, 40 s on / 20 s off · Leo Moves · from your Conditioning page", ["Jumping jacks", "Knee circles, standing on left leg, then right leg", "Squat to full kneel", "Down dog to opposite heel touch, to kneeling table", "Thread the needle", "Table position toe touches", "90/90 cross kicks to lifts, each side", "Straddle one-arm lifts", "Side kicks", "Kick-through get-ups, each side", "Front kicks", "Mountain climbers + jumps"], [], []],
-   ["m6", "M", "Jimmy", "EMOM, 4–6 rounds of 5 minutes · animal flow · from your Conditioning page", ["Min 1: mountain climbers with ninja turn", "Min 2: side kick to plank extension", "Min 3: side monkey jump turn", "Min 4: scissor kicks to low squat jump", "Min 5: rest"], [], []]
+   ["e13", "E", "Rack Grinder", "15 min continuous, steady · from your Conditioning page", ["30 s double KB rack wall sit", "30 s double KB rack carry", "3 wall walks", "6 strict toes-to-bar", "9 ring push-ups"], [], ["squat", "carry", "push", "core"]]
   ];
-  var LABEL={}; SLOTS.forEach(function(s){LABEL[s[0]]=s[1];});
-  var BY={}; W.forEach(function(w){BY[w[0]]=w;});
-
   var log=[];
   try{log=JSON.parse(localStorage.getItem("lib-log")||"[]")||[];}catch(e){log=[];}
   function save(){try{localStorage.setItem("lib-log",JSON.stringify(log));}catch(e){}}
   var filter="all";
   try{filter=localStorage.getItem("lib-filter")||"all";}catch(e){}
-
+  if(filter!=="all"&&!TYPES[filter]) filter="all";
   function esc(x){return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");}
-  function today(){var d=new Date();return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
-  function monday(d){var x=new Date(d);var k=(x.getDay()+6)%7;x.setDate(x.getDate()-k);return x;}
   function iso(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");}
   function pretty(s){var p=s.split("-");var M=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];return (+p[2])+" "+M[+p[1]-1];}
-
-  function weekLogs(){
-    var m=iso(monday(today())), e=new Date(monday(today()));e.setDate(e.getDate()+6);var en=iso(e);
-    return log.filter(function(l){return l.date>=m&&l.date<=en;});
-  }
-  function renderTracker(){
-    var m=monday(today()), e=new Date(m); e.setDate(e.getDate()+6);
-    var wl=weekLogs(), cnt={};
-    wl.forEach(function(l){var w=BY[l.id]; if(w) w[6].forEach(function(s){cnt[s]=(cnt[s]||0)+1;});});
-    document.getElementById("wk-range").textContent=pretty(iso(m))+" – "+pretty(iso(e))+" · "+wl.length+" session"+(wl.length===1?"":"s")+" logged";
-    document.getElementById("cov").innerHTML=SLOTS.map(function(s){
-      var n=cnt[s[0]]||0, met=n>=s[2];
-      return '<div class="slot'+(met?' met':'')+'"><span>'+s[1]+'</span><span class="n">'+n+'/'+s[2]+'</span></div>';
-    }).join("");
-    var last=null; for(var i=log.length-1;i>=0;i--){ if(BY[log[i].id]&&BY[log[i].id][1]!=="M"){last=BY[log[i].id][1];break;} }
-    var nt = last ? ORDER[(ORDER.indexOf(last)+1)%4] : "A";
-    document.getElementById("next-type").textContent=TYPES[nt];
-    document.getElementById("next-type").setAttribute("data-t",nt);
-    var miss=SLOTS.filter(function(s){return (cnt[s[0]]||0)<s[2];}).map(function(s){return s[1].toLowerCase();});
-    document.getElementById("next-why").textContent = miss.length ? "Still needed this week: "+miss.join(", ")+"." : "Every slot covered this week.";
-  }
-  function suggest(){
-    var nt=document.getElementById("next-type").getAttribute("data-t")||"A";
-    var wl=weekLogs(), cnt={};
-    wl.forEach(function(l){var w=BY[l.id]; if(w) w[6].forEach(function(s){cnt[s]=(cnt[s]||0)+1;});});
-    var lastDone={}; log.forEach(function(l){lastDone[l.id]=l.date;});
-    var best=null,bestScore=-1e9;
-    W.filter(function(w){return w[1]===nt;}).forEach(function(w){
-      var score=0;
-      SLOTS.forEach(function(s){ if(w[6].indexOf(s[0])>=0 && (cnt[s[0]]||0)<s[2]) score+=3; });
-      if(!lastDone[w[0]]) score+=2; else score-= (lastDone[w[0]]>=iso(new Date(today().getTime()-14*86400000)))?4:0;
-      if(score>bestScore){bestScore=score;best=w;}
-    });
-    if(!best) return;
-    filter=nt; try{localStorage.setItem("lib-filter",filter);}catch(e){}
-    render();
-    var el=document.getElementById("w-"+best[0]);
-    if(el){el.classList.add("hl"); el.scrollIntoView({behavior:"smooth",block:"start"}); setTimeout(function(){el.classList.remove("hl");},2500);}
-  }
-  function renderFilters(){
-    var keys=["all","A","C","B","E","M"];
-    document.getElementById("filters").innerHTML=keys.map(function(k){
-      return '<button class="pill" aria-pressed="'+(filter===k)+'" data-f="'+k+'">'+(k==="all"?"All":TYPES[k])+'</button>';
-    }).join("");
-  }
   function hist(id){
     var h=log.filter(function(l){return l.id===id;}).slice(-3).reverse();
     if(!h.length) return "Not logged yet.";
     return "Last: "+h.map(function(l){return pretty(l.date)+(l.result?" · "+esc(l.result):"");}).join("  |  ");
   }
+  function renderFilters(){
+    document.getElementById("filters").innerHTML=["all","F","E"].map(function(k){
+      var n=k==="all"?W.length:W.filter(function(w){return w[1]===k;}).length;
+      return '<button class="pill" aria-pressed="'+(filter===k)+'" data-f="'+k+'">'+(k==="all"?"All":TYPES[k])+' · '+n+'</button>';
+    }).join("");
+  }
   function renderList(){
-    var items=W.filter(function(w){return filter==="all"||w[1]===filter;});
-    document.getElementById("list").innerHTML=items.map(function(w){
+    document.getElementById("list").innerHTML=W.filter(function(w){return filter==="all"||w[1]===filter;}).map(function(w){
       var h='<article class="card w" id="w-'+w[0]+'"><div class="w-top"><h3>'+esc(w[2])+'</h3><span class="type t-'+w[1]+'">'+TYPES[w[1]]+'</span></div>';
-      h+='<p class="fmt">'+esc(w[3])+(w[1]!=="M"?' · '+TYPE_NOTE[w[1]]:'')+'</p>';
+      h+='<p class="fmt">'+esc(w[3])+'</p>';
       h+='<ul class="mv">'+w[4].map(function(m){return '<li>'+esc(m)+'</li>';}).join("")+'</ul>';
-      if(w[5].length) h+='<p class="sub">Accessory</p><ul class="mv">'+w[5].map(function(m){return '<li>'+esc(m)+'</li>';}).join("")+'</ul>';
+      if(w[5].length) h+='<p class="sub">Add-on</p><ul class="mv">'+w[5].map(function(m){return '<li>'+esc(m)+'</li>';}).join("")+'</ul>';
       if(w[6].length) h+='<div class="tags">'+w[6].map(function(s){return '<span class="tag">'+LABEL[s]+'</span>';}).join("")+'</div>';
-      if(w[1]!=="M"){
-        h+='<div class="logrow"><label class="note" for="r-'+w[0]+'" style="flex-basis:100%">Result (rounds, reps or bell used)</label><input id="r-'+w[0]+'" placeholder="e.g. 7 rounds with 24 kg"><button class="btn primary" data-log="'+w[0]+'">Log today</button><span class="hist">'+hist(w[0])+'</span></div>';
-      }
+      h+='<div class="logrow"><label class="note" for="r-'+w[0]+'" style="flex-basis:100%">Result (rounds, reps or bell used)</label><input id="r-'+w[0]+'" placeholder="e.g. 7 rounds with 24 kg"><button class="btn primary" data-log="'+w[0]+'">Log today</button><button class="btn" data-undo="'+w[0]+'">Undo</button><span class="hist">'+hist(w[0])+'</span></div>';
       return h+'</article>';
     }).join("");
   }
-  function renderTargets(){
-    document.getElementById("targets").innerHTML='<tr><th>Slot</th><th>Per week</th></tr>'+SLOTS.map(function(s){return '<tr><td>'+s[1]+'</td><td>'+s[2]+'+</td></tr>';}).join("");
-  }
-  function render(){renderTracker();renderFilters();renderList();}
-
   document.getElementById("filters").addEventListener("click",function(e){
     var b=e.target.closest("[data-f]"); if(!b) return;
     filter=b.getAttribute("data-f"); try{localStorage.setItem("lib-filter",filter);}catch(er){}
     renderFilters(); renderList();
   });
   document.getElementById("list").addEventListener("click",function(e){
-    var b=e.target.closest("[data-log]"); if(!b) return;
-    var id=b.getAttribute("data-log"), inp=document.getElementById("r-"+id);
-    log.push({id:id,date:iso(today()),result:(inp&&inp.value.trim())||""});
-    save(); renderTracker();
-    var card=document.getElementById("w-"+id);
-    if(card){ card.querySelector(".hist").innerHTML="Logged. "+hist(id); if(inp) inp.value=""; }
+    var b=e.target.closest("[data-log],[data-undo]"); if(!b) return;
+    var id=b.getAttribute("data-log")||b.getAttribute("data-undo"), inp=document.getElementById("r-"+id), card=document.getElementById("w-"+id);
+    if(b.hasAttribute("data-log")){log.push({id:id,date:iso(new Date()),result:(inp&&inp.value.trim())||""});if(inp)inp.value="";}
+    else{for(var i=log.length-1;i>=0;i--){if(log[i].id===id){log.splice(i,1);break;}}}
+    save(); if(card) card.querySelector(".hist").innerHTML=hist(id);
   });
-  document.getElementById("next-go").addEventListener("click",suggest);
-  document.getElementById("undo").addEventListener("click",function(){ if(!log.length) return; log.pop(); save(); render(); });
-  renderTargets(); render();
+  renderFilters(); renderList();
 })();
 </script>
 </body>

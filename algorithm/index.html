@@ -106,11 +106,11 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
           <tr><td>Tue</td><td>Push · bench, OHP, weighted dips</td></tr>
           <tr><td>Wed</td><td>Pull · weighted pull-ups, rows</td></tr>
           <tr><td>Thu</td><td>HIIT + handstands, or a library Engine workout</td></tr>
-          <tr><td>Fri</td><td>KB + rings · library Strength A, Strength B or Complex</td></tr>
+          <tr><td>Fri</td><td>KB + rings · a library Functional workout</td></tr>
           <tr><td>Sat</td><td>Run or sport, optional library Engine workout</td></tr>
           <tr><td>Sun</td><td>Sport or easy</td></tr>
         </table></div>
-        <p class="note" style="margin-top:8px">Put anything hard on Saturday and keep Sunday easy, because legs come first on Monday. A morning flow from the <a href="../library/">Workout Library</a> fits on any day.</p>
+        <p class="note" style="margin-top:8px">Put anything hard on Saturday and keep Sunday easy, because legs come first on Monday. <b>Every day:</b> some mobility and handstand work.</p>
       </div>
       <div class="card">
         <h3>Progression</h3>
@@ -122,7 +122,8 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
         <ul>
           <li><b>Session shape:</b> 8 min warm-up, skill or power block, main lift(s), secondary, two accessory supersets.</li>
           <li><b>Push day:</b> bench first, then OHP, then weighted dips. Handstand holds only on push day; HSPU work lives on Thursday.</li>
-          <li><b>Knees and hamstrings:</b> Nordics every Monday, plus reverse Nordics or sissy squats. A Strength B on Friday adds a second dose of Nordics.</li>
+          <li><b>Knees and hamstrings:</b> Nordics every Monday, plus reverse Nordics or sissy squats.</li>
+          <li><b>Daily:</b> some mobility and handstand work, outside the main sessions.</li>
           <li><b>Rotation for sport:</b> med-ball rotational throws and anti-rotation work every push day.</li>
           <li><b>Hinge:</b> RDL in A weeks or hyperextensions in B weeks, never both.</li>
           <li><b>Accessories:</b> 1–2 reps short of failure, controlled.</li>
@@ -165,10 +166,10 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
       ["skill","Handstands: kick-ups, freestanding attempts, tuck holds, HSPU progression",null,"15 min"],
       ["run",HIIT[w],null,"20 min","Or swap for any library Engine workout."]]}},
     Fri:{t:"KB + Rings",text:function(w){return w===4
-      ? "<p>Deload week: pick a Complex at lighter bells, or a morning flow.</p>"
-      : "<p>Pick any <a href=\"../library/\">Workout Library</a> Strength A, Strength B or Complex workout.</p><ul class=\"plain\"><li>Strength A ends with the knee block, Strength B with the hamstring block.</li><li>A Strength B gives you a second dose of Nordics for the week.</li></ul>";}},
+      ? "<p>Deload week: pick a lighter <a href=\"../library/\">Functional</a> workout, with lighter bells and fewer rounds.</p>"
+      : "<p>Pick any <a href=\"../library/\">Workout Library</a> Functional workout.</p><ul class=\"plain\"><li>Lean towards ones with hinge and power: swings, cleans, snatches.</li><li>Big match or round on Saturday? Pick a lighter one.</li></ul>";}},
     Sat:{t:"Run or sport",text:function(){return "<p>Run or play. If you want more, add one library <a href=\"../library/\">Engine</a> workout today rather than Sunday.</p>";}},
-    Sun:{t:"Sport or easy",text:function(){return "<p>Sport, a walk or a morning flow. Keep it easy: legs come first tomorrow.</p>";}}
+    Sun:{t:"Sport or easy",text:function(){return "<p>Sport, a walk or some mobility. Keep it easy: legs come first tomorrow.</p>";}}
   };
   function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
   function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
