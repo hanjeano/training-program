@@ -11,7 +11,7 @@ Training programs and simple food guidance.
 | 2 Pattern Protocol | `/2pp/` | 8 weeks, four workouts rotating every other day, % main lifts and off-day cardio |
 | FBC | `/fbc/` | Functional Body Composition adapted for kettlebells, rings and one-station supersets. 8 weeks, 5 days a week |
 | FB3 | `/fb3/` | FB3-R3: three full-body strength days alternating with three run and mobility days, 8 or 12 weeks in 4-week blocks |
-| Workout Library | `/library/` | 32 Functional workouts (Fridays) and 13 Engine workouts (Thursday or weekend), KB, rings and bodyweight |
+| Workout Library | `/library/` | 33 Functional workouts (Fridays) and 13 Engine workouts (Thursday or weekend), KB, rings and bodyweight |
 | Food | `/food.html` | Guidance, not rules |
 
 ## 2 Pattern Protocol
