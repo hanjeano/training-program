@@ -108,17 +108,17 @@ button{font:inherit;color:inherit;cursor:pointer}
       <h1>2 Pattern Protocol</h1>
     </div>
     <div class="head-right">
-      <div class="head-meta" id="progress">12 Oct – 6 Dec 2026</div>
+      <div class="head-meta" id="progress">Not active · 56 days</div>
       <a class="head-meta" href="../food.html">Food principles →</a>
     </div>
   </header>
 
   <section class="card" aria-live="polite">
     <div class="today-top">
-      <div class="eyebrow" id="day-label">Mon 12 Oct · Week 1</div>
+      <div class="eyebrow" id="day-label">Day 1 · Week 1</div>
       <div class="nav">
         <button class="navbtn" id="prev" aria-label="Previous day">‹</button>
-        <button class="navbtn" id="go-today">Today</button>
+        <button class="navbtn" id="go-today">Day 1</button>
         <button class="navbtn" id="next" aria-label="Next day">›</button>
       </div>
     </div>
@@ -203,7 +203,6 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 <script>
 (function(){
-  var START = new Date(2026, 9, 12);
   var DAYS = 56;
   var DOW = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
   var MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -272,12 +271,9 @@ button{font:inherit;color:inherit;cursor:pointer}
     var w = k%4+1, lap = Math.floor(k/4)+1;
     return i%2===0 ? {type:"session",w:w,lap:lap} : {type:"off",after:w,lap:lap};
   }
-  function dateFor(i){var d=new Date(START);d.setDate(d.getDate()+i);return d;}
-  function idxFor(d){var x=new Date(d.getFullYear(),d.getMonth(),d.getDate());return Math.round((x-START)/86400000);}
-  function fmt(d){return DOW[(d.getDay()+6)%7]+" "+d.getDate()+" "+MON[d.getMonth()];}
 
   // Food (a suggestion, not a rule): same go-to breakfast every day, two meals on Sundays.
-  function isSun(i){return dateFor(i).getDay()===0;}
+  function isSun(i){return i%7===6;}
   function eatType(i){
     return isSun(i) ? "sun" : "day";
   }
@@ -300,15 +296,14 @@ button{font:inherit;color:inherit;cursor:pointer}
     return (Math.round(m*p/100/2.5)*2.5).toFixed(1).replace(/\.0$/,"")+" kg";
   }
 
-  var todayIdx = idxFor(new Date());
+  var todayIdx = -1; // not active: no dates, browse by day number
   var sel = Math.min(Math.max(todayIdx,0),DAYS-1);
 
   function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
 
   function renderDay(){
-    var d = dateFor(sel), it = info(sel), wk = Math.floor(sel/7)+1;
-    var rel = sel===todayIdx ? " · Today" : (sel===todayIdx+1 ? " · Tomorrow" : "");
-    document.getElementById("day-label").textContent = fmt(d)+" · Week "+wk+rel;
+    var it = info(sel), wk = Math.floor(sel/7)+1;
+    document.getElementById("day-label").textContent = "Day "+(sel+1)+" · Week "+wk+" · "+DOW[sel%7];
     var chips = '<span class="chip">Lap '+it.lap+' · '+(it.lap%2?"odd":"even")+'</span>';
     if(it.lap===4) chips += '<span class="chip deload">Deload lap</span>';
     if(it.lap===7) chips += '<span class="chip test">Test lap</span>';
@@ -336,9 +331,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     document.getElementById("prev").disabled = sel<=0;
     document.getElementById("next").disabled = sel>=DAYS-1;
     var p = document.getElementById("progress");
-    if(todayIdx<0) p.textContent = "Starts Mon 12 Oct · ends Sun 6 Dec";
-    else if(todayIdx>=DAYS) p.textContent = "Cycle complete · plan week 9";
-    else p.textContent = "Day "+(todayIdx+1)+" of 56 · Lap "+info(todayIdx).lap+" of 7";
+    p.textContent = "Not active · 56 days, 7 laps";
     renderEat();
     renderGrid();
   }
@@ -347,8 +340,7 @@ button{font:inherit;color:inherit;cursor:pointer}
     var g = document.getElementById("grid"), h = '<div></div>';
     DOW.forEach(function(x){h+='<div class="gh">'+x+'</div>';});
     for(var wk=0;wk<8;wk++){
-      var wd=dateFor(wk*7);
-      h+='<div class="wk"><b>W'+(wk+1)+'</b>'+wd.getDate()+'/'+(wd.getMonth()+1)+'</div>';
+      h+='<div class="wk"><b>W'+(wk+1)+'</b></div>';
       for(var dd=0;dd<7;dd++){
         var i=wk*7+dd, it=info(i), cls="cell";
         if(it.lap===4) cls+=" deload";
@@ -358,7 +350,7 @@ button{font:inherit;color:inherit;cursor:pointer}
         var inner, label;
         if(it.type==="session"){inner='<span class="n">'+it.w+'</span><span class="l">L'+it.lap+'</span>';label="Workout "+it.w+", lap "+it.lap;}
         else{cls+=" off"; var c=cardio(it.after,it.lap); inner='<span class="c">'+c.s+'</span>'; label="Off day, "+c.t;}
-        h+='<button class="'+cls+'" data-i="'+i+'" aria-label="'+fmt(dateFor(i))+': '+label+'"'+(i===sel?' aria-current="date"':'')+'>'+inner+'</button>';
+        h+='<button class="'+cls+'" data-i="'+i+'" aria-label="Day '+(i+1)+': '+label+'"'+(i===sel?' aria-current="true"':'')+'>'+inner+'</button>';
       }
     }
     g.innerHTML = h;

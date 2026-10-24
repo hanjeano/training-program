@@ -55,6 +55,7 @@ h2{font-size:1.7rem}
 .pd{--c:var(--food);--cbg:var(--food-bg)}
 .pl{--c:var(--lib);--cbg:var(--lib-bg)}
 .p3{--c:var(--fb3);--cbg:var(--fb3-bg)}
+.pa{--c:var(--ink);--cbg:var(--bg);border:2px solid var(--ink)}
 </style>
 </head>
 <body>
@@ -64,12 +65,22 @@ h2{font-size:1.7rem}
     <h1>The Protocol</h1>
   </header>
 
+  <a class="prog pa" href="https://claude.ai/artifact/D6Bp1iHx2usoWtjaMyE88A" target="_blank" rel="noopener">
+    <div class="body">
+      <div class="top"><h2>Open the app</h2><span class="status">Live from Notion</span></div>
+      <p class="desc">Today's session from your active program, the Workout Library with the weekly balance tracker, and a log that saves to Notion. Switch the active program there. Opens in Claude, signed in as you.</p>
+      <span class="go">Open today's session →</span>
+    </div>
+  </a>
+
+  <div class="eyebrow">Reference copies</div>
+
   <a class="prog p2" href="2pp/">
     <div class="body">
-      <div class="top"><h2>2 Pattern Protocol</h2><span class="status" id="tpp-status">12 Oct – 6 Dec 2026</span></div>
+      <div class="top"><h2>2 Pattern Protocol</h2><span class="status">Not active</span></div>
       <p class="desc">Four workouts, each pairing one lower and one upper pattern, rotating every other day. Percentage-based main lifts, power work and off-day cardio.</p>
       <div class="facts"><span class="fact">8 weeks</span><span class="fact">Every other day</span><span class="fact">4 workouts</span></div>
-      <span class="go" id="tpp-today">Open today's session →</span>
+      <span class="go">Open the program →</span>
     </div>
   </a>
 
@@ -110,18 +121,5 @@ h2{font-size:1.7rem}
 
   <p class="extra">Printable 2 Pattern Protocol: <a href="2pp/2-Pattern-Protocol.pdf">PDF</a></p>
 </div>
-<script>
-(function(){
-  var START=new Date(2026,9,12), DAYS=56;
-  var NAMES={1:"Squat | V Pull",2:"Deadlift | H Push",3:"BSS | H Pull",4:"Single-Leg RDL | V Push"};
-  var t=new Date(), i=Math.round((new Date(t.getFullYear(),t.getMonth(),t.getDate())-START)/86400000);
-  var s=document.getElementById("tpp-status"), g=document.getElementById("tpp-today");
-  if(i<0){s.textContent="Starts Mon 12 Oct";return;}
-  if(i>=DAYS){s.textContent="Cycle complete";g.textContent="Open the program →";return;}
-  var k=Math.floor(i/2), w=k%4+1, lap=Math.floor(k/4)+1;
-  s.textContent="Day "+(i+1)+" of 56 · Lap "+lap+" of 7";
-  g.textContent = i%2===0 ? "Today: Workout "+w+" · "+NAMES[w]+" →" : "Today: off day after Workout "+w+" →";
-})();
-</script>
 </body>
 </html>
