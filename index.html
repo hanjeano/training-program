@@ -19,7 +19,7 @@
 /* Layout: a short index — header, then one row per program, food last. */
 :root{
   --bg:#F3F5F2; --surface:#FFFFFF; --ink:#18211C; --muted:#5B6760; --line:#D7DED9;
-  --a2p:#2457C5; --a2p-bg:#E3EBFA; --fbc:#C2410C; --fbc-bg:#FBE8DD; --food:#3F6B2F; --food-bg:#E5F0DD; --lib:#0F766E; --lib-bg:#DCF0EC; --fb3:#5B3CC4; --fb3-bg:#ECE7FB;
+  --a2p:#2457C5; --a2p-bg:#E3EBFA; --fbc:#C2410C; --fbc-bg:#FBE8DD; --food:#3F6B2F; --food-bg:#E5F0DD; --lib:#0F766E; --lib-bg:#DCF0EC; --fb3:#5B3CC4; --fb3-bg:#ECE7FB; --alg:#9D174D; --alg-bg:#F8E3EA;
   --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
   --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
   --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
@@ -27,10 +27,10 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#111513; --surface:#1A201D; --ink:#E5ECE8; --muted:#9AA8A0; --line:#2D3631;
-  --a2p:#86A6F2; --a2p-bg:#1E2944; --fbc:#F28A55; --fbc-bg:#3A2316; --food:#9BCB84; --food-bg:#1F2E1A; --lib:#5EC8BA; --lib-bg:#12332F; --fb3:#B4A3F2; --fb3-bg:#2A2342; color-scheme:dark}}
+  --a2p:#86A6F2; --a2p-bg:#1E2944; --fbc:#F28A55; --fbc-bg:#3A2316; --food:#9BCB84; --food-bg:#1F2E1A; --lib:#5EC8BA; --lib-bg:#12332F; --fb3:#B4A3F2; --fb3-bg:#2A2342; --alg:#F28DB5; --alg-bg:#3B1C29; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#111513; --surface:#1A201D; --ink:#E5ECE8; --muted:#9AA8A0; --line:#2D3631;
-  --a2p:#86A6F2; --a2p-bg:#1E2944; --fbc:#F28A55; --fbc-bg:#3A2316; --food:#9BCB84; --food-bg:#1F2E1A; --lib:#5EC8BA; --lib-bg:#12332F; --fb3:#B4A3F2; --fb3-bg:#2A2342; color-scheme:dark}
+  --a2p:#86A6F2; --a2p-bg:#1E2944; --fbc:#F28A55; --fbc-bg:#3A2316; --food:#9BCB84; --food-bg:#1F2E1A; --lib:#5EC8BA; --lib-bg:#12332F; --fb3:#B4A3F2; --fb3-bg:#2A2342; --alg:#F28DB5; --alg-bg:#3B1C29; color-scheme:dark}
 body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
 .wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:32px 56px;display:flex;flex-direction:column;gap:20px}
 h1,h2{font-family:var(--f-display);font-weight:700;letter-spacing:.01em;margin:0;line-height:1.02;text-wrap:balance}
@@ -55,7 +55,7 @@ h2{font-size:1.7rem}
 .pd{--c:var(--food);--cbg:var(--food-bg)}
 .pl{--c:var(--lib);--cbg:var(--lib-bg)}
 .p3{--c:var(--fb3);--cbg:var(--fb3-bg)}
-.pa{--c:var(--ink);--cbg:var(--bg);border:2px solid var(--ink)}
+.pa{--c:var(--alg);--cbg:var(--alg-bg)}
 </style>
 </head>
 <body>
@@ -65,15 +65,14 @@ h2{font-size:1.7rem}
     <h1>The Protocol</h1>
   </header>
 
-  <a class="prog pa" href="https://claude.ai/artifact/D6Bp1iHx2usoWtjaMyE88A" target="_blank" rel="noopener">
+  <a class="prog pa" href="algorithm/">
     <div class="body">
-      <div class="top"><h2>Open the app</h2><span class="status">Live from Notion</span></div>
-      <p class="desc">Today's session from your active program, the Workout Library with the weekly balance tracker, and a log that saves to Notion. Switch the active program there. Opens in Claude, signed in as you.</p>
+      <div class="top"><h2>The Algorithm</h2><span class="status">Current</span></div>
+      <p class="desc">Legs, push and pull on their own days, HIIT with handstands, and a KB and rings day from the Workout Library. Weekends for running and sport.</p>
+      <div class="facts"><span class="fact">8 weeks</span><span class="fact">Mon–Fri + weekend</span><span class="fact">60 min</span></div>
       <span class="go">Open today's session →</span>
     </div>
   </a>
-
-  <div class="eyebrow">Reference copies</div>
 
   <a class="prog p2" href="2pp/">
     <div class="body">

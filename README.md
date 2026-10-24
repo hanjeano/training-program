@@ -6,7 +6,8 @@ Training programs and simple food guidance.
 
 | Page | Path | What it is |
 |------|------|------------|
-| Home | `/` | Link to the Protocol app (live from Notion), then reference copies of each program and the food page |
+| Home | `/` | Links to each program and the food page, current program first |
+| The Algorithm | `/algorithm/` | Current program: legs, push, pull, HIIT + handstands, KB + rings from the library, weekend running and sport. 8 weeks, 60-minute sessions |
 | 2 Pattern Protocol | `/2pp/` | 8 weeks, four workouts rotating every other day, % main lifts and off-day cardio |
 | FBC | `/fbc/` | Functional Body Composition adapted for kettlebells, rings and one-station supersets. 8 weeks, 5 days a week |
 | FB3 | `/fb3/` | FB3-R3: three full-body strength days alternating with three run and mobility days, 8 or 12 weeks in 4-week blocks |
@@ -24,7 +25,7 @@ Training programs and simple food guidance.
 
 Opens on today's session with a one-line food note, shows the full 8-week schedule with off-day cardio, and turns your 1RMs into working weights (saved in your browser only). Printable version: `2pp/2-Pattern-Protocol.pdf`.
 
-Not active. The page has no dates; browse by day number. Notion is the source of truth: the active program, its start date and your log live in the Programs and Training Log databases, and the Protocol app on Claude reads them.
+Not active. The page has no dates; browse by day number.
 
 ## FBC
 
