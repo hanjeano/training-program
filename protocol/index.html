@@ -182,7 +182,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
       ["main","Overhead press + rear delts",null,"3 × 6–8 + 12–15"],
       ["acc","Med-ball rotational throws",null,"3 × 5/side","For tennis and golf. Keep it if you have time."]]}
   };
-  var MODES={pp:{label:"Push + Pull",note:"Legs, push, pull, HIIT, Functional. Three strength days."},up:{label:"Upper",note:"Legs, mobility + easy run, upper, HIIT, Functional. Two strength days, more room to move."}};
+  var MODES={pp:{label:"Winter",note:"Legs, push, pull, HIIT, Functional. Three strength days."},up:{label:"Summer",note:"Legs, mobility + easy run, upper, HIIT, Functional. Two strength days, more room to move and play."}};
   function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
   function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
   var wk=parseInt(store("alg-week"),10); if(!(wk>=1&&wk<=WEEKS)) wk=1;
