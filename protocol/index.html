@@ -86,7 +86,10 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
   </header>
 
   <section class="card picker" aria-label="Choose a session">
-    <div class="eyebrow">Week</div>
+    <div class="eyebrow">Split</div>
+    <div class="row" id="modes"></div>
+    <p class="note" id="mode-note"></p>
+    <div class="eyebrow" style="margin-top:4px">Week</div>
     <div class="row" id="weeks"></div>
     <div class="eyebrow" style="margin-top:4px">Day</div>
     <div class="row" id="days"></div>
@@ -102,8 +105,8 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
         <div class="tbl"><table>
           <tr><th>Day</th><th>Session</th></tr>
           <tr><td>Day 1</td><td>Legs · front squat</td></tr>
-          <tr><td>Day 2</td><td>Push · bench, OHP, weighted dips</td></tr>
-          <tr><td>Day 3</td><td>Pull · weighted pull-ups, rows</td></tr>
+          <tr><td>Day 2</td><td id="wk2">Push · bench, OHP, weighted dips</td></tr>
+          <tr><td>Day 3</td><td id="wk3">Pull · weighted pull-ups, rows</td></tr>
           <tr><td>Day 4</td><td>HIIT + handstands, or a library Engine workout</td></tr>
           <tr><td>Day 5</td><td>KB + rings · a library Functional workout</td></tr>
           <tr><td>Day 6</td><td>Run or sport, optional library Engine workout</td></tr>
@@ -170,20 +173,36 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
     "6":{t:"Run or sport",text:function(){return "<p>Run or play. If you want more, add one library <a href=\"../library/\">Engine</a> workout today rather than on Day 7.</p>";}},
     "7":{t:"Sport or easy",text:function(){return "<p>Sport, a walk or some mobility. Keep it easy: legs come first on Day 1.</p>";}}
   };
+  var UPPER={
+    "2":{t:"Mobility + easy run",text:function(){return "<p>20–30 min of yoga or mobility, then a 30 min easy run at conversational pace. This is the day that keeps you moving well, so don't turn it into a workout.</p>";}},
+    "3":{t:"Upper",rows:[
+      ["acc","Warm-up: band pull-aparts, scap pull-ups and push-ups, light presses",null,"6 min"],
+      ["main","Weighted dips + weighted pull-ups",null,"4 × 5–8"],
+      ["main","Incline bench + chest-supported incline row",null,"3 × 6–10"],
+      ["main","Overhead press + rear delts",null,"3 × 6–8 + 12–15"],
+      ["acc","Med-ball rotational throws",null,"3 × 5/side","For tennis and golf. Keep it if you have time."]]}
+  };
+  var MODES={pp:{label:"Push + Pull",note:"Legs, push, pull, HIIT, Functional. Three strength days."},up:{label:"Upper",note:"Legs, mobility + easy run, upper, HIIT, Functional. Two strength days, more room to move."}};
   function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
   function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
   var wk=parseInt(store("alg-week"),10); if(!(wk>=1&&wk<=WEEKS)) wk=1;
   var day=store("alg-day"); if(DOW.indexOf(day)<0) day="1";
+  var mode=store("alg-mode"); if(!MODES[mode]) mode="pp";
+  function S(d){return (mode==="up"&&UPPER[d])||D[d];}
 
   function kind(w){return w===4?"dl":w===8?"top":"";}
   function renderPickers(){
-    var h="";for(var w=1;w<=WEEKS;w++){var k=kind(w);h+='<button class="pill'+(k==="dl"?" wdl":k==="top"?" wtop":"")+'" data-w="'+w+'" aria-pressed="'+(w===wk)+'">W'+w+'</button>';}
+    var h="";Object.keys(MODES).forEach(function(m){h+='<button class="pill" data-m="'+m+'" aria-pressed="'+(m===mode)+'">'+MODES[m].label+'</button>';});
+    document.getElementById("modes").innerHTML=h;document.getElementById("mode-note").textContent=MODES[mode].note;
+    document.getElementById("wk2").textContent=mode==="up"?"Mobility + easy run":"Push · bench, OHP, weighted dips";
+    document.getElementById("wk3").textContent=mode==="up"?"Upper · dips + pull-ups, incline bench + rows, OHP + rear delts":"Pull · weighted pull-ups, rows";
+    h="";for(var w=1;w<=WEEKS;w++){var k=kind(w);h+='<button class="pill'+(k==="dl"?" wdl":k==="top"?" wtop":"")+'" data-w="'+w+'" aria-pressed="'+(w===wk)+'">W'+w+'</button>';}
     document.getElementById("weeks").innerHTML=h;
-    h="";DOW.forEach(function(d){h+='<button class="pill" data-d="'+d+'" aria-pressed="'+(d===day)+'">Day '+d+'</button>';});
+    h="";DOW.forEach(function(d){h+='<button class="pill" data-d="'+d+'" aria-pressed="'+(d===day)+'" title="'+esc(S(d).t)+'">Day '+d+'</button>';});
     document.getElementById("days").innerHTML=h;
   }
   function renderSession(){
-    var s=D[day], ab=wk%2?"A":"B", k=kind(wk);
+    var s=S(day), ab=wk%2?"A":"B", k=kind(wk);
     var h='<div class="eyebrow">Week '+wk+' · Day '+day+'</div><h2>'+esc(s.t)+'</h2><div class="meta">';
     h+='<span class="chip acc">'+ab+' week</span>';
     if(k==="dl")h+='<span class="chip dl">Deload</span>'; if(k==="top")h+='<span class="chip top">Top sets</span>';
@@ -206,6 +225,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
     document.getElementById("prog").innerHTML=h;
   }
   document.getElementById("weeks").addEventListener("click",function(e){var b=e.target.closest("[data-w]");if(!b)return;wk=+b.dataset.w;store("alg-week",String(wk));renderPickers();renderSession();});
+  document.getElementById("modes").addEventListener("click",function(e){var b=e.target.closest("[data-m]");if(!b)return;mode=b.dataset.m;store("alg-mode",mode);renderPickers();renderSession();});
   document.getElementById("days").addEventListener("click",function(e){var b=e.target.closest("[data-d]");if(!b)return;day=b.dataset.d;store("alg-day",day);renderPickers();renderSession();});
   renderPickers();renderSession();renderProg();
 })();
