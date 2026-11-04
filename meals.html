@@ -54,6 +54,17 @@ li::marker{color:var(--muted);font-family:var(--f-num);font-size:.85rem}
 .meal span{display:block;color:var(--muted);font-size:.92rem}
 .meal .tag{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:2px;background:var(--main-bg);color:var(--main)}
 .recipe{margin:6px 0 0;padding-left:18px;font-size:.92rem;color:var(--muted);gap:2px}
+.mac{width:100%;border-collapse:collapse;margin-top:8px;font-size:.85rem;font-variant-numeric:tabular-nums}
+.mac th{font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:right;padding:4px 0 4px 8px}
+.mac th:first-child{text-align:left;padding-left:0}
+.mac td{padding:5px 0 5px 8px;border-top:1px solid var(--line);text-align:right;font-family:var(--f-num);font-size:.78rem;white-space:nowrap}
+.mac td:first-child{text-align:left;padding-left:0;font-family:var(--f-body);font-size:.88rem;white-space:normal;color:var(--muted)}
+.mac tr.tot td{font-weight:600;color:var(--ink)}
+.mac th:not(:first-child),.mac td:not(:first-child){width:2.6em}
+.mac th:last-child,.mac td:last-child{width:3.2em}
+.mac.sum{margin:10px 0 6px}
+.mac.sum td:first-child{color:var(--ink)}
+section.card>.meal:first-of-type{border-top:1px solid var(--line)}
 .head-links{display:flex;gap:14px;flex-wrap:wrap}
 </style>
 </head>
@@ -69,16 +80,18 @@ li::marker{color:var(--muted);font-family:var(--f-num);font-size:.85rem}
 
   <p class="lead">Go-to meals to pick from when you don't want to think about it. Whole foods, a protein anchor in each, no counting.</p>
 
+  <section class="card">
+    <h2>Breakfast</h2>
+    <p class="note" style="margin-top:4px">Four go-tos. Grams of protein (P), carbs (C), fat (F) and fibre, rounded.</p>
+    <table class="mac sum"><thead><tr><th>Breakfast</th><th>P</th><th>C</th><th>F</th><th>kcal</th></tr></thead><tbody><tr><td>Oats and yoghurt bowl</td><td>35</td><td>58</td><td>14</td><td>492</td></tr><tr><td>4 eggs</td><td>25</td><td>2</td><td>19</td><td>288</td></tr><tr><td>3 eggs, avo and sourdough</td><td>24</td><td>30</td><td>25</td><td>451</td></tr><tr><td>4 eggs and sourdough</td><td>33</td><td>48</td><td>20</td><td>528</td></tr></tbody></table>
+      <div class="meal"><b>Oats and yoghurt bowl<span class="tag">Make ahead</span></b><span>Overnight oats. Mix the night before, eat cold.</span><table class="mac"><thead><tr><th></th><th>P</th><th>C</th><th>F</th><th>Fib</th><th>kcal</th></tr></thead><tbody><tr><td>Gourmet Greek low fat, 250 g</td><td>24</td><td>5</td><td>2</td><td>0</td><td>133</td></tr><tr><td>Oats, 50 g</td><td>6</td><td>30</td><td>4</td><td>5</td><td>188</td></tr><tr><td>Peanut butter, 1 tbsp (16 g)</td><td>4</td><td>4</td><td>8</td><td>1</td><td>95</td></tr><tr><td>Honey, 10 g</td><td>0</td><td>8</td><td>0</td><td>0</td><td>30</td></tr><tr><td>Blueberries, 80 g</td><td>1</td><td>12</td><td>0</td><td>2</td><td>46</td></tr><tr class="tot"><td>Total</td><td>35</td><td>58</td><td>14</td><td>8</td><td>492</td></tr></tbody></table></div>
+      <div class="meal"><b>4 eggs<span class="tag">Go-to</span></b><span>Scrambled, fried or boiled. Nothing to prep.</span><table class="mac"><thead><tr><th></th><th>P</th><th>C</th><th>F</th><th>Fib</th><th>kcal</th></tr></thead><tbody><tr class="tot"><td>4 large eggs</td><td>25</td><td>2</td><td>19</td><td>0</td><td>288</td></tr></tbody></table></div>
+      <div class="meal"><b>3 eggs, avo and sourdough</b><span>Half an avo and a slice of sourdough on the side.</span><table class="mac"><thead><tr><th></th><th>P</th><th>C</th><th>F</th><th>Fib</th><th>kcal</th></tr></thead><tbody><tr><td>3 large eggs</td><td>19</td><td>1</td><td>14</td><td>0</td><td>216</td></tr><tr><td>Avo, half (~70 g)</td><td>2</td><td>6</td><td>10</td><td>5</td><td>115</td></tr><tr><td>Sourdough, 1 slice (~50 g)</td><td>4</td><td>23</td><td>0</td><td>2</td><td>120</td></tr><tr class="tot"><td>Total</td><td>24</td><td>30</td><td>25</td><td>6</td><td>451</td></tr></tbody></table></div>
+      <div class="meal"><b>4 eggs and sourdough</b><span>Two slices of sourdough on the side.</span><table class="mac"><thead><tr><th></th><th>P</th><th>C</th><th>F</th><th>Fib</th><th>kcal</th></tr></thead><tbody><tr><td>4 large eggs</td><td>25</td><td>2</td><td>19</td><td>0</td><td>288</td></tr><tr><td>Sourdough, 2 slices</td><td>8</td><td>46</td><td>1</td><td>3</td><td>240</td></tr><tr class="tot"><td>Total</td><td>33</td><td>48</td><td>20</td><td>3</td><td>528</td></tr></tbody></table></div>
+    <p class="note">Estimates: large eggs, a ~50 g slice of sourdough, half a medium avo, generic rolled oats, and The Gourmet Greek low fat plain yoghurt (9.5 g protein per 100 g). The double cream version is about three times the calories, mostly fat.</p>
+  </section>
+
   <section class="grid">
-    <div class="card">
-      <h2>Breakfast</h2>
-      <div class="meal"><b>3 eggs<span class="tag">Go-to</span></b><span>Scrambled, fried or boiled. The everyday default: nothing to prep, nothing to decide.</span></div>
-      <div class="meal"><b>Eggs, veg and avo</b><span>Eggs with spinach, tomato or mushrooms, and avo on the side.</span></div>
-      <div class="meal"><b>Eggs, yoghurt and berries</b><span>Eggs with a small bowl of Greek yoghurt and berries.</span></div>
-      <div class="meal"><b>Yoghurt and granola bowl</b><span>Greek yoghurt, granola, berries and a drizzle of honey.</span></div>
-      <div class="meal"><b>Overnight oats<span class="tag">Make ahead</span></b><span>Mix the night before, eat cold. A full meal, not a dessert.</span><ul class="recipe"><li>250 g Greek yoghurt</li><li>50 g oats</li><li>1 tbsp peanut butter</li><li>10 g honey</li><li>80 g blueberries</li></ul></div>
-      <div class="meal"><b>Eggs, toast and avo<span class="tag">Sunday</span></b><span>Sunday's first meal. Sourdough if you have it.</span></div>
-    </div>
     <div class="card">
       <h2>Lunch</h2>
       <div class="meal"><b>Chicken wrap</b><span>Chicken, salad and whatever veg is around, in a wrap.</span></div>
