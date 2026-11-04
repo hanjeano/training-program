@@ -13,6 +13,7 @@ Training programs and simple food guidance.
 | FB3 | `/fb3/` | FB3-R3: three full-body strength days alternating with three run and mobility days, 8 or 12 weeks in 4-week blocks |
 | Workout Library | `/library/` | 35 Functional workouts (Day 5) and 13 Engine workouts (Day 4 or 6), KB, rings and bodyweight |
 | Food | `/food.html` | Guidance, not rules |
+| Meals | `/meals.html` | Go-to breakfasts, lunches, dinners and dessert |
 
 ## 2 Pattern Protocol
 

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Meals · My Training Program</title>
+<meta name="description" content="Go-to meals for My Training Program: simple whole-food breakfasts, lunches, dinners and dessert.">
+<meta name="theme-color" content="#F3F5F2" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111513" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon.svg">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Same tokens as food.html. Meals are ideas to pick from, so no amounts except where a recipe needs them. */
+:root{
+  --bg:#F3F5F2; --surface:#FFFFFF; --ink:#18211C; --muted:#5B6760; --line:#D7DED9;
+  --main:#2457C5; --main-bg:#E3EBFA; --power:#A9471A; --power-bg:#F8E6DA;
+  --f-display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --f-body:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-num:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#111513; --surface:#1A201D; --ink:#E5ECE8; --muted:#9AA8A0; --line:#2D3631;
+  --main:#86A6F2; --main-bg:#1E2944; --power:#F09A62; --power-bg:#3A2416; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#111513; --surface:#1A201D; --ink:#E5ECE8; --muted:#9AA8A0; --line:#2D3631;
+  --main:#86A6F2; --main-bg:#1E2944; --power:#F09A62; --power-bg:#3A2416; color-scheme:dark}
+html{color-scheme:light}
+body{margin:0;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.5}
+.wrap{max-width:860px;margin:0 auto;padding-inline:16px;padding-block:24px 48px;display:flex;flex-direction:column;gap:28px}
+h1,h2,h3{font-family:var(--f-display);font-weight:700;letter-spacing:.01em;text-wrap:balance;margin:0;line-height:1.05}
+h1{font-size:2.6rem}
+h2{font-size:1.6rem}
+h3{font-size:1.15rem}
+.eyebrow{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:14px}
+.head a{font-family:var(--f-num);font-size:.85rem;color:var(--muted);text-underline-offset:3px}
+.lead{margin:0;font-size:1.05rem;max-width:60ch}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:16px}
+ol,ul{margin:10px 0 0;padding-left:20px;display:flex;flex-direction:column;gap:8px}
+li::marker{color:var(--muted);font-family:var(--f-num);font-size:.85rem}
+.note{font-size:.88rem;color:var(--muted);margin:10px 0 0}
+.shape{border-top:1px solid var(--line);padding:10px 0 2px}
+.shape:first-of-type{border-top:0;padding-top:4px}
+.shape b{font-weight:600}
+.shape span{display:block;color:var(--muted);font-size:.92rem}
+.meal{border-top:1px solid var(--line);padding:12px 0 4px}
+.meal:first-of-type{border-top:0;padding-top:6px}
+.meal b{font-weight:600;display:block}
+.meal span{display:block;color:var(--muted);font-size:.92rem}
+.meal .tag{display:inline-block;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-left:6px;vertical-align:2px;background:var(--main-bg);color:var(--main)}
+.recipe{margin:6px 0 0;padding-left:18px;font-size:.92rem;color:var(--muted);gap:2px}
+.head-links{display:flex;gap:14px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="head">
+    <div>
+      <div class="eyebrow">My Training Program · ideas, not a menu</div>
+      <h1>Meals</h1>
+    </div>
+    <div class="head-links"><a href="food.html">← Food principles</a><a href="./">All programs</a></div>
+  </header>
+
+  <p class="lead">Go-to meals to pick from when you don't want to think about it. Whole foods, a protein anchor in each, no counting.</p>
+
+  <section class="grid">
+    <div class="card">
+      <h2>Breakfast</h2>
+      <div class="meal"><b>3 eggs<span class="tag">Go-to</span></b><span>Scrambled, fried or boiled. The everyday default: nothing to prep, nothing to decide.</span></div>
+      <div class="meal"><b>Eggs, veg and avo</b><span>Eggs with spinach, tomato or mushrooms, and avo on the side.</span></div>
+      <div class="meal"><b>Eggs, yoghurt and berries</b><span>Eggs with a small bowl of Greek yoghurt and berries.</span></div>
+      <div class="meal"><b>Yoghurt and granola bowl</b><span>Greek yoghurt, granola, berries and a drizzle of honey.</span></div>
+      <div class="meal"><b>Overnight oats<span class="tag">Make ahead</span></b><span>Mix the night before, eat cold. A full meal, not a dessert.</span><ul class="recipe"><li>250 g Greek yoghurt</li><li>50 g oats</li><li>1 tbsp peanut butter</li><li>10 g honey</li><li>80 g blueberries</li></ul></div>
+      <div class="meal"><b>Eggs, toast and avo<span class="tag">Sunday</span></b><span>Sunday's first meal. Sourdough if you have it.</span></div>
+    </div>
+    <div class="card">
+      <h2>Lunch</h2>
+      <div class="meal"><b>Chicken wrap</b><span>Chicken, salad and whatever veg is around, in a wrap.</span></div>
+      <div class="meal"><b>Big salad</b><span>Greens and veg with chicken, tuna or boiled eggs, olive oil on top.</span></div>
+      <div class="meal"><b>Office plate</b><span>Whatever's served: meat, veg and a carb. Protein first.</span></div>
+      <div class="meal"><b>Pilchards or salmon on toast</b><span>Tinned, with the bones. Quick, and a good calcium top-up.</span></div>
+    </div>
+    <div class="card">
+      <h2>Dinner</h2>
+      <div class="meal"><b>Chicken, sweet potato and veg</b><span>Roasted or pan-fried, with greens.</span></div>
+      <div class="meal"><b>Fish, potato and veg</b><span>Grilled or baked fish, potatoes, a big side of veg.</span></div>
+      <div class="meal"><b>Lean meat, rice and veg</b><span>Beef, lamb or chicken with rice and whatever veg is cooking.</span></div>
+      <div class="meal"><b>Whatever's cooking at home</b><span>Most nights. Fill up on the protein and veg, and enjoy it.</span></div>
+    </div>
+    <div class="card">
+      <h2>Dessert</h2>
+      <div class="meal"><b>Yoghurt, berries and honey<span class="tag">Go-to</span></b><span>Greek yoghurt, berries and honey after dinner. Granola on top when you want it.</span></div>
+      <div class="meal"><b>Fruit</b><span>Kiwi or whatever's in season, with any meal.</span></div>
+      <div class="meal"><b>Blueberry smoothie</b><span>Blueberries, yoghurt and milk, now and then instead of the bowl.</span></div>
+      <p class="note">Part of dinner, not an extra meal. Full after dinner? Skip it.</p>
+    </div>
+  </section>
+</div>
+</body>
+</html>
