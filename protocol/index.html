@@ -106,7 +106,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
           <tr><th>Day</th><th>Session</th></tr>
           <tr><td>Day 1</td><td>Legs · front squat</td></tr>
           <tr><td>Day 2</td><td id="wk2">Mobility, easy run or sport</td></tr>
-          <tr><td>Day 3</td><td id="wk3">Rings · muscle-ups, weighted pull-ups and dips</td></tr>
+          <tr><td>Day 3</td><td id="wk3">Rings · muscle-ups, pull-ups and ring dips</td></tr>
           <tr><td>Day 4</td><td id="wk4">Optional conditioning · HIIT or a library Engine workout</td></tr>
           <tr><td>Day 5</td><td id="wk5">Kettlebells · a library Functional workout</td></tr>
           <tr><td>Day 6</td><td>Run or sport, optional library Engine workout</td></tr>
@@ -123,10 +123,10 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
         <h3>Principles</h3>
         <ul>
           <li><b>Keep it simple:</b> three sessions carry the program. Conditioning is a bonus, not a requirement.</li>
-          <li><b>Ring day:</b> muscle-ups first while you're fresh. Weighted pull-ups and dips are the strength lifts; add load when you hit the top of the range.</li>
+          <li><b>Ring day:</b> muscle-ups first while you're fresh. When every set of pull-ups or ring dips hits the top of the range, add a little weight or slow the reps down.</li>
           <li><b>Knees and hamstrings:</b> Nordics on Day 1 every week, plus reverse Nordics or sissy squats.</li>
           <li><b>Daily:</b> some mobility and handstand work, outside the main sessions.</li>
-          <li><b>Rotation for sport:</b> med-ball rotational throws at the end of ring day, if you have time.</li>
+          <li><b>Rotation for sport:</b> med-ball rotational throws paired with leg raises at the end of ring day.</li>
           <li><b>Hinge:</b> RDL in A weeks or hyperextensions in B weeks, never both.</li>
           <li><b>Accessories:</b> 1–2 reps short of failure, controlled.</li>
         </ul>
@@ -153,12 +153,12 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
     "3":{t:"Rings",rows:[
       ["acc","Warm-up: hangs, scap pull-ups and push-ups, ring support hold",null,"6 min"],
       ["skill","Muscle-ups (quality reps, fresh)",null,"5 × 3"],
-      ["main","Weighted pull-ups",null,"4 × 5–8"],
-      ["main","Weighted ring dips",null,"4 × 5–8"],
+      ["main","Pull-ups",null,"4 × 6–10"],
+      ["main","Ring dips",null,"4 × 8–12"],
       ["acc","Ring rows or front lever progression",null,"3 × 8–10"],
-      ["acc","HSPU progression or ring push-ups",null,"3 × 5–10"],
-      ["acc","L-sits or hanging leg raises",null,"3 sets"],
-      ["acc","Med-ball rotational throws",null,"3 × 5/side","Optional, for tennis and golf."]]},
+      ["acc","Ring push-ups",null,"3 × 8–12"],
+      ["acc","HSPU or pike push-ups",null,"3 × 5–8"],
+      ["acc","Hanging leg raises + med-ball rotational throws",null,"3 × 10–15 + 5/side","Core and rotation, for tennis and golf."]]},
     "4":{t:"Conditioning (optional)",fn:function(w){return [
       ["run",HIIT[w],null,"20 min","Optional. Or any library Engine workout. Skip it if you're still sore or have a big game on Day 6."]]}},
     "5":{t:"Kettlebells",text:function(w){return w===4
@@ -195,7 +195,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
       : "<p>Pick any <a href=\"../library/\">Workout Library</a> Functional workout.</p><ul class=\"plain\"><li>Lean towards ones with hinge and power: swings, cleans, snatches.</li><li>Big match or round on Day 6? Pick a lighter one.</li></ul>";}}
   };
   var MODES={
-    cl:{label:"Classic",note:"Heavy legs, a ring day and a kettlebell day, plus optional conditioning.",wk:{2:"Mobility, easy run or sport",3:"Rings · muscle-ups, weighted pull-ups and dips",4:"Optional conditioning · HIIT or a library Engine workout",5:"Kettlebells · a library Functional workout"},top:"front squat, weighted pull-ups and weighted dips"},
+    cl:{label:"Classic",note:"Heavy legs, a ring day and a kettlebell day, plus optional conditioning.",wk:{2:"Mobility, easy run or sport",3:"Rings · muscle-ups, pull-ups and ring dips",4:"Optional conditioning · HIIT or a library Engine workout",5:"Kettlebells · a library Functional workout"},top:"front squat, then max-rep sets of pull-ups and ring dips"},
     wt:{label:"Weighted",note:"Legs, push and pull on their own days, HIIT with handstands, and a KB and rings day.",wk:{2:"Push · bench, OHP, weighted dips",3:"Pull · weighted pull-ups, rows",4:"HIIT + handstands, or a library Engine workout",5:"KB + rings · a library Functional workout"},top:"front squat, bench, OHP and weighted pull-ups"}
   };
   var mode=store("alg-ver"); if(!MODES[mode]) mode="cl";
