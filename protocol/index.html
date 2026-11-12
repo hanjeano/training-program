@@ -63,7 +63,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .rx{font-family:var(--f-num);font-size:.8rem;color:var(--muted);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .sub{grid-column:1 / -1;font-size:.85rem;color:var(--muted)}
 .tag{display:inline-block;font-size:.66rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border-radius:4px;margin-right:6px;vertical-align:2px}
-.t-main{background:var(--main-bg);color:var(--main)} .t-pow{background:var(--pow-bg);color:var(--pow)} .t-acc{background:var(--bg);color:var(--muted)} .t-skill{background:var(--acc-bg);color:var(--acc)} .t-ss1,.t-ss2{background:var(--acc-bg);color:var(--acc)} .t-run{background:var(--run-bg);color:var(--run)}
+.t-main{background:var(--main-bg);color:var(--main)} .t-pow{background:var(--pow-bg);color:var(--pow)} .t-acc{background:var(--bg);color:var(--muted)} .t-skill{background:var(--acc-bg);color:var(--acc)} .t-ss1,.t-ss2,.t-ss3,.t-ss4{background:var(--acc-bg);color:var(--acc)} .t-run{background:var(--run-bg);color:var(--run)}
 ul.plain{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:5px}
 .note{font-size:.88rem;color:var(--muted);margin:0}
 .effort{margin:10px 0 6px;padding:10px 12px;border-radius:8px;background:var(--bg);font-size:.92rem}
@@ -153,14 +153,14 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
     "3":{t:"Rings",rows:[
       ["acc","Warm-up: hangs, scap pull-ups and push-ups, ring support hold",null,"6 min"],
       ["skill","Muscle-ups (quality reps, fresh)",null,"5 × 3"],
-      ["main","Pull-ups",null,"4 × 6–10"],
-      ["main","Ring dips",null,"4 × 8–12"],
-      ["acc","Ring rows or front lever progression",null,"3 × 8–10"],
-      ["acc","Ring push-ups",null,"3 × 8–12"],
-      ["ss1","HS / Pike push-ups",null,"3 × 5–8"],
-      ["ss1","Face pulls",null,"3 × 12–15"],
-      ["ss2","Hanging leg raises",null,"3 × 10–15"],
-      ["ss2","Med-ball rotational throws",null,"3 × 5/side"]]},
+      ["ss1","Pull-ups",null,"4 × 6–10"],
+      ["ss1","Ring dips",null,"4 × 8–12"],
+      ["ss2","Ring push-ups",null,"3 × 8–12"],
+      ["ss2","Ring rows or front lever progression",null,"3 × 8–10"],
+      ["ss3","HS / Pike push-ups",null,"3 × 5–8"],
+      ["ss3","Face pulls",null,"3 × 12–15"],
+      ["ss4","Hanging leg raises",null,"3 × 10–15"],
+      ["ss4","Med-ball rotational throws",null,"3 × 5/side"]]},
     "4":{t:"Conditioning (optional)",fn:function(w){return [
       ["run",HIIT[w],null,"20 min","Optional. Or any library Engine workout. Skip it if you're still sore or have a big game on Day 6."]]}},
     "5":{t:"Kettlebells",text:function(w){return w===4
@@ -228,7 +228,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
         var name=(ab==="B"&&r[2])?r[2]:r[1], rx=r[3];
         if(name==="Loaded hyperextension") rx="3 × 10–15";
         if(k==="dl"&&/^\d+ ×/.test(rx)) rx=rx.replace(/^(\d+)/,function(n){return Math.max(1,Math.ceil(n/2));});
-        h+='<div class="ex"><div class="nm"><span class="tag t-'+r[0]+'">'+({main:"main",pow:"power",acc:"acc",skill:"skill",run:"engine",ss1:"SS1",ss2:"SS2"})[r[0]]+'</span>'+esc(name)+'</div><div class="rx">'+esc(rx)+'</div>'+(r[4]?'<div class="sub">'+esc(r[4])+'</div>':'')+'</div>';
+        h+='<div class="ex"><div class="nm"><span class="tag t-'+r[0]+'">'+({main:"main",pow:"power",acc:"acc",skill:"skill",run:"engine",ss1:"SS1",ss2:"SS2",ss3:"SS3",ss4:"SS4"})[r[0]]+'</span>'+esc(name)+'</div><div class="rx">'+esc(rx)+'</div>'+(r[4]?'<div class="sub">'+esc(r[4])+'</div>':'')+'</div>';
       });
     } else h+=s.text(wk);
     document.getElementById("session").innerHTML=h;
