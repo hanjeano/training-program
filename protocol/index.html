@@ -108,7 +108,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
           <tr><td>Day 2</td><td id="wk2">Mobility, easy run or sport</td></tr>
           <tr><td>Day 3</td><td id="wk3">Rings · muscle-ups, pull-ups and ring dips</td></tr>
           <tr><td>Day 4</td><td id="wk4">Optional conditioning · HIIT or a library Engine workout</td></tr>
-          <tr><td>Day 5</td><td id="wk5">Kettlebells · a library Functional workout</td></tr>
+          <tr><td>Day 5</td><td id="wk5">Kettlebells · a library Functional workout + carries</td></tr>
           <tr><td>Day 6</td><td>Run or sport, optional library Engine workout</td></tr>
           <tr><td>Day 7</td><td>Sport or easy</td></tr>
         </table></div>
@@ -163,9 +163,9 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
       ["ss4","Med-ball rotational throws",null,"3 × 5/side"]]},
     "4":{t:"Conditioning (optional)",fn:function(w){return [
       ["run",HIIT[w],null,"20 min","Optional. Or any library Engine workout. Skip it if you're still sore or have a big game on Day 6."]]}},
-    "5":{t:"Kettlebells",text:function(w){return w===4
+    "5":{t:"Kettlebells",text:function(w){var carry="<p style=\"margin-top:10px\"><b>Finish:</b> carries, 2–3 × 30–40 m. Farmers or suitcase carry; suitcase is better for core and anti-rotation.</p>";return (w===4
       ? "<p>Deload week: pick a lighter <a href=\"../library/\">Functional</a> workout, with lighter bells and fewer rounds.</p>"
-      : "<p>Pick any <a href=\"../library/\">Workout Library</a> Functional workout.</p><ul class=\"plain\"><li>Lean towards ones with hinge and power: swings, cleans, snatches.</li><li>Big match or round on Day 6? Pick a lighter one.</li></ul>";}},
+      : "<p>Pick any <a href=\"../library/\">Workout Library</a> Functional workout.</p><ul class=\"plain\"><li>Lean towards ones with hinge and power: swings, cleans, snatches.</li><li>Big match or round on Day 6? Pick a lighter one.</li></ul>")+carry;}},
     "6":{t:"Run or sport",text:function(){return "<p>Run or play. If you want more, add one library <a href=\"../library/\">Engine</a> workout today rather than on Day 7.</p>";}},
     "7":{t:"Sport or easy",text:function(){return "<p>Sport, a walk or some mobility. Keep it easy: legs come first on Day 1.</p>";}}
   };
@@ -197,7 +197,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
       : "<p>Pick any <a href=\"../library/\">Workout Library</a> Functional workout.</p><ul class=\"plain\"><li>Lean towards ones with hinge and power: swings, cleans, snatches.</li><li>Big match or round on Day 6? Pick a lighter one.</li></ul>";}}
   };
   var MODES={
-    cl:{label:"Classic",note:"Heavy legs, a ring day and a kettlebell day, plus optional conditioning.",wk:{2:"Mobility, easy run or sport",3:"Rings · muscle-ups, pull-ups and ring dips",4:"Optional conditioning · HIIT or a library Engine workout",5:"Kettlebells · a library Functional workout"},top:"front squat, then max-rep sets of pull-ups and ring dips"},
+    cl:{label:"Classic",note:"Heavy legs, a ring day and a kettlebell day, plus optional conditioning.",wk:{2:"Mobility, easy run or sport",3:"Rings · muscle-ups, pull-ups and ring dips",4:"Optional conditioning · HIIT or a library Engine workout",5:"Kettlebells · a library Functional workout + carries"},top:"front squat, then max-rep sets of pull-ups and ring dips"},
     wt:{label:"Weighted",note:"Legs, push and pull on their own days, HIIT with handstands, and a KB and rings day.",wk:{2:"Push · bench, OHP, weighted dips",3:"Pull · weighted pull-ups, rows",4:"HIIT + handstands, or a library Engine workout",5:"KB + rings · a library Functional workout"},top:"front squat, bench, OHP and weighted pull-ups"}
   };
   var mode=store("alg-ver"); if(!MODES[mode]) mode="cl";
