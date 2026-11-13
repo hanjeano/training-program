@@ -82,7 +82,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
   <header class="head">
     <div class="eyebrow"><a href="../">My Training Program</a> · 8 weeks · 7-day cycle</div>
     <h1>The Protocol</h1>
-    <p class="lede">Heavy legs every week. Classic adds a ring day and a kettlebell day; Weighted adds push, pull, HIIT and a KB and rings day. Everything else is for sport, running and moving well. <a href="../food.html">Food principles →</a></p>
+    <p class="lede">Heavy legs every week, in two versions. LU-FFB: lower, upper (rings), functional full body. LPP-FFB: legs, push, pull, functional full body. Everything else is for sport, running and moving well. <a href="../food.html">Food principles →</a></p>
   </header>
 
   <section class="card picker" aria-label="Choose a session">
@@ -197,8 +197,8 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
       : "<p>Pick any <a href=\"../library/\">Workout Library</a> Functional workout.</p><ul class=\"plain\"><li>Lean towards ones with hinge and power: swings, cleans, snatches.</li><li>Big match or round on Day 6? Pick a lighter one.</li></ul>";}}
   };
   var MODES={
-    cl:{label:"Classic",note:"Heavy legs, a ring day and a kettlebell day, plus optional conditioning.",wk:{2:"Mobility, easy run or sport",3:"Rings · muscle-ups, pull-ups and ring dips",4:"Optional conditioning · HIIT or a library Engine workout",5:"Kettlebells · a library Functional workout + carries"},top:"front squat, then max-rep sets of pull-ups and ring dips"},
-    wt:{label:"Weighted",note:"Legs, push and pull on their own days, HIIT with handstands, and a KB and rings day.",wk:{2:"Push · bench, OHP, weighted dips",3:"Pull · weighted pull-ups, rows",4:"HIIT + handstands, or a library Engine workout",5:"KB + rings · a library Functional workout"},top:"front squat, bench, OHP and weighted pull-ups"}
+    cl:{label:"LU-FFB",note:"Lower, upper (rings), functional full body (KB), plus optional conditioning.",wk:{2:"Mobility, easy run or sport",3:"Rings · muscle-ups, pull-ups and ring dips",4:"Optional conditioning · HIIT or a library Engine workout",5:"Kettlebells · a library Functional workout + carries"},top:"front squat, then max-rep sets of pull-ups and ring dips"},
+    wt:{label:"LPP-FFB",note:"Legs, push, pull, HIIT with handstands, functional full body (KB and rings).",wk:{2:"Push · bench, OHP, weighted dips",3:"Pull · weighted pull-ups, rows",4:"HIIT + handstands, or a library Engine workout",5:"KB + rings · a library Functional workout"},top:"front squat, bench, OHP and weighted pull-ups"}
   };
   var mode=store("alg-ver"); if(!MODES[mode]) mode="cl";
   function S(d){return (mode==="wt"&&W[d])||D[d];}
