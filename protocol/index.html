@@ -127,7 +127,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
           <li><b>Knees and hamstrings:</b> Nordics on Day 1 every week, plus reverse Nordics or sissy squats.</li>
           <li><b>Daily:</b> some mobility and handstand work, outside the main sessions.</li>
           <li><b>Rotation for sport:</b> med-ball rotational throws paired with leg raises at the end of ring day.</li>
-          <li><b>Hinge:</b> RDL in A weeks or hyperextensions in B weeks, never both.</li>
+          <li><b>Leg day pairs:</b> A weeks are front squat, walking lunges and RDL. B weeks are hack squat, Bulgarian split squats and hyperextensions.</li>
           <li><b>Accessories:</b> 1–2 reps short of failure, controlled.</li>
         </ul>
       </div>
@@ -144,8 +144,8 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
     "1":{t:"Legs",rows:[
       ["acc","Warm-up: bike or jump rope, leg swings, deep squat",null,"8 min"],
       ["pow","Box jumps","Lateral bounds","3 × 3–5"],
-      ["main","Front squat",null,"4 × 6–8"],
-      ["main","Bulgarian split squat",null,"3 × 8–10/leg"],
+      ["main","Front squat","Hack squat","4 × 6–8"],
+      ["main","Walking lunges: weighted, or 200 m bodyweight continuous","Bulgarian split squat","3 × 10–12/leg","","3 × 8–10/leg"],
       ["main","RDL","Loaded hyperextension","3 × 8–10"],
       ["acc","Nordic curls + Copenhagen plank",null,"3 × 3–6 + 20–30 s"],
       ["acc","Reverse Nordics + calf raises","Sissy squats + calf raises","3 × 6–10 + 12–15"]]},
@@ -225,7 +225,7 @@ td.num{font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:no
     if(rows){
       h+='<div class="effort">'+esc(eff(wk))+'</div>';
       rows.forEach(function(r){
-        var name=(ab==="B"&&r[2])?r[2]:r[1], rx=r[3];
+        var name=(ab==="B"&&r[2])?r[2]:r[1], rx=(ab==="B"&&r[5])?r[5]:r[3];
         if(name==="Loaded hyperextension") rx="3 × 10–15";
         if(k==="dl"&&/^\d+ ×/.test(rx)) rx=rx.replace(/^(\d+)/,function(n){return Math.max(1,Math.ceil(n/2));});
         h+='<div class="ex"><div class="nm"><span class="tag t-'+r[0]+'">'+({main:"main",pow:"power",acc:"acc",skill:"skill",run:"engine",ss1:"SS1",ss2:"SS2",ss3:"SS3",ss4:"SS4"})[r[0]]+'</span>'+esc(name)+'</div><div class="rx">'+esc(rx)+'</div>'+(r[4]?'<div class="sub">'+esc(r[4])+'</div>':'')+'</div>';
